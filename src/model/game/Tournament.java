@@ -56,6 +56,7 @@ public class Tournament implements Subscriber, Runnable{
      */
     public void startTourn()
     {
+        // while there are agents to play game/not stopped/not paused
         // while the number of games in the queue is less than the max num threads then
         // get the game properties from tournprops
         // get the name of the game toString
@@ -143,6 +144,6 @@ public class Tournament implements Subscriber, Runnable{
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        startTourn();
     }
 }
