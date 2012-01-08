@@ -53,6 +53,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         newBatchMenuItem.setText("New Batch");
         newBatchMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                newBatchMenuItemMousePressed(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 newBatchMenuItemMouseClicked(evt);
             }
@@ -61,6 +64,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         saveMenuItem.setText("Save");
         saveMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                saveMenuItemMousePressed(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 saveMenuItemMouseClicked(evt);
             }
@@ -69,6 +75,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         loadMenuItem.setText("Load");
         loadMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                loadMenuItemMousePressed(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loadMenuItemMouseClicked(evt);
             }
@@ -80,6 +89,14 @@ public class MainFrame extends javax.swing.JFrame {
         editMenu.setText("Edit");
 
         batchMenuItem.setText("Batch");
+        batchMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                batchMenuItemMousePressed(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                batchMenuItemMouseClicked(evt);
+            }
+        });
         editMenu.add(batchMenuItem);
 
         menuBar.add(editMenu);
@@ -119,10 +136,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void newBatchMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newBatchMenuItemMouseClicked
         // TODO add your handling code here:
+        System.out.println("HIIHIHI");
+        overwriteControl();
         // first intitilize the control so that I have a controller
         initControl();
-        // then display the batch frame providing it the batch controller
-        // put 
+        loadBatchFrame(true);
     }//GEN-LAST:event_newBatchMenuItemMouseClicked
 
     private void saveMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMenuItemMouseClicked
@@ -135,19 +153,15 @@ public class MainFrame extends javax.swing.JFrame {
             // then call get save control on the main control then call
             // save and provide the file to the control and then it will be saved
         }
+        else
+        {
+            // nothing to save say so
+        }
     }//GEN-LAST:event_saveMenuItemMouseClicked
 
     private void loadMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadMenuItemMouseClicked
         // TODO add your handling code here:
-        if (mainControl != null)
-        {
-            // show a warning that you are going to overwrite the current batch
-            // if the user says ok
-            // then stop all running tournaments/threads
-            // can just force stop them since don't care they will be
-            // garbage collected
-            
-        }
+        overwriteControl();
         // then show the load dialog
         // call the get load control from maincontrol
         // then give the filename to the load control
@@ -155,6 +169,45 @@ public class MainFrame extends javax.swing.JFrame {
         initControl();
           
     }//GEN-LAST:event_loadMenuItemMouseClicked
+
+    /**
+     * This is the event that will show the batch properties.
+     * @param evt 
+     */
+    private void batchMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_batchMenuItemMouseClicked
+        // TODO add your handling code here:
+        if (mainControl == null)
+        {
+            // show message saying that no batch
+            // ask if want to make a new one
+            // if so
+            initControl();
+        }
+        // don't need to pause the running tourns
+        // since the properties can't be changed once the 
+        // batch has started.
+        loadBatchFrame(false);
+    }//GEN-LAST:event_batchMenuItemMouseClicked
+
+    private void newBatchMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newBatchMenuItemMousePressed
+        // TODO add your handling code here:
+        newBatchMenuItemMouseClicked(evt);
+    }//GEN-LAST:event_newBatchMenuItemMousePressed
+
+    private void saveMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMenuItemMousePressed
+        // TODO add your handling code here:
+        saveMenuItemMouseClicked(evt);
+    }//GEN-LAST:event_saveMenuItemMousePressed
+
+    private void loadMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadMenuItemMousePressed
+        // TODO add your handling code here:
+        loadMenuItemMouseClicked(evt);
+    }//GEN-LAST:event_loadMenuItemMousePressed
+
+    private void batchMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_batchMenuItemMousePressed
+        // TODO add your handling code here:
+        batchMenuItemMouseClicked(evt);
+    }//GEN-LAST:event_batchMenuItemMousePressed
 
     /**
      * @param args the command line arguments
@@ -210,9 +263,22 @@ public class MainFrame extends javax.swing.JFrame {
         mainControl = new MainControl();
     }
     
-    private void loadBatchFram()
+    private void overwriteControl()
     {
-        // loads the batch frame providing it
-        // a batch controller
+        if (mainControl != null)
+        {
+            // show a warning that you are going to overwrite the current batch
+            // if the user says ok
+            // then stop all running tournaments/threads
+            // can just force stop them since don't care they will be
+            // garbage collected
+            
+        }
+    }
+    private void loadBatchFrame(Boolean editable)
+    {
+        // then display the batch frame providing it the batch controller
+        // put 
+        BatchView.main(null);
     }
 }

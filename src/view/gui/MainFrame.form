@@ -14,6 +14,7 @@
                 <Property name="text" type="java.lang.String" value="New Batch"/>
               </Properties>
               <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="newBatchMenuItemMousePressed"/>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="newBatchMenuItemMouseClicked"/>
               </Events>
             </MenuItem>
@@ -22,6 +23,7 @@
                 <Property name="text" type="java.lang.String" value="Save"/>
               </Properties>
               <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="saveMenuItemMousePressed"/>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="saveMenuItemMouseClicked"/>
               </Events>
             </MenuItem>
@@ -30,6 +32,7 @@
                 <Property name="text" type="java.lang.String" value="Load"/>
               </Properties>
               <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loadMenuItemMousePressed"/>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loadMenuItemMouseClicked"/>
               </Events>
             </MenuItem>
@@ -44,6 +47,10 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Batch"/>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="batchMenuItemMousePressed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="batchMenuItemMouseClicked"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
