@@ -52,18 +52,18 @@
                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jSeparator3" alignment="0" max="32767" attributes="1"/>
-                                      <Component id="propertiesChooserView4" alignment="0" min="-2" max="-2" attributes="1"/>
+                                      <Component id="eliminatorChooserView" alignment="0" min="-2" max="-2" attributes="1"/>
                                   </Group>
-                                  <Component id="propertiesChooserView3" alignment="0" min="-2" max="-2" attributes="1"/>
+                                  <Component id="agentSelectorChooserView" alignment="0" min="-2" max="-2" attributes="1"/>
                               </Group>
                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jSeparator1" alignment="0" max="32767" attributes="1"/>
-                                      <Component id="propertiesChooserView1" alignment="0" min="-2" max="-2" attributes="1"/>
+                                      <Component id="gameChooserView" alignment="0" min="-2" max="-2" attributes="1"/>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jSeparator2" alignment="0" max="32767" attributes="1"/>
-                                      <Component id="propertiesChooserView2" alignment="0" min="-2" max="-2" attributes="1"/>
+                                      <Component id="agentChooserView" alignment="0" min="-2" max="-2" attributes="1"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -78,19 +78,19 @@
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="propertiesChooserView1" min="-2" max="-2" attributes="0"/>
+                          <Component id="gameChooserView" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator1" min="-2" pref="6" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="propertiesChooserView2" min="-2" max="-2" attributes="0"/>
+                          <Component id="agentChooserView" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="6" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="propertiesChooserView4" min="-2" max="-2" attributes="0"/>
+                          <Component id="eliminatorChooserView" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSeparator3" min="-2" pref="6" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="propertiesChooserView3" min="-2" max="-2" attributes="0"/>
+                          <Component id="agentSelectorChooserView" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="27" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -100,17 +100,17 @@
           <SubComponents>
             <Component class="javax.swing.JSeparator" name="jSeparator1">
             </Component>
-            <Component class="view.gui.PropertiesChooserView" name="propertiesChooserView1">
+            <Component class="view.gui.PropertiesChooserView" name="gameChooserView">
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator3">
             </Component>
-            <Component class="view.gui.PropertiesChooserView" name="propertiesChooserView3">
+            <Component class="view.gui.PropertiesChooserView" name="agentSelectorChooserView">
             </Component>
-            <Component class="view.gui.PropertiesChooserView" name="propertiesChooserView4">
+            <Component class="view.gui.PropertiesChooserView" name="eliminatorChooserView">
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
             </Component>
-            <Component class="view.gui.PropertiesChooserView" name="propertiesChooserView2">
+            <Component class="view.gui.PropertiesChooserView" name="agentChooserView">
             </Component>
           </SubComponents>
         </Container>

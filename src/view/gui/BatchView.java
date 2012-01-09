@@ -11,7 +11,9 @@
 package view.gui;
 
 import control.gui.BatchControl;
+import control.gui.TournamentControl;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import util.Subscriber;
 
 /**
@@ -31,7 +33,7 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
         initComponents();
         count = 1;
         batchButtonPannel1.addSub(this);
-        addTournament();
+        loadTournaments();
     }
 
     /** This method is called from within the constructor to
@@ -123,11 +125,14 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
      * background model data.
      */
     private void addTournament() {
+        if (isEditable == true)
+        {
         TournamentPropertiesView propview = new TournamentPropertiesView();
 
         propview.setTournControl(controller.getNewTournControl());
         tournTabPane.addTab("Tournament " + count, propview);
         count++;
+        }
     }
 
     /**
@@ -135,20 +140,41 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
      * and it will remove the tab from the view.
      */
     private void removeTournament() {
+        if (isEditable)
+        {
         if (tournTabPane.getSelectedComponent() != null) {
             controller.removeTourn(((TournamentPropertiesView) tournTabPane.getSelectedComponent()).getTournControl().getTournament());
             tournTabPane.remove(tournTabPane.getSelectedComponent());
-            
+
+        }
         }
     }
 
+    /**
+     * This will load the tournaments from the batchcontrol
+     * object
+     */
     private void loadTournaments() {
+        ArrayList<TournamentControl> controls = controller.getTournControls();
+        if (controls != null) {
+            for (TournamentControl con : controls) {
+                TournamentPropertiesView propview = new TournamentPropertiesView();
+                propview.setIsEditable(isEditable);
+                propview.setTournControl(con);
+                tournTabPane.addTab("Tournament " + count, propview);
+                count++;
+            }
+        }
     }
 
     private void saveBatch() {
     }
 
     private void runBatch() {
+        if (isEditable)
+        {
+            
+        }
     }
 
     @Override

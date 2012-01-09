@@ -12,12 +12,17 @@ import model.game.Batch;
  * @author drew
  */
 public class SaveControl {
-    private Batch toSave;
+    private Batch toSave = null;
     public SaveControl(Batch theBatch)
     {
         toSave = theBatch;
     }
     
+    /**
+     * Save using xstream
+     * @param saveFile The file to save batch to
+     * @return return whether successful
+     */
     public boolean save(File saveFile)
     {
         // Save Batch to the file saveFile

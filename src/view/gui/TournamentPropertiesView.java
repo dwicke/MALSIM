@@ -19,12 +19,12 @@ import control.gui.TournamentControl;
 public class TournamentPropertiesView extends javax.swing.JPanel {
 
     
-    private TournamentControl control;
+    private TournamentControl control = null;
+    private boolean isEditable = true;
     
     /** Creates new form TournamentProperties */
     public TournamentPropertiesView() {
         initComponents();
-        control = null;
     }
 
     /** This method is called from within the constructor to
@@ -39,12 +39,12 @@ public class TournamentPropertiesView extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        propertiesChooserView1 = new view.gui.PropertiesChooserView();
+        gameChooserView = new view.gui.PropertiesChooserView();
         jSeparator3 = new javax.swing.JSeparator();
-        propertiesChooserView3 = new view.gui.PropertiesChooserView();
-        propertiesChooserView4 = new view.gui.PropertiesChooserView();
+        agentSelectorChooserView = new view.gui.PropertiesChooserView();
+        eliminatorChooserView = new view.gui.PropertiesChooserView();
         jSeparator2 = new javax.swing.JSeparator();
-        propertiesChooserView2 = new view.gui.PropertiesChooserView();
+        agentChooserView = new view.gui.PropertiesChooserView();
         jScrollPane2 = new javax.swing.JScrollPane();
         propertiesView1 = new view.gui.PropertiesView();
 
@@ -60,15 +60,15 @@ public class TournamentPropertiesView extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(propertiesChooserView4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(propertiesChooserView3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(eliminatorChooserView, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(agentSelectorChooserView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(propertiesChooserView1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(gameChooserView, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(propertiesChooserView2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(agentChooserView, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addContainerGap(29, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -77,19 +77,19 @@ public class TournamentPropertiesView extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(propertiesChooserView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gameChooserView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(propertiesChooserView2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(agentChooserView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(propertiesChooserView4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eliminatorChooserView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(propertiesChooserView3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(agentSelectorChooserView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(27, Short.MAX_VALUE)))
         );
 
@@ -116,24 +116,41 @@ public class TournamentPropertiesView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.gui.PropertiesChooserView agentChooserView;
+    private view.gui.PropertiesChooserView agentSelectorChooserView;
+    private view.gui.PropertiesChooserView eliminatorChooserView;
+    private view.gui.PropertiesChooserView gameChooserView;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private view.gui.PropertiesChooserView propertiesChooserView1;
-    private view.gui.PropertiesChooserView propertiesChooserView2;
-    private view.gui.PropertiesChooserView propertiesChooserView3;
-    private view.gui.PropertiesChooserView propertiesChooserView4;
     private view.gui.PropertiesView propertiesView1;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Sets the Tournament control and populates the subsequent view's
+     * with controllers.
+     * @param newTournControl 
+     */
     public void setTournControl(TournamentControl newTournControl) {
         control = newTournControl;
+        // need to set the controllers for the agentChooserView
+        // and other choosers.  Essentially they will need a controller
+        // that will be able to create the agent/game/...
+        // that the user has specied
+        // also when the user has clicked on a chosen item
+        // the view must notify observers (ie the properties view)
+        // with the appropriate properties object or null if nothing to display
+        
     }
     public TournamentControl getTournControl()
     {
         return control;
+    }
+    public void setIsEditable(boolean isEd)
+    {
+        isEditable = isEd;
     }
 }

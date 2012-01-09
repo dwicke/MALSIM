@@ -7,7 +7,8 @@ package model.properties.game;
 import model.game.MatrixGenerator;
 
 /**
- *
+ * subclass this to the different types of matrix games
+ * like general sum zero sum etc
  * @author drew
  */
 public class MatrixGameProperties extends GameProperties{

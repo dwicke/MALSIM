@@ -47,7 +47,7 @@ public class BatchControl {
     
     public ArrayList<TournamentControl> getTournControls()
     {
-        ArrayList<TournamentControl> controls = null;
+        ArrayList<TournamentControl> controls = new ArrayList<TournamentControl>();
         for (Tournament tourn : batch.getTourn())
         {
             controls.add(new TournamentControl(tourn));

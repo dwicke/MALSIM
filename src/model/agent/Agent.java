@@ -9,7 +9,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import util.Viewable;
 
 /**
- *
+ * viewable for the score, name....
  * @author drew
  */
 //@XStreamAlias("Agent") not sure I need this since this is abstract
