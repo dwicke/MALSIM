@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Set;
 import java.util.TreeMap;
@@ -20,21 +21,22 @@ import java.util.logging.Logger;
  */
 public class GenericFactory {
 
-    private String file;
     private TreeMap<String, String> simpToFull;
 
     public GenericFactory() {
         simpToFull = new TreeMap<String, String>();
     }
 
-    public void generateMaping(String file) {
+    public boolean generateMaping(String file) {
         FileInputStream fstream = null;
+        DataInputStream in = null;
+        boolean good = false;
         try {
             // load and read the file
             // each line will be simp full
             fstream = new FileInputStream(file);
             // Get the DataInputStream
-            DataInputStream in = new DataInputStream(fstream);
+            in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
             //Read File Line By Line
@@ -44,10 +46,22 @@ public class GenericFactory {
                     simpToFull.put(names[0], names[1]);
                 }
             }
+            good = true;
         } catch (Exception ex) {
             Logger.getLogger(GenericFactory.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }finally
+        {
+            if (in != null)
+            {
+                try {
+                    in.close();
+                } catch (IOException ex1) {
+                    Logger.getLogger(GenericFactory.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
         }
-
+        return good;
 
     }
 

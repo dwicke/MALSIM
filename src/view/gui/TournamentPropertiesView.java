@@ -136,6 +136,7 @@ public class TournamentPropertiesView extends javax.swing.JPanel {
      */
     public void setTournControl(TournamentControl newTournControl) {
         control = newTournControl;
+        
         // need to set the controllers for the agentChooserView
         // and other choosers.  Essentially they will need a controller
         // that will be able to create the agent/game/...

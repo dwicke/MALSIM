@@ -8,6 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.util.Map;
 import java.util.TreeMap;
+import model.properties.agent.QLearningAgentProperties;
 
 /**
  *
@@ -22,7 +23,7 @@ public class QLearningAgent extends Agent{
 
     public QLearningAgent() {
         super();
-        
+        this.setProperties(new QLearningAgentProperties());
     }
     
     @Override
