@@ -7,6 +7,7 @@ package model.game;
 import java.lang.Thread.State;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeMap;
 import util.ObjectState;
 import util.Subscriber;
@@ -18,6 +19,11 @@ import util.Subscriber;
 public class Batch implements Subscriber{
 
     private TreeMap<Tournament, ObjectState> batch;
+    
+    public Batch()
+    {
+        batch = new TreeMap<Tournament, ObjectState>();
+    }
     
     /**
      * Adds the tournament to the batch and sets the state to NEW.
@@ -42,12 +48,15 @@ public class Batch implements Subscriber{
      * Returns the batch of tournaments
      * @return 
      */
-    TreeMap<Tournament, ObjectState> getBatch()
+    public TreeMap<Tournament, ObjectState> getBatch()
     {
         return batch;
     }
     
-    
+    public Set<Tournament> getTourn()
+    {
+        return batch.keySet();
+    }
     /**
      * This will be used to let me know when the state of a tournament changes.
      * @param pub

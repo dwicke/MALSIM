@@ -17,12 +17,12 @@ public class LoadControl {
     public LoadControl() {
     }
     
-    public MainControl load(File file)
+    public Batch load(File file)
     {
         // load the batch using xstream
         Batch newBatch = null;
         
-        return new MainControl(new ModelControl(newBatch));
+        return newBatch;
     }
     
     

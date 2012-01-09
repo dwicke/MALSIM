@@ -4,7 +4,10 @@
  */
 package control.gui;
 
+import java.io.File;
+import java.util.ArrayList;
 import model.game.Batch;
+import model.game.Tournament;
 
 /**
  *
@@ -12,8 +15,48 @@ import model.game.Batch;
  */
 public class BatchControl {
     private Batch batch;
-    public BatchControl(Batch theBatch)
+    public BatchControl()
     {
-        batch = theBatch;
+        batch = new Batch();
+        
+    }
+    
+    public SaveControl getSaveControl()
+    {
+        return new SaveControl(batch);
+    }
+    
+    public Batch getLoadControl(File file)
+    {
+        batch = (new LoadControl()).load(file);
+        return batch;
+    }
+    
+    public void setBatch(Batch batch)
+    {
+        this.batch = batch;
+        
+    }
+    
+    public TournamentControl getNewTournControl()
+    {
+        Tournament tourn = new Tournament();
+        batch.addTournament(tourn);
+        return new TournamentControl(tourn);
+    }
+    
+    public ArrayList<TournamentControl> getTournControls()
+    {
+        ArrayList<TournamentControl> controls = null;
+        for (Tournament tourn : batch.getTourn())
+        {
+            controls.add(new TournamentControl(tourn));
+        }
+        return controls;
+    }
+    
+    public void removeTourn(Tournament tourn)
+    {
+        batch.removeTournament(tourn);
     }
 }

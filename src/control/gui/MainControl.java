@@ -15,30 +15,23 @@ package control.gui;
  */
 public class MainControl {
     
-    private ModelControl model;
+    BatchControl batchControl;
     public MainControl()
     {
-        model = new ModelControl();
+        batchControl = new BatchControl();
     }
     
-    public MainControl(ModelControl model)
-    {
-        this.model = model;
-    }
-    
-    
-    public SaveControl getSaveControl()
-    {
-        return new SaveControl(model.getBatch());
-    }
-    
-    public LoadControl getLoadControl()
-    {
-        return new LoadControl();
-    }
-    
+    // Need to think about where to put batch
+    // I think I will put it in batch
+    // and will get it if I need it from the batch control.
     public BatchControl getBatchControl()
     {
-        return new BatchControl(model.getBatch());
+        return batchControl;
     }
+    public BatchControl getNewBatchControl()
+    {
+        batchControl = new BatchControl();
+        return batchControl;
+    }
+            
 }

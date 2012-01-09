@@ -13,15 +13,16 @@ package view.gui;
 import control.gui.MainControl;
 
 /**
+ * Will need to start working on the batch view
  * eventually will want to internationalize
  * @author drew
  */
 public class MainFrame extends javax.swing.JFrame {
+
     private MainControl mainControl;
 
     /** Creates new form MainFrame */
     public MainFrame() {
-        initControl();
         initComponents();
     }
 
@@ -135,26 +136,20 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newBatchMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newBatchMenuItemMouseClicked
-        // TODO add your handling code here:
-        System.out.println("HIIHIHI");
-        overwriteControl();
-        // first intitilize the control so that I have a controller
-        initControl();
-        loadBatchFrame(true);
+       
+        newBatchFrame(true);
     }//GEN-LAST:event_newBatchMenuItemMouseClicked
 
     private void saveMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMenuItemMouseClicked
         // TODO add your handling code here:
-        if (mainControl != null)
-        {
+        if (mainControl != null) {
             // this means that a batch was created so save it
             // first display the save dialog to choose a folder to save the
             // files to
-            // then call get save control on the main control then call
-            // save and provide the file to the control and then it will be saved
-        }
-        else
-        {
+            // then call get BatchControl on the main control then call
+            // get save control and provide it the file to the control 
+            // and then it will be saved
+        } else {
             // nothing to save say so
         }
     }//GEN-LAST:event_saveMenuItemMouseClicked
@@ -163,11 +158,13 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         overwriteControl();
         // then show the load dialog
-        // call the get load control from maincontrol
-        // then give the filename to the load control
-        // then you have loaded the batch
         initControl();
-          
+        // call the get batch control
+        // call get load control from batch control
+        // giveing the filename to the control
+        // then you have loaded the batch
+        // then display whatever...
+
     }//GEN-LAST:event_loadMenuItemMouseClicked
 
     /**
@@ -176,8 +173,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     private void batchMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_batchMenuItemMouseClicked
         // TODO add your handling code here:
-        if (mainControl == null)
-        {
+        if (mainControl == null) {
             // show message saying that no batch
             // ask if want to make a new one
             // if so
@@ -262,23 +258,62 @@ public class MainFrame extends javax.swing.JFrame {
     private void initControl() {
         mainControl = new MainControl();
     }
-    
-    private void overwriteControl()
-    {
-        if (mainControl != null)
-        {
+
+    /**
+     * This will provide control to see if the mainControl
+     * has been created. and will warn users and stop
+     * all running threads in the mainControl.
+     */
+    private void overwriteControl() {
+        if (mainControl != null) {
             // show a warning that you are going to overwrite the current batch
             // if the user says ok
             // then stop all running tournaments/threads
             // can just force stop them since don't care they will be
             // garbage collected
-            
         }
     }
-    private void loadBatchFrame(Boolean editable)
-    {
+
+    /**
+     * This will load the Batch Frame with the current batch controller
+     * and will just bring the current BatchView to the front if there
+     * is one already open.
+     * @param editable 
+     */
+    private void loadBatchFrame(Boolean editable) {
         // then display the batch frame providing it the batch controller
         // put 
-        BatchView.main(null);
+        // eventually think of a better way to get the batchControl to the new frame
+        // not the best way to do it...
+        if (BatchView.view != null) {
+            BatchView.view.toFront();
+        } else {
+            BatchView.controller = mainControl.getBatchControl();
+            BatchView.isEditable = editable;
+            BatchView.main(null);
+        }
+    }
+
+    /**
+     * this will create a new BatchFrame with a new BatchControll
+     * unless there is a batch view already created in which case
+     * that frame will be brought to the front.
+     * @param editable 
+     */
+    private void newBatchFrame(Boolean editable) {
+        if (BatchView.view != null)
+        {
+            // can't create a new Batch when a batch window is open
+            BatchView.view.toFront();
+        }
+        else
+        {
+            // first intitilize the control so that I have a controller
+            initControl();
+            BatchView.controller = mainControl.getNewBatchControl();
+            BatchView.isEditable = editable;
+            BatchView.main(null);
+        }
+        
     }
 }

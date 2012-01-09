@@ -18,10 +18,9 @@ import util.Subscriber;
  * @author drew
  */
 @XStreamAlias("Tournament")
-public class Tournament implements Subscriber, Runnable{
+public class Tournament implements Subscriber, Runnable, Comparable {
     
-    @XStreamOmitField
-    TournamentProperties props;
+    
     
     /**
      * The state of the game is mapped to the respected game
@@ -29,6 +28,11 @@ public class Tournament implements Subscriber, Runnable{
     private TreeMap<Game, ObjectState> runningGames;
     private ObjectState state;
     
+    TournamentProperties props;
+    
+    /**
+     * Instantiates a properties object.
+     */
     public Tournament()
     {
         setup();
@@ -145,5 +149,18 @@ public class Tournament implements Subscriber, Runnable{
     @Override
     public void run() {
         startTourn();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (o == this)
+        {
+            return 0;
+        }
+        else if (this.hashCode() > o.hashCode())
+        {
+            return 1;
+        }
+        return -1;
     }
 }
