@@ -18,6 +18,7 @@ public interface ChooserControl {
     public String addChoice(String choice);
     public void removeChoice(String choice);
     public void addSubscriber(Subscriber sub);
+    public void notifyObservers(String choice);
     @Override
     public String toString();
             

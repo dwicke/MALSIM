@@ -12,10 +12,15 @@ import model.properties.Type;
  * @author drew
  */
 public abstract class GameProperties extends Properties{
+    private String name;
      @Override
     public Type getPropertyType() {
         return Type.Game;
     }
     @Override
      public abstract String toString();
+     public void setString(String newName)
+     {
+         name = newName;
+     }
 }

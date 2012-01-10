@@ -125,13 +125,12 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
      * background model data.
      */
     private void addTournament() {
-        if (isEditable == true)
-        {
-        TournamentPropertiesView propview = new TournamentPropertiesView();
+        if (isEditable == true) {
+            TournamentPropertiesView propview = new TournamentPropertiesView();
 
-        propview.setTournControl(controller.getNewTournControl());
-        tournTabPane.addTab("Tournament " + count, propview);
-        count++;
+            propview.setTournControl(controller.getNewTournControl("Tournament " + count));
+            tournTabPane.addTab("Tournament " + count, propview);
+            count++;
         }
     }
 
@@ -140,13 +139,12 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
      * and it will remove the tab from the view.
      */
     private void removeTournament() {
-        if (isEditable)
-        {
-        if (tournTabPane.getSelectedComponent() != null) {
-            controller.removeTourn(((TournamentPropertiesView) tournTabPane.getSelectedComponent()).getTournControl().getTournament());
-            tournTabPane.remove(tournTabPane.getSelectedComponent());
+        if (isEditable) {
+            if (tournTabPane.getSelectedComponent() != null) {
+                controller.removeTourn(((TournamentPropertiesView) tournTabPane.getSelectedComponent()).getTournControl().getTournament());
+                tournTabPane.remove(tournTabPane.getSelectedComponent());
 
-        }
+            }
         }
     }
 
@@ -171,9 +169,7 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
     }
 
     private void runBatch() {
-        if (isEditable)
-        {
-            
+        if (isEditable) {
         }
     }
 

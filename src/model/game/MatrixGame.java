@@ -4,11 +4,21 @@
  */
 package model.game;
 
+import model.properties.game.MatrixGameProperties;
+
 /**
  *
  * @author drew
  */
-public class GeneralSumGame extends Game{
+public class MatrixGame extends Game{
+
+    public MatrixGame() {
+        super();
+        setGameProperties(new MatrixGameProperties());
+        
+    }
+    
+    
 
     @Override
     public void startGame() {

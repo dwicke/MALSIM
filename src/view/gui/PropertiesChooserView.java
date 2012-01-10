@@ -57,12 +57,19 @@ public class PropertiesChooserView extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        chooseList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(chooseList);
 
         chosenList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
+        });
+        chosenList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        chosenList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                chosenListValueChanged(evt);
+            }
         });
         jScrollPane2.setViewportView(chosenList);
 
@@ -134,7 +141,9 @@ public class PropertiesChooserView extends javax.swing.JPanel {
             String chooseString = (String) chooseList.getSelectedValue();
             int selectedIndex = chooseList.getSelectedIndex();
             String chosenString = controller.addChoice(chooseString);
-            chosenModel.addElement(chosenString);
+            chosenModel.clear();
+            for (String name : controller.getChosen())
+                chosenModel.addElement(name);
         }
     }//GEN-LAST:event_addChosenMousePressed
 
@@ -143,10 +152,22 @@ public class PropertiesChooserView extends javax.swing.JPanel {
         if (chosenList.getSelectedIndex() != -1) {
             String chosenString = (String) chosenList.getSelectedValue();
             int selectedIndex = chosenList.getSelectedIndex();
-            chosenModel.remove(selectedIndex);
+            //chosenModel.remove(selectedIndex);
             controller.removeChoice(chosenString);
+            chosenModel.clear();
+            for (String name : controller.getChosen())
+                chosenModel.addElement(name);
         }
     }//GEN-LAST:event_removeChosenBtMousePressed
+
+    private void chosenListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_chosenListValueChanged
+        // TODO add your handling code here:
+        int index = evt.getLastIndex();
+        // notify the observers so that they know that i want to see the properties
+        if (index < chosenModel.getSize())
+        controller.notifyObservers((String)chosenModel.get(index));
+    }//GEN-LAST:event_chosenListValueChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addChosen;
     private javax.swing.JLabel chooseLabel;

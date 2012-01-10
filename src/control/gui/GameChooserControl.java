@@ -16,7 +16,8 @@ import util.Subscriber;
  *
  * @author drew
  */
-public class GameChooserControl implements ChooserControl{
+public class GameChooserControl implements ChooserControl {
+
     private TournamentProperties tournProps;
     private BasicPublisher pub;
     private GenericFactory fac;
@@ -27,20 +28,20 @@ public class GameChooserControl implements ChooserControl{
         fac.generateMaping("config/GameList.cfg");
         tournProps = props;
     }
+
     /**
      * Sets the gameproperties for the tournament
      * @param gameProps 
      */
-    public void setGameProps(GameProperties gameProps)
-    {
+    public void setGameProps(GameProperties gameProps) {
         tournProps.setGameProps(gameProps);
     }
-    public GameProperties getGameProperties()
-    {
+
+    public GameProperties getGameProperties() {
         return tournProps.getGameProps();
     }
 
-     @Override
+    @Override
     public ArrayList<String> getChoices() {
         return new ArrayList<String>(fac.getSimpleRepresentation());
     }
@@ -48,13 +49,15 @@ public class GameChooserControl implements ChooserControl{
     @Override
     public ArrayList<String> getChosen() {
         ArrayList<String> list = new ArrayList<String>();
-        list.add(tournProps.getGameProps().toString());
+        if (tournProps.getGameProps() != null) {
+            list.add(tournProps.getGameProps().toString());
+        }
         return list;
     }
 
     @Override
     public String addChoice(String choice) {
-        tournProps.setGameProps(((Game)fac.getObject(choice)).getGameProps());
+        tournProps.setGameProps(((Game) fac.getObject(choice)).getGameProps());
         return choice;
     }
 
@@ -69,9 +72,12 @@ public class GameChooserControl implements ChooserControl{
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Game Choices";
     }
-   
+
+    @Override
+    public void notifyObservers(String choice) {
+        pub.notifySubscribers(this, tournProps.getGameProps());
+    }
 }

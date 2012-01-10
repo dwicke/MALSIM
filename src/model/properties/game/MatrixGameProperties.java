@@ -23,7 +23,7 @@ public class MatrixGameProperties extends GameProperties{
     
     @Override
     public String toString() {
-        return "Matrix Game";
+        return "MatrixGame";
     }
 
     @Override

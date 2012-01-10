@@ -57,7 +57,9 @@ public class AgentChooserControl implements ChooserControl{
     public ArrayList<String> getChosen() {
         ArrayList<String> list = new ArrayList<String>();
         ArrayList<Agent> agentList = tournProps.getAgents();
-       
+        // must clear the list so that nothing old is left over
+        stringAgentMap.clear();
+        agentCount.clear();
         for (Agent ag : agentList)
         {
             list.add(addStringAgent(ag.toString(), ag));
@@ -120,6 +122,11 @@ public class AgentChooserControl implements ChooserControl{
     public String toString()
     {
         return "Agent Choices";
+    }
+
+    @Override
+    public void notifyObservers(String choice) {
+        pub.notifySubscribers(this, stringAgentMap.get(choice).getProperties());
     }
     
 }

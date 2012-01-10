@@ -28,7 +28,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     private TreeMap<Game, ObjectState> runningGames;
     private ObjectState state;
     
-    TournamentProperties props;
+    private TournamentProperties props;
+    private String name;
     
     /**
      * Instantiates a properties object.
@@ -150,17 +151,20 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     public void run() {
         startTourn();
     }
+    
+    @Override
+    public String toString()
+    {
+        return name;
+    }
+    
+    public void setString(String newName)
+    {
+        name = newName;
+    }
 
     @Override
     public int compareTo(Object o) {
-        if (o == this)
-        {
-            return 0;
-        }
-        else if (this.hashCode() > o.hashCode())
-        {
-            return 1;
-        }
-        return -1;
+        return this.toString().compareTo(o.toString());
     }
 }

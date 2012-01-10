@@ -11,6 +11,7 @@
 package view.gui;
 
 import control.gui.AgentChooserControl;
+import control.gui.GameChooserControl;
 import control.gui.TournamentControl;
 import control.gui.TournamentPropertiesController;
 
@@ -138,11 +139,22 @@ public class TournamentPropertiesView extends javax.swing.JPanel {
      */
     public void setTournControl(TournamentControl newTournControl) {
         control = newTournControl;
-        
         TournamentPropertiesController propCon = control.getTournPropertiesControl();
+        
+        // set up the agent view
         AgentChooserControl agCon = propCon.getAgentChooser();
-        agCon.addSubscriber(propertiesView1);
+        agCon.addSubscriber(propertiesView1);// propertiesView should not be a subscriber a controller should
         agentChooserView.setController(agCon);
+        
+        // set up the game view
+        GameChooserControl gameCon = propCon.getGameChooser();
+        gameCon.addSubscriber(propertiesView1);
+        gameChooserView.setController(gameCon);
+        
+        // set up the Eliminator view
+        
+        // set up the Agent selector view
+        
         
         
         // need to set the controllers for the agentChooserView

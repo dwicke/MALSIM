@@ -38,9 +38,10 @@ public class BatchControl {
         
     }
     
-    public TournamentControl getNewTournControl()
+    public TournamentControl getNewTournControl(String name)
     {
         Tournament tourn = new Tournament();
+        tourn.setString(name);
         batch.addTournament(tourn);
         return new TournamentControl(tourn);
     }
