@@ -15,7 +15,7 @@ import util.ObjectState;
  */
 public abstract class Game implements Runnable{
     private ArrayList<Agent> players;
-    private GameProperties props;
+    private GameProperties props;// must set the correct one when subclassing in the constructor
     private ObjectState state;
     private Agent winner;
     

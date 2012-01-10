@@ -10,11 +10,14 @@
  */
 package view.gui;
 
+import java.rmi.RemoteException;
+import util.Subscriber;
+
 /**
  *
  * @author drew
  */
-public class PropertiesView extends javax.swing.JPanel {
+public class PropertiesView extends javax.swing.JPanel implements Subscriber{
 
     /** Creates new form PropertiesView */
     public PropertiesView() {
@@ -53,4 +56,9 @@ public class PropertiesView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Object pub, Object code) throws RemoteException {
+        // update the properties...
+    }
 }

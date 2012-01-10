@@ -22,4 +22,13 @@ public class TournamentControl {
     {
         return tourn;
     }
+    
+    /**
+     * returns a new AgentChooserControl
+     * @return 
+     */
+    public TournamentPropertiesController getTournPropertiesControl()
+    {
+       return new TournamentPropertiesController(tourn.getTournProps());
+    }
 }

@@ -51,7 +51,14 @@ public class TournamentProperties extends Properties{
     {
         agents.add(agent);
     }
-    
+    /**
+     * Removes the agent passed from the tournament.
+     * @param agent 
+     */
+    public void removeAgent(Agent agent)
+    {
+        agents.remove(agent);
+    }
     /**
      * This will return the list of agents that will play in the tournament.
      * @return 
