@@ -7,6 +7,7 @@ package control.gui;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import model.agent.Agent;
 import model.properties.game.TournamentProperties;
 import util.BasicPublisher;
@@ -22,11 +23,13 @@ public class AgentChooserControl implements ChooserControl{
     private GenericFactory fac;
     private TournamentProperties tournProps;
     private TreeMap<String, Agent> stringAgentMap;
+    private TreeMap<String, Integer> agentCount;
 
     public AgentChooserControl() {
         pub = new BasicPublisher();
         fac = new GenericFactory();
         stringAgentMap = new TreeMap<String, Agent>();
+        agentCount = new TreeMap<String, Integer>();
         fac.generateMaping("config/AgentList.cfg");
     }
 
@@ -34,6 +37,8 @@ public class AgentChooserControl implements ChooserControl{
         pub = new BasicPublisher();
         fac = new GenericFactory();
         fac.generateMaping("config/AgentList.cfg");
+        stringAgentMap = new TreeMap<String, Agent>();
+        agentCount = new TreeMap<String, Integer>();
         this.tournProps = tournProps;
     }
     
@@ -51,7 +56,9 @@ public class AgentChooserControl implements ChooserControl{
     @Override
     public ArrayList<String> getChosen() {
         ArrayList<String> list = new ArrayList<String>();
-        for (Agent ag : tournProps.getAgents())
+        ArrayList<Agent> agentList = tournProps.getAgents();
+       
+        for (Agent ag : agentList)
         {
             list.add(addStringAgent(ag.toString(), ag));
             
@@ -60,31 +67,59 @@ public class AgentChooserControl implements ChooserControl{
     }
 
     @Override
-    public void addChoice(String choice) {
-        tournProps.addAgent((Agent)fac.getObject(choice));
+    public String addChoice(String choice) {
+        // Create a new agent from the name of the agent
+        Agent newAgent = (Agent)fac.getObject(choice);
+        // set the name of the agent to ensure uniqueness
+        String newName = addStringAgent(choice, newAgent);
+        // add the agent to the tournament
+        tournProps.addAgent(newAgent);
+        // return the name of the agent so that it can be displayed in the chosen list
+        return newName;
     }
 
     @Override
     public void removeChoice(String choice) {
+        // remove the agent from both the local list and the tournament
         tournProps.removeAgent(removeAgent(choice));
     }
+    
 
     private String addStringAgent(String toString, Agent ag) {
         String newstring = toString;
-        if (stringAgentMap.containsKey(toString))
+        
+        if (agentCount.get(newstring) == null)
         {
-            if (Character.isDigit(toString.charAt(toString.length() - 1)) == true)
-            {
-                // increase the last digit by 1 to make different
-                newstring = newstring.subSequence(0, newstring.length() - 1) + Integer.toString(Character.digit(newstring.charAt(toString.length() - 1) + 1,10));
-            }
+            agentCount.put(newstring, 1);
+            ag.setID(0);
+            stringAgentMap.put(newstring, ag);
+            return newstring;
         }
-        stringAgentMap.put(newstring, ag);
-        return newstring;
+        else
+        {
+            Integer count = agentCount.get(newstring);
+            ag.setID(count);
+            String newName = newstring + "_" + ag.getID();
+            stringAgentMap.put(newName, ag);
+                    
+            agentCount.put(toString, count + 1);
+            return newName;
+        }
+        
+       
+        
     }
 
     private Agent removeAgent(String choice) {
+        // remove the agent from the list here and return the agent that it maped to so
+        // that it can be removed from the tournament.
         return stringAgentMap.remove(choice);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Agent Choices";
     }
     
 }

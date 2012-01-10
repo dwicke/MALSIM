@@ -11,6 +11,9 @@
 package view.gui;
 
 import control.gui.ChooserControl;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -19,10 +22,15 @@ import control.gui.ChooserControl;
 public class PropertiesChooserView extends javax.swing.JPanel {
 
     private ChooserControl controller = null;
+    private DefaultListModel choicesModel, chosenModel = null;
 
     /** Creates new form PropertiesChooserView */
     public PropertiesChooserView() {
         initComponents();
+        choicesModel = new DefaultListModel();
+        chosenModel = new DefaultListModel();
+        chooseList.setModel(choicesModel);
+        chosenList.setModel(chosenModel);
     }
 
     /** This method is called from within the constructor to
@@ -59,8 +67,18 @@ public class PropertiesChooserView extends javax.swing.JPanel {
         jScrollPane2.setViewportView(chosenList);
 
         removeChosenBt.setText("<");
+        removeChosenBt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                removeChosenBtMousePressed(evt);
+            }
+        });
 
         addChosen.setText(">");
+        addChosen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                addChosenMousePressed(evt);
+            }
+        });
 
         chooseLabel.setText("Choose:");
 
@@ -109,6 +127,26 @@ public class PropertiesChooserView extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addChosenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addChosenMousePressed
+        // TODO add your handling code here:
+        if (chooseList.getSelectedIndex() != -1) {
+            String chooseString = (String) chooseList.getSelectedValue();
+            int selectedIndex = chooseList.getSelectedIndex();
+            String chosenString = controller.addChoice(chooseString);
+            chosenModel.addElement(chosenString);
+        }
+    }//GEN-LAST:event_addChosenMousePressed
+
+    private void removeChosenBtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeChosenBtMousePressed
+        // TODO add your handling code here:
+        if (chosenList.getSelectedIndex() != -1) {
+            String chosenString = (String) chosenList.getSelectedValue();
+            int selectedIndex = chosenList.getSelectedIndex();
+            chosenModel.remove(selectedIndex);
+            controller.removeChoice(chosenString);
+        }
+    }//GEN-LAST:event_removeChosenBtMousePressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addChosen;
     private javax.swing.JLabel chooseLabel;
@@ -123,7 +161,20 @@ public class PropertiesChooserView extends javax.swing.JPanel {
 
     public void setController(ChooserControl control) {
         controller = control;
-        chooseList.setListData(controller.getChoices().toArray());
+        propTitle.setText(controller.toString());
+        ArrayList<String> choices = controller.getChoices();
+        if (choices != null) {
+            for (String val : choices) {
+                choicesModel.addElement(val);
+            }
+        }
+
+        ArrayList<String> chosen = controller.getChosen();
+        if (chosen != null) {
+            for (String val : chosen) {
+                chosenModel.addElement(val);
+            }
+
+        }
     }
-    
 }

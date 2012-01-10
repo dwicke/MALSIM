@@ -33,7 +33,7 @@ public class QLearningAgent extends Agent{
 
     @Override
     public String toString() {
-        return "QLearning_Agent";
+        return "QLearning";
     }
 
     public void run() {
@@ -43,6 +43,11 @@ public class QLearningAgent extends Agent{
     @Override
     public void generateViewFields() {
         
+    }
+
+    @Override
+    public int compareTo(Agent o) {
+        return (this.toString() + this.getID()).compareTo((o.toString() + o.getID()));
     }
     
 }

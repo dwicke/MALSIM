@@ -13,10 +13,11 @@ import util.Viewable;
  * @author drew
  */
 //@XStreamAlias("Agent") not sure I need this since this is abstract
-public abstract class Agent extends Viewable implements  Runnable{
+public abstract class Agent extends Viewable implements  Runnable, Comparable<Agent> {
     private AgentProperties prop;
     private double score;
     private String name;
+    private int id;
     
     
     public Agent()// remember that the default const. doesn't get called when made with xstream
@@ -73,6 +74,21 @@ public abstract class Agent extends Viewable implements  Runnable{
      */
     @Override
     public abstract String toString();
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public int getID()
+    {
+        return id;
+    }
+    
+    public void setID(int newID)
+    {
+        id = newID;
+    }
             
     
 }

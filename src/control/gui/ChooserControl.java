@@ -15,7 +15,7 @@ import util.Subscriber;
 public interface ChooserControl {
     public ArrayList<String> getChoices();
     public ArrayList<String> getChosen();
-    public void addChoice(String choice);
+    public String addChoice(String choice);
     public void removeChoice(String choice);
     public void addSubscriber(Subscriber sub);
     @Override

@@ -117,11 +117,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="removeChosenBtMousePressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="addChosen">
       <Properties>
         <Property name="text" type="java.lang.String" value="&gt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addChosenMousePressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="propTitle">
     </Component>

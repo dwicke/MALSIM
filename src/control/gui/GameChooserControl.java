@@ -53,8 +53,9 @@ public class GameChooserControl implements ChooserControl{
     }
 
     @Override
-    public void addChoice(String choice) {
+    public String addChoice(String choice) {
         tournProps.setGameProps(((Game)fac.getObject(choice)).getGameProps());
+        return choice;
     }
 
     @Override
@@ -66,4 +67,11 @@ public class GameChooserControl implements ChooserControl{
     public void addSubscriber(Subscriber sub) {
         pub.addSubscriber(sub);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Game Choices";
+    }
+   
 }
