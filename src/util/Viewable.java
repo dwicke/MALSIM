@@ -45,8 +45,9 @@ public abstract class Viewable {
      * @param fieldAlias name of field
      * @param value value to set to that field
      */
-    public void setField(String fieldAlias, Object value) {
+    public boolean setField(String fieldAlias, Object value) {
         fieldVals.put(fieldAlias, value);
+        return true;
     }
     /**
      * Sets the class of the field.
@@ -77,5 +78,10 @@ public abstract class Viewable {
      */
     public Map<String, Object> getFieldVals() {
         return fieldVals;
+    }
+    
+    public Class getClass(String alias)
+    {
+        return fieldAlias.get(alias);
     }
 }

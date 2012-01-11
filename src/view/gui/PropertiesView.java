@@ -10,8 +10,16 @@
  */
 package view.gui;
 
+import java.awt.Component;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.GroupLayout;
 import util.Subscriber;
+import model.properties.*;
 
 /**
  *
@@ -19,9 +27,16 @@ import util.Subscriber;
  */
 public class PropertiesView extends javax.swing.JPanel implements Subscriber{
 
+    private Properties props = null;
+    
     /** Creates new form PropertiesView */
     public PropertiesView() {
         initComponents();
+        
+        for (Component c : propertiesPanel.getComponents())
+            c.setVisible(false);
+        setPropsBt.setVisible(false);
+        
     }
     //public void genView()
 
@@ -35,30 +50,156 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber{
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        descriptionPane = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        propertiesPanel = new javax.swing.JPanel();
+        propertyView6 = new view.gui.PropertyView();
+        propertyView1 = new view.gui.PropertyView();
+        propertyView2 = new view.gui.PropertyView();
+        propertyView3 = new view.gui.PropertyView();
+        propertyView7 = new view.gui.PropertyView();
+        propertyView4 = new view.gui.PropertyView();
+        propertyView9 = new view.gui.PropertyView();
+        propertyView11 = new view.gui.PropertyView();
+        propertyView10 = new view.gui.PropertyView();
+        propertyView5 = new view.gui.PropertyView();
+        propertyView8 = new view.gui.PropertyView();
+        propertyView12 = new view.gui.PropertyView();
+        propertyView13 = new view.gui.PropertyView();
+        propertyView14 = new view.gui.PropertyView();
+        propertyView15 = new view.gui.PropertyView();
+        setPropsBt = new javax.swing.JButton();
 
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPane1.setViewportView(descriptionPane);
+
+        propertiesPanel.setLayout(new java.awt.GridLayout(5, 3));
+        propertiesPanel.add(propertyView6);
+        propertiesPanel.add(propertyView1);
+        propertiesPanel.add(propertyView2);
+        propertiesPanel.add(propertyView3);
+        propertiesPanel.add(propertyView7);
+        propertiesPanel.add(propertyView4);
+        propertiesPanel.add(propertyView9);
+        propertiesPanel.add(propertyView11);
+        propertiesPanel.add(propertyView10);
+        propertiesPanel.add(propertyView5);
+        propertiesPanel.add(propertyView8);
+        propertiesPanel.add(propertyView12);
+        propertiesPanel.add(propertyView13);
+        propertiesPanel.add(propertyView14);
+        propertiesPanel.add(propertyView15);
+
+        jScrollPane2.setViewportView(propertiesPanel);
+
+        setPropsBt.setText("Set Properties");
+        setPropsBt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                setPropsBtMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(setPropsBt))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(379, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(setPropsBt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void setPropsBtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setPropsBtMousePressed
+        // TODO add your handling code here:
+        System.out.println("Button Pressed");
+        int size = props.getFieldAliases().keySet().size();
+        for (int i = 0; i < size; i++)
+        {
+            PropertyView comp = (PropertyView) propertiesPanel.getComponent(i);
+            if (props.setField(comp.getLabel(), comp.getData()) == false)
+            {
+                // then the field was not set
+                // display error
+                // TODO: Must display error saying that the field was not set
+            }
+            else
+            {
+                System.out.println(comp.getLabel() + " " + " was set to " + comp.getData());
+            }
+            
+        }
+    }//GEN-LAST:event_setPropsBtMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane descriptionPane;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel propertiesPanel;
+    private view.gui.PropertyView propertyView1;
+    private view.gui.PropertyView propertyView10;
+    private view.gui.PropertyView propertyView11;
+    private view.gui.PropertyView propertyView12;
+    private view.gui.PropertyView propertyView13;
+    private view.gui.PropertyView propertyView14;
+    private view.gui.PropertyView propertyView15;
+    private view.gui.PropertyView propertyView2;
+    private view.gui.PropertyView propertyView3;
+    private view.gui.PropertyView propertyView4;
+    private view.gui.PropertyView propertyView5;
+    private view.gui.PropertyView propertyView6;
+    private view.gui.PropertyView propertyView7;
+    private view.gui.PropertyView propertyView8;
+    private view.gui.PropertyView propertyView9;
+    private javax.swing.JButton setPropsBt;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void update(Object pub, Object code) throws RemoteException {
         // update the properties...
+        // loop throught the bag making them visible and setting the appropriate
+        // mapping and make the rest of the components invisible set up the layout
+        System.out.println("HI");
+      
+        props = (Properties) code;
+        props.generateViewFields();
+        Map<String,Object> map = props.getFieldVals();
+        
+        
+        int count = 0;
+        for (String key : map.keySet())
+        {
+            if (count < propertiesPanel.getComponentCount() )
+            {
+                ((PropertyView)propertiesPanel.getComponent(count)).setLabel(key);
+                ((PropertyView)propertiesPanel.getComponent(count)).setData(map.get(key).toString());
+                propertiesPanel.getComponent(count).setVisible(true);
+            }
+            else
+            {
+                // must add a compents
+                PropertyView newPropView = new PropertyView();
+                newPropView.setLabel(key);
+                newPropView.setData(map.get(key).toString());
+                propertiesPanel.add(newPropView);
+            }
+            count++;
+        }
+        Component comp[] = propertiesPanel.getComponents();
+        for (int i = count; i < comp.length; i++)
+        {
+            comp[i].setVisible(false);
+        }
+        setPropsBt.setVisible(true);
+        
     }
 }
