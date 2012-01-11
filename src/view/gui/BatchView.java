@@ -12,8 +12,10 @@ package view.gui;
 
 import control.gui.BatchControl;
 import control.gui.TournamentControl;
+import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import util.Subscriber;
 
 /**
@@ -166,6 +168,15 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
     }
 
     private void saveBatch() {
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            System.out.println("Saving");
+                controller.getSaveControl().save(file);
+        } else {
+            // nothing to save say so
+        }
     }
 
     private void runBatch() {

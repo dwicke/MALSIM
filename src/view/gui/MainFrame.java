@@ -10,7 +10,15 @@
  */
 package view.gui;
 
+import com.thoughtworks.xstream.XStream;
 import control.gui.MainControl;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  * Will need to start working on the batch view
@@ -149,6 +157,15 @@ public class MainFrame extends javax.swing.JFrame {
             // then call get BatchControl on the main control then call
             // get save control and provide it the file to the control 
             // and then it will be saved
+            JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            System.out.println("Saving");
+                mainControl.getBatchControl().getSaveControl().save(file);
+        }
+  
+  
         } else {
             // nothing to save say so
         }
@@ -159,6 +176,17 @@ public class MainFrame extends javax.swing.JFrame {
         overwriteControl();
         // then show the load dialog
         initControl();
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            mainControl.getBatchControl().setBatch(mainControl.getBatchControl().getLoadControl(file));
+            //This is where a real application would open the file.
+
+        } else {
+            // do nothing
+        }
+        
         // call the get batch control
         // call get load control from batch control
         // giveing the filename to the control

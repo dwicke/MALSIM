@@ -130,7 +130,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      * @return 
      */
     private Object readResolve() {
-        setup();
+        //setup();
         return this;
     }
 

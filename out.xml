@@ -1,0 +1,102 @@
+<model.game.Batch>
+  <batch>
+    <entry>
+      <model.game.Tournament>
+        <runningGames/>
+        <props>
+          <fieldVals/>
+          <fieldAlias/>
+          <agents/>
+          <gameProps class="model.properties.game.MatrixGameProperties">
+            <fieldVals>
+              <entry>
+                <string>number of agents</string>
+                <int>0</int>
+              </entry>
+              <entry>
+                <string>number of game repititions</string>
+                <int>0</int>
+              </entry>
+              <entry>
+                <string>number of strategies</string>
+                <int>0</int>
+              </entry>
+            </fieldVals>
+            <fieldAlias>
+              <entry>
+                <string>number of agents</string>
+                <java-class>java.lang.Integer</java-class>
+              </entry>
+              <entry>
+                <string>number of game repititions</string>
+                <java-class>java.lang.Integer</java-class>
+              </entry>
+              <entry>
+                <string>number of strategies</string>
+                <java-class>java.lang.Integer</java-class>
+              </entry>
+            </fieldAlias>
+            <numAgents>0</numAgents>
+            <numStrats>0</numStrats>
+            <numReps>0</numReps>
+          </gameProps>
+          <maxThreads>0</maxThreads>
+        </props>
+        <name>Tournament 1</name>
+      </model.game.Tournament>
+      <util.ObjectState>
+        <fieldVals/>
+        <fieldAlias/>
+        <pub>
+          <subscribers>
+            <model.game.Batch reference="../../../../../.."/>
+          </subscribers>
+        </pub>
+        <objState>NEW</objState>
+      </util.ObjectState>
+    </entry>
+    <entry>
+      <model.game.Tournament>
+        <runningGames/>
+        <props>
+          <fieldVals/>
+          <fieldAlias/>
+          <agents>
+            <model.agent.QLearningAgent>
+              <fieldVals/>
+              <fieldAlias/>
+              <prop class="model.properties.agent.QLearningAgentProperties">
+                <fieldVals/>
+                <fieldAlias/>
+              </prop>
+              <score>0.0</score>
+              <id>0</id>
+            </model.agent.QLearningAgent>
+            <model.agent.QLearningAgent>
+              <fieldVals/>
+              <fieldAlias/>
+              <prop class="model.properties.agent.QLearningAgentProperties">
+                <fieldVals/>
+                <fieldAlias/>
+              </prop>
+              <score>0.0</score>
+              <id>1</id>
+            </model.agent.QLearningAgent>
+          </agents>
+          <maxThreads>0</maxThreads>
+        </props>
+        <name>Tournament 2</name>
+      </model.game.Tournament>
+      <util.ObjectState>
+        <fieldVals/>
+        <fieldAlias/>
+        <pub>
+          <subscribers>
+            <model.game.Batch reference="../../../../../.."/>
+          </subscribers>
+        </pub>
+        <objState>NEW</objState>
+      </util.ObjectState>
+    </entry>
+  </batch>
+</model.game.Batch>
