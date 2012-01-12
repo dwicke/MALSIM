@@ -29,5 +29,10 @@ public class MatrixGame extends Game{
     public void run() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public int compareTo(Game o) {
+        return this.getGameProps().toString().compareTo(o.getGameProps().toString());
+    }
     
 }

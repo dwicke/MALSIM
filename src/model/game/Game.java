@@ -13,7 +13,7 @@ import util.ObjectState;
  *
  * @author drew
  */
-public abstract class Game implements Runnable{
+public abstract class Game implements Runnable, Comparable<Game> {
     private ArrayList<Agent> players;
     private GameProperties props;// must set the correct one when subclassing in the constructor
     private ObjectState state;
@@ -36,6 +36,14 @@ public abstract class Game implements Runnable{
     public void addAgent(Agent agent)
     {
         players.add(agent);
+    }
+    /**
+     * Sets all of the agents to the game
+     * @param agents 
+     */
+    public void setAgents(ArrayList<Agent> agents)
+    {
+        this.players = agents;
     }
     /**
      * Starts to play the game. sets the winner agent and sets the

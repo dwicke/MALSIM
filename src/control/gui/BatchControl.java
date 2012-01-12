@@ -21,6 +21,11 @@ public class BatchControl {
         
     }
     
+    public void startBatch()
+    {
+       batch.startTournaments();
+    }
+    
     public SaveControl getSaveControl()
     {
         return new SaveControl(batch);

@@ -181,6 +181,10 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
 
     private void runBatch() {
         if (isEditable) {
+            
+            controller.startBatch();
+            System.out.println("Started Batch");
+            
         }
     }
 

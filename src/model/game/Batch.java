@@ -19,10 +19,12 @@ import util.Subscriber;
 public class Batch implements Subscriber{
 
     private TreeMap<Tournament, ObjectState> batch;
+    private TreeMap<Tournament, Thread> tournThreads;
     
     public Batch()
     {
         batch = new TreeMap<Tournament, ObjectState>();
+        tournThreads = new TreeMap<Tournament, Thread>();
     }
     
     /**
@@ -57,6 +59,24 @@ public class Batch implements Subscriber{
     {
         return batch.keySet();
     }
+    
+    public void startTournaments()
+    {
+        for (Tournament tourn : getTourn())
+        {
+            System.out.println(tourn.toString() + " Starting");
+            // I start the tournaments as threads 
+            // set the tournprops 
+            ObjectState st = new ObjectState(State.RUNNABLE, this);
+            tourn.setState(st);
+            
+            // use an ArrayList of Threads since these threads will be running for a while
+            Thread t = new Thread(tourn, tourn.toString());
+            tournThreads.put(tourn, t);
+            t.start();
+        }
+    }
+    
     /**
      * This will be used to let me know when the state of a tournament changes.
      * @param pub

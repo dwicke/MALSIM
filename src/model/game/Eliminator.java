@@ -17,7 +17,7 @@ public interface Eliminator {
      * @param agents the list of agents to choose from
      * @return the agent to eliminate.
      */
-    abstract Agent elimnate(ArrayList<Agent> agents);
+    abstract Agent eliminate(ArrayList<Agent> agents);
     /**
      * Returns the name of the eliminator.
      * @return 

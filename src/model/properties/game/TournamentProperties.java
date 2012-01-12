@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import model.agent.Agent;
 import model.game.AgentSelector;
 import model.game.Eliminator;
+import model.game.StandardAgentSelector;
+import model.game.StandardEliminator;
 import model.properties.Properties;
 import model.properties.Type;
 
@@ -32,6 +34,9 @@ public class TournamentProperties extends Properties{
     private void setup()
     {
         agents = new ArrayList<Agent>();
+        maxThreads = 2;
+        elim = new StandardEliminator();
+        selector = new StandardAgentSelector();
     }
     
     /**

@@ -37,6 +37,12 @@ public abstract class AgentSelector {
     {
         this.agents = agents;
     }
+    
+    /**
+     * Returns whether there are any contestants. true if there are false if not.
+     * @return 
+     */
+    public abstract boolean hasContestants();
     /**
      * This is the method that will return the list of
      * new contestants.  Will return null when no more
@@ -52,12 +58,5 @@ public abstract class AgentSelector {
     {
         agents = new ArrayList<Agent>();
     }
-    /**
-     * This is used by xstream since constructor is not called
-     * @return 
-     */
-    private Object readResolve() {
-        setup();
-        return this;
-    }
+    
 }
