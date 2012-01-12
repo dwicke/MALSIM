@@ -171,6 +171,7 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber {
             props.generateViewFields();
             Map<String, Object> map = props.getFieldVals();
 
+            System.out.println("Created map" + props);
 
 
             for (String key : map.keySet()) {
@@ -185,14 +186,16 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber {
                     newPropView.setData(map.get(key).toString());
                     propertiesPanel.add(newPropView);
                 }
+                System.out.println("Count increased");
                 count++;
             }
+            setPropsBt.setVisible(true);
         }
         Component comp[] = propertiesPanel.getComponents();
         for (int i = count; i < comp.length; i++) {
             comp[i].setVisible(false);
         }
-        setPropsBt.setVisible(true);
+        
 
     }
 }

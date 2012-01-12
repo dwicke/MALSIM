@@ -155,12 +155,12 @@ public class TournamentPropertiesView extends javax.swing.JPanel {
         
         // set up the Eliminator view
         EliminatorChooserControl elimCon = propCon.getElimChooser();
-        elimCon.addSubscriber(propertiesView1);
+        //elimCon.addSubscriber(propertiesView1);
         eliminatorChooserView.setController(elimCon);
         
         // set up the Agent selector view
         AgentSelectorChooserControl selCon = propCon.getAgentSelectorChooser();
-        selCon.addSubscriber(propertiesView1);
+        //selCon.addSubscriber(propertiesView1);
         agentSelectorChooserView.setController(selCon);
         
         

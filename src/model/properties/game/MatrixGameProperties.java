@@ -13,9 +13,7 @@ import model.game.MatrixGenerator;
  */
 public class MatrixGameProperties extends GameProperties {
 
-    private int numAgents, numStrats, numReps;
-
-    
+    private int numStrats, numReps;
     private MatrixGenerator matrixGen;
 
     public MatrixGameProperties() {
@@ -29,25 +27,18 @@ public class MatrixGameProperties extends GameProperties {
 
     @Override
     public boolean setField(String fieldAlias, Object val) {
-        
-        if (fieldAlias.equals("number of agents")) {
-            int prev = numAgents;
-            try {
-                numAgents = Integer.parseInt(val.toString());
-            } catch (NumberFormatException exp) {
-                numAgents = prev;
-                return false;
 
-            }
-        } else if (fieldAlias.equals("number of strategies")) {
+        if (fieldAlias.equals("number of strategies")) {
             int prev = numStrats;
             try {
                 numStrats = Integer.parseInt(val.toString());
+                
             } catch (NumberFormatException exp) {
                 numStrats = prev;
                 return false;
-
             }
+            super.setField(fieldAlias, val);
+            return true;
         } else if (fieldAlias.equals("number of game repititions")) {
             int prev = numReps;
             try {
@@ -55,33 +46,25 @@ public class MatrixGameProperties extends GameProperties {
             } catch (NumberFormatException exp) {
                 numReps = prev;
                 return false;
-
             }
+            super.setField(fieldAlias, val);
+            return true;
         }
-        super.setField(fieldAlias, val);
-        return true;
+        
+        return super.setField(fieldAlias, val);
     }
 
     @Override
     public void generateViewFields() {
-        this.setField("number of agents", numAgents);
-        this.setFieldClass("number of agents", Integer.class);
+        super.generateViewFields();
 
+        System.out.println("Generating views");
         this.setField("number of strategies", numStrats);
         this.setFieldClass("number of strategies", Integer.class);
 
         this.setField("number of game repititions", numReps);
         this.setFieldClass("number of game repititions", Integer.class);
 
-    }
-    
-    
-    public int getNumAgents() {
-        return numAgents;
-    }
-
-    public void setNumAgents(int numAgents) {
-        this.numAgents = numAgents;
     }
 
     public int getNumReps() {

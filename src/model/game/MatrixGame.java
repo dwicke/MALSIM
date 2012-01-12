@@ -5,6 +5,7 @@
 package model.game;
 
 import java.lang.Thread.State;
+import java.rmi.RemoteException;
 import model.properties.game.MatrixGameProperties;
 
 /**
@@ -21,6 +22,7 @@ public class MatrixGame extends Game{
     
     
 
+    
     @Override
     public void startGame() {
         for (int i = 0; i < ((MatrixGameProperties)getGameProps()).getNumReps(); i++)
@@ -39,6 +41,17 @@ public class MatrixGame extends Game{
     @Override
     public int compareTo(Game o) {
         return this.getGameProps().toString().compareTo(o.getGameProps().toString());
+    }
+
+    /**
+     * Get notified when the state of the agent changes
+     * @param pub
+     * @param code
+     * @throws RemoteException 
+     */
+    @Override
+    public void update(Object pub, Object code) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

@@ -8,16 +8,18 @@ import java.util.ArrayList;
 import model.agent.Agent;
 import model.properties.game.GameProperties;
 import util.ObjectState;
+import util.Subscriber;
 
 /**
  *
  * @author drew
  */
-public abstract class Game implements Runnable, Comparable<Game> {
+public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
     private ArrayList<Agent> players;
     private GameProperties props;// must set the correct one when subclassing in the constructor
-    private ObjectState state;
+    private ObjectState state; 
     private Agent winner;
+    
     
     public Game()
     {
@@ -49,6 +51,8 @@ public abstract class Game implements Runnable, Comparable<Game> {
      * Starts to play the game. sets the winner agent and sets the
      * state to finished when done the game.  During the game
      * the state must be check to see if the game should be paused.
+     * sets the state of the agents to running set this as the
+     * observer
      */
     public abstract void startGame();
     /**

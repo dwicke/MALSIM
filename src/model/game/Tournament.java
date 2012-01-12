@@ -64,7 +64,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     public void startTourn() {
 
         threadPool = Executors.newFixedThreadPool(props.getNumMaxThreads());
-        
+        props.getAgentSelector().setPlayers(remainingAgents);
+        props.getAgentSelector().setNumToSelect(props.getGameProps().getNumAgents());
         // first check if there are games that were started and saved and now need to be restarted
         for (Game g : runningGames.keySet()) {
             

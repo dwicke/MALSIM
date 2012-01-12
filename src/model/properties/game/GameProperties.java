@@ -13,6 +13,7 @@ import model.properties.Type;
  */
 public abstract class GameProperties extends Properties{
     private String name;
+    private int numAgents;
      @Override
     public Type getPropertyType() {
         return Type.Game;
@@ -22,5 +23,34 @@ public abstract class GameProperties extends Properties{
      public void setString(String newName)
      {
          name = newName;
+     }
+     public int getNumAgents() {
+        return numAgents;
+    }
+
+    public void setNumAgents(int numAgents) {
+        this.numAgents = numAgents;
+    }
+    
+     @Override
+    public void generateViewFields() {
+        this.setField("number of agents", numAgents);
+        this.setFieldClass("number of agents", Integer.class);
+     }
+     
+     @Override
+    public boolean setField(String fieldAlias, Object val) {
+        
+        if (fieldAlias.equals("number of agents")) {
+            int prev = numAgents;
+            try {
+                numAgents = Integer.parseInt(val.toString());
+            } catch (NumberFormatException exp) {
+                numAgents = prev;
+                return false;
+            }
+        }
+        super.setField(fieldAlias, val);
+        return true;
      }
 }

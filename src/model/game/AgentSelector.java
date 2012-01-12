@@ -9,6 +9,15 @@ import model.agent.Agent;
 
 /**
  * An interface to specify what agents to play.
+ * I will need info on the games that are playing
+ * i can get this by querying the object state of the agent
+ * null or finished if not playing a game and will be 
+ * Running if playing a game.
+ * so I know what agents are already active
+ * so if some subclass wants that info then I have it
+ * I also need to know what agents are available
+ * to choose from I need to know how many agents
+ * are needed for the game in order to select them
  * @author drew
  */
 public abstract class AgentSelector {
@@ -28,6 +37,7 @@ public abstract class AgentSelector {
     public void setNumToSelect(int num)
     {
         numSelect = num;
+        
     }
     /**
      * Sets the set of players that the selector can choose from

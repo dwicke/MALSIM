@@ -6,6 +6,8 @@ package model.agent;
 
 import model.properties.agent.AgentProperties;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import java.lang.Thread.State;
+import util.ObjectState;
 import util.Viewable;
 
 /**
@@ -18,11 +20,20 @@ public abstract class Agent extends Viewable implements  Runnable, Comparable<Ag
     private double score;
     private String name;
     private int id;
+    private ObjectState state;
     
     
     public Agent()// remember that the default const. doesn't get called when made with xstream
     {
         super();
+    }
+    public void setState(ObjectState newState)
+    {
+        this.state = newState;
+    }
+    public ObjectState getAgentObjectState()
+    {
+        return state;
     }
     /**
      * Sets the properties object for the agent
