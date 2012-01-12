@@ -16,6 +16,7 @@ import util.Subscriber;
 public class ObjectState extends Viewable{
     private BasicPublisher pub;
     private State objState;
+    private Object code;
 
     public ObjectState() {
         pub = new BasicPublisher();
@@ -28,10 +29,12 @@ public class ObjectState extends Viewable{
     }
     /**
      * Does not notify the subs. since state was presumeably set by the sub.
+     * code is the code that is set to when pub is called and this ObjectState is
+     * what is set to pub
      * @param st
      * @param sub 
      */
-    public ObjectState(State st, Subscriber sub) {
+    public ObjectState(State st, Subscriber sub, Object code) {
         pub = new BasicPublisher();
         pub.addSubscriber(sub);
         objState = st;
@@ -46,7 +49,7 @@ public class ObjectState extends Viewable{
     public void setState(State state)
     {
         this.objState = state;
-        pub.notifySubscribers(this, this.objState);
+        pub.notifySubscribers(this, code);
     }
     
     public State getState()

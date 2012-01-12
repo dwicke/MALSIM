@@ -106,7 +106,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 game.setAgents(contestants);
                 // Create a new ObjectState set this as the subscriber (to know when game is done)
                 // set state to Runnable
-                ObjectState obState = new ObjectState(State.RUNNABLE, this);
+                ObjectState obState = new ObjectState(State.RUNNABLE, this, game);
                 // assign the Objectstate to the Game object
                 game.setObjectState(obState);
                 // start the game as a thread
@@ -114,7 +114,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             }
         }
 
-
+        System.out.println(this.toString() + " Finished");
         // if the returned agents are null then I know that I am done so
         // set my state to finished and notify the subscribers
 
@@ -158,6 +158,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         props = new TournamentProperties();
         runningGames = new TreeMap<Game, ObjectState>();
         remainingAgents = new ArrayList<Agent>();
+        
     }
 
     /**
@@ -169,13 +170,14 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      */
     @Override
     public void update(Object pub, Object code) throws RemoteException {
-        if ((State) code == State.TERMINATED) {
+        if ((State)((ObjectState) pub).getState() == State.TERMINATED) {
             // eliminate an agent from the remaining list
             remainingAgents.remove(props.getEliminator().eliminate(remainingAgents));
             // update the players to choose from for the AgentSelector
             props.getAgentSelector().setPlayers(remainingAgents);
             // remove the game from the running list
-            runningGames.remove((Game)pub);
+            runningGames.remove((Game) code);
+            System.out.println(((Game)code).toString());
         }
 
     }

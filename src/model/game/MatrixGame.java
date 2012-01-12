@@ -4,6 +4,7 @@
  */
 package model.game;
 
+import java.lang.Thread.State;
 import model.properties.game.MatrixGameProperties;
 
 /**
@@ -27,7 +28,7 @@ public class MatrixGame extends Game{
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.getGameState().setState(State.TERMINATED);
     }
 
     @Override

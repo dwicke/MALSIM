@@ -75,6 +75,10 @@ public abstract class Game implements Runnable, Comparable<Game> {
     {
         props = prop;
     }
+    public ObjectState getGameState()
+    {
+        return state;
+    }
     /**
      * Returns the game's properties
      * @return 

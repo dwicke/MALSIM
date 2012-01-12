@@ -33,7 +33,7 @@ public class Batch implements Subscriber{
      */
     public void addTournament(Tournament tourn)
     {
-        ObjectState st = new ObjectState(State.NEW, this);
+        ObjectState st = new ObjectState(State.NEW, this, tourn);
         
         batch.put(tourn, st);
     }
@@ -67,7 +67,8 @@ public class Batch implements Subscriber{
             System.out.println(tourn.toString() + " Starting");
             // I start the tournaments as threads 
             // set the tournprops 
-            ObjectState st = new ObjectState(State.RUNNABLE, this);
+            ObjectState st = new ObjectState(State.RUNNABLE, this, tourn);
+            
             tourn.setState(st);
             
             // use an ArrayList of Threads since these threads will be running for a while
