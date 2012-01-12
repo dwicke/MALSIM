@@ -71,6 +71,11 @@ public class PropertiesChooserView extends javax.swing.JPanel {
                 chosenListValueChanged(evt);
             }
         });
+        chosenList.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                chosenListFocusLost(evt);
+            }
+        });
         jScrollPane2.setViewportView(chosenList);
 
         removeChosenBt.setText("<");
@@ -167,6 +172,11 @@ public class PropertiesChooserView extends javax.swing.JPanel {
         if (index < chosenModel.getSize())
         controller.notifyObservers((String)chosenModel.get(index));
     }//GEN-LAST:event_chosenListValueChanged
+
+    private void chosenListFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chosenListFocusLost
+        // TODO add your handling code here:
+        chosenList.clearSelection();
+    }//GEN-LAST:event_chosenListFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addChosen;

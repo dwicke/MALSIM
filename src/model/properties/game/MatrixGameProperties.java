@@ -14,6 +14,8 @@ import model.game.MatrixGenerator;
 public class MatrixGameProperties extends GameProperties {
 
     private int numAgents, numStrats, numReps;
+
+    
     private MatrixGenerator matrixGen;
 
     public MatrixGameProperties() {
@@ -71,5 +73,30 @@ public class MatrixGameProperties extends GameProperties {
         this.setField("number of game repititions", numReps);
         this.setFieldClass("number of game repititions", Integer.class);
 
+    }
+    
+    
+    public int getNumAgents() {
+        return numAgents;
+    }
+
+    public void setNumAgents(int numAgents) {
+        this.numAgents = numAgents;
+    }
+
+    public int getNumReps() {
+        return numReps;
+    }
+
+    public void setNumReps(int numReps) {
+        this.numReps = numReps;
+    }
+
+    public int getNumStrats() {
+        return numStrats;
+    }
+
+    public void setNumStrats(int numStrats) {
+        this.numStrats = numStrats;
     }
 }

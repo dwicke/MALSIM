@@ -30,6 +30,10 @@ public class TournamentPropertiesController {
     {
         return new EliminatorChooserControl(tournProps);
     }
+
+    public AgentSelectorChooserControl getAgentSelectorChooser() {
+        return new AgentSelectorChooserControl(tournProps);
+    }
     
     
      

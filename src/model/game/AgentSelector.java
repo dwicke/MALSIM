@@ -37,6 +37,22 @@ public abstract class AgentSelector {
     {
         this.agents = agents;
     }
+    public void addAgent(Agent ag)
+    {
+        this.agents.add(ag);
+    }
+    public boolean removeAgent(Agent ag)
+    {
+        return this.agents.remove(ag);
+    }
+    public ArrayList<Agent> getAgents()
+    {
+        return agents;
+    }
+    public int getNumSelect()
+    {
+        return numSelect;
+    }
     
     /**
      * Returns whether there are any contestants. true if there are false if not.

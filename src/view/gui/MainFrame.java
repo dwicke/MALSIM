@@ -57,6 +57,7 @@ public class MainFrame extends javax.swing.JFrame {
         tutorialMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MALSim");
 
         fileMenu.setText("File");
 

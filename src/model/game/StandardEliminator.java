@@ -15,7 +15,12 @@ public class StandardEliminator implements Eliminator{
 
     @Override
     public Agent eliminate(ArrayList<Agent> agents) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return agents.get(0);
+    }
+    
+    @Override
+    public String toString() {
+        return "Standard_Eliminator";
     }
     
 }

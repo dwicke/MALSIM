@@ -25,18 +25,19 @@ import model.properties.*;
  *
  * @author drew
  */
-public class PropertiesView extends javax.swing.JPanel implements Subscriber{
+public class PropertiesView extends javax.swing.JPanel implements Subscriber {
 
     private Properties props = null;
-    
+
     /** Creates new form PropertiesView */
     public PropertiesView() {
         initComponents();
-        
-        for (Component c : propertiesPanel.getComponents())
+
+        for (Component c : propertiesPanel.getComponents()) {
             c.setVisible(false);
+        }
         setPropsBt.setVisible(false);
-        
+
     }
     //public void genView()
 
@@ -123,23 +124,18 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber{
         // TODO add your handling code here:
         System.out.println("Button Pressed");
         int size = props.getFieldAliases().keySet().size();
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             PropertyView comp = (PropertyView) propertiesPanel.getComponent(i);
-            if (props.setField(comp.getLabel(), comp.getData()) == false)
-            {
+            if (props.setField(comp.getLabel(), comp.getData()) == false) {
                 // then the field was not set
                 // display error
                 // TODO: Must display error saying that the field was not set
-            }
-            else
-            {
+            } else {
                 System.out.println(comp.getLabel() + " " + " was set to " + comp.getData());
             }
-            
+
         }
     }//GEN-LAST:event_setPropsBtMousePressed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane descriptionPane;
     private javax.swing.JScrollPane jScrollPane1;
@@ -169,37 +165,34 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber{
         // loop throught the bag making them visible and setting the appropriate
         // mapping and make the rest of the components invisible set up the layout
         System.out.println("HI");
-      
-        props = (Properties) code;
-        props.generateViewFields();
-        Map<String,Object> map = props.getFieldVals();
-        
-        
         int count = 0;
-        for (String key : map.keySet())
-        {
-            if (count < propertiesPanel.getComponentCount() )
-            {
-                ((PropertyView)propertiesPanel.getComponent(count)).setLabel(key);
-                ((PropertyView)propertiesPanel.getComponent(count)).setData(map.get(key).toString());
-                propertiesPanel.getComponent(count).setVisible(true);
+        if (code != null) {
+            props = (Properties) code;
+            props.generateViewFields();
+            Map<String, Object> map = props.getFieldVals();
+
+
+
+            for (String key : map.keySet()) {
+                if (count < propertiesPanel.getComponentCount()) {
+                    ((PropertyView) propertiesPanel.getComponent(count)).setLabel(key);
+                    ((PropertyView) propertiesPanel.getComponent(count)).setData(map.get(key).toString());
+                    propertiesPanel.getComponent(count).setVisible(true);
+                } else {
+                    // must add a compents
+                    PropertyView newPropView = new PropertyView();
+                    newPropView.setLabel(key);
+                    newPropView.setData(map.get(key).toString());
+                    propertiesPanel.add(newPropView);
+                }
+                count++;
             }
-            else
-            {
-                // must add a compents
-                PropertyView newPropView = new PropertyView();
-                newPropView.setLabel(key);
-                newPropView.setData(map.get(key).toString());
-                propertiesPanel.add(newPropView);
-            }
-            count++;
         }
         Component comp[] = propertiesPanel.getComponents();
-        for (int i = count; i < comp.length; i++)
-        {
+        for (int i = count; i < comp.length; i++) {
             comp[i].setVisible(false);
         }
         setPropsBt.setVisible(true);
-        
+
     }
 }

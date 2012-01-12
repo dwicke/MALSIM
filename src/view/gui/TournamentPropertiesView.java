@@ -11,6 +11,8 @@
 package view.gui;
 
 import control.gui.AgentChooserControl;
+import control.gui.AgentSelectorChooserControl;
+import control.gui.EliminatorChooserControl;
 import control.gui.GameChooserControl;
 import control.gui.TournamentControl;
 import control.gui.TournamentPropertiesController;
@@ -152,9 +154,14 @@ public class TournamentPropertiesView extends javax.swing.JPanel {
         gameChooserView.setController(gameCon);
         
         // set up the Eliminator view
+        EliminatorChooserControl elimCon = propCon.getElimChooser();
+        elimCon.addSubscriber(propertiesView1);
+        eliminatorChooserView.setController(elimCon);
         
         // set up the Agent selector view
-        
+        AgentSelectorChooserControl selCon = propCon.getAgentSelectorChooser();
+        selCon.addSubscriber(propertiesView1);
+        agentSelectorChooserView.setController(selCon);
         
         
         // need to set the controllers for the agentChooserView

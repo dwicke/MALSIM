@@ -15,12 +15,19 @@ public class StandardAgentSelector extends AgentSelector{
 
     @Override
     public boolean hasContestants() {
-        return false;
+        if (getNumSelect() > getAgents().size())
+        {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public ArrayList<Agent> nextContestants() {
-        return null;
+        return getAgents();
     }
-    
+    @Override
+    public String toString() {
+        return "Standard_Agent_Selector";
+    }
 }

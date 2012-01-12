@@ -23,11 +23,16 @@ public class MatrixGame extends Game{
 
     @Override
     public void startGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (int i = 0; i < ((MatrixGameProperties)getGameProps()).getNumReps(); i++)
+        {
+            // tell agents that
+            System.out.println("Rep" + i);
+        }
     }
 
     @Override
     public void run() {
+        startGame();
         this.getGameState().setState(State.TERMINATED);
     }
 
