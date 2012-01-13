@@ -49,7 +49,16 @@ public class ObjectState extends Viewable{
     public void setState(State state)
     {
         this.objState = state;
+        if (state == State.TERMINATED)
+        {
+            System.out.println("Setting State to term");
+        }
         pub.notifySubscribers(this, code);
+        
+        if (state == State.TERMINATED)
+        {
+            System.out.println("Notified");
+        }
     }
     
     public State getState()

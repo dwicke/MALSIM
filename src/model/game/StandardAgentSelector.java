@@ -4,8 +4,10 @@
  */
 package model.game;
 
+import java.lang.Thread.State;
 import java.util.ArrayList;
 import model.agent.Agent;
+import util.ObjectState;
 
 /**
  *
@@ -15,6 +17,8 @@ public class StandardAgentSelector extends AgentSelector{
 
     @Override
     public boolean hasContestants() {
+        
+        System.out.println("Number selected = " + getNumSelect() + " Get agents Avail " + getAgents().size());
         if (getNumSelect() > getAgents().size())
         {
             return false;
@@ -24,7 +28,20 @@ public class StandardAgentSelector extends AgentSelector{
 
     @Override
     public ArrayList<Agent> nextContestants() {
-        return getAgents();
+        ArrayList<Agent> next = new ArrayList<Agent>();
+        for (int i = 0; i < getAgents().size(); i++)
+        {
+            if (next.size() < getNumSelect() )
+            {
+                ObjectState st = getAgents().get(i).getAgentObjectState();
+                if (st == null || st.getState() == State.TERMINATED)
+                {
+                    next.add(getAgents().get(i));
+                }
+            }
+        }
+      //  return getAgents();
+        return next;
     }
     @Override
     public String toString() {

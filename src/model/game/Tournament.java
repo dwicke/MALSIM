@@ -33,8 +33,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     private ObjectState state;
     private TournamentProperties props;
     private String name;
-    private ArrayList<Agent> remainingAgents;
-
+    private ArrayList<Agent> remainingAgents, eliminatedAgents;
+    private boolean paused;
     /**
      * Instantiates a properties object.
      */
@@ -64,6 +64,12 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     public void startTourn() {
 
         threadPool = Executors.newFixedThreadPool(props.getNumMaxThreads());
+        remainingAgents = props.getAgents();
+        // now remove any of the eliminated agents
+        for (Agent ag : eliminatedAgents)
+        {
+            remainingAgents.remove(ag);
+        }
         props.getAgentSelector().setPlayers(remainingAgents);
         props.getAgentSelector().setNumToSelect(props.getGameProps().getNumAgents());
         // first check if there are games that were started and saved and now need to be restarted
@@ -72,16 +78,28 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             // start the game as a thread
             threadPool.submit(g);
         }
-
+        // create a gamefactory object
+        GenericFactory fac = new GenericFactory();
+        fac.generateMaping("config/GameList.cfg");
 
         // while there are agents to play game/not stopped/not paused
         // while the number of games in the queue is less than the max num threads then
-        while (competitorsAvail() == true) {
+        
+        
+        while (competitorsAvail() == true ) {
 
+            System.out.println("inside while loop for tourn");
+            
+            
+            // move this to the update method and have Tournament subscribe to the state
+            // so then it will be updated and I will need to check that the pub arg is
+            // equal to state field then if it is WAITING then I go inside the if
             if (state.getState() == State.WAITING) {
+                paused = true;
                 // pause the games
                 pauseTournament();
                 // pause this thread then the batch will call notify on this thread.
+                // I don't think I should call wait since I won't be in a seperate thread
                 synchronized (this) {
                     try {
                         wait();
@@ -91,19 +109,20 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 }
                 // done waiting so resume the games
                 resumeTournament();
+                paused = false;
             }
-
-            if (runningGames.size() < props.getNumMaxThreads()) {
+            ArrayList<Agent> contestants = null;
+            if (runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()).size() > 0) {
+                System.out.println("Starting first game");
                 // get the game properties from tournprops
                 GameProperties gameProps = props.getGameProps();
                 // get the name of the game toString
                 String gameName = gameProps.toString();
-                // create a gamefactory object
-                GenericFactory fac = new GenericFactory();
+                
                 // get the game that matches the game props by providing the name of the game
                 Game game = (Game) fac.getObject(gameName);
-                // call nextContestants to get the agents that will play the game
-                ArrayList<Agent> contestants = props.getAgentSelector().nextContestants();
+                // set the game's properties
+                 game.setGameProperties(gameProps);
                 // set the agents to the game
                 game.setAgents(contestants);
                 // Create a new ObjectState set this as the subscriber (to know when game is done)
@@ -111,11 +130,13 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 ObjectState obState = new ObjectState(State.RUNNABLE, this, game);
                 // assign the Objectstate to the Game object
                 game.setObjectState(obState);
+                // add it to the running games
+                runningGames.put(game, obState);
                 // start the game as a thread
                 threadPool.submit(game);
             }
         }
-
+        threadPool.shutdown();
         System.out.println(this.toString() + " Finished");
         // if the returned agents are null then I know that I am done so
         // set my state to finished and notify the subscribers
@@ -135,6 +156,11 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      * This will start all of the games that were paused
      */
     public void resumeTournament() {
+        for (Game g : runningGames.keySet())
+        {
+            
+          //  g.notify();
+        }
     }
 
     /**
@@ -160,7 +186,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         props = new TournamentProperties();
         runningGames = new TreeMap<Game, ObjectState>();
         remainingAgents = new ArrayList<Agent>();
-        
+        eliminatedAgents = new ArrayList<Agent>();
+        paused = false;
     }
 
     /**
@@ -174,14 +201,22 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     public void update(Object pub, Object code) throws RemoteException {
         if ((State)((ObjectState) pub).getState() == State.TERMINATED) {
             // eliminate an agent from the remaining list
-            remainingAgents.remove(props.getEliminator().eliminate(remainingAgents));
+            Agent elimAgent = props.getEliminator().eliminate(remainingAgents);
+            remainingAgents.remove(elimAgent);
+            eliminatedAgents.add(elimAgent);
             // update the players to choose from for the AgentSelector
             props.getAgentSelector().setPlayers(remainingAgents);
             // remove the game from the running list
             runningGames.remove((Game) code);
             System.out.println(((Game)code).toString());
         }
-
+        System.out.println((State)((ObjectState) pub).getState());
+        
+        // once running games is empty and I am not paused and agentselector produces
+        // no more competitors then Tournament is completed 
+        // I will remove myself as a subscriber to my own object state
+        // then I will set my state to Terminated and then batch will be
+        // updated as to my status and 
     }
 
     @Override

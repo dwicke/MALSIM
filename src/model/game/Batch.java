@@ -80,6 +80,7 @@ public class Batch implements Subscriber{
     
     /**
      * This will be used to let me know when the state of a tournament changes.
+     * not sure why i need to know but I will
      * @param pub
      * @param code
      * @throws RemoteException 

@@ -23,6 +23,9 @@ import model.agent.Agent;
 public abstract class AgentSelector {
     private ArrayList<Agent> agents;
     private int numSelect;
+    private class theLock extends Object {
+   }
+   private final theLock lockObject = new theLock();
     public AgentSelector()
     {
         setup();
@@ -45,15 +48,25 @@ public abstract class AgentSelector {
      */
     public void setPlayers(ArrayList<Agent> agents)
     {
-        this.agents = agents;
+        synchronized(lockObject)
+        {
+         this.agents = agents;
+        }
     }
     public void addAgent(Agent ag)
     {
+        synchronized(lockObject)
+        {
         this.agents.add(ag);
+        }
     }
     public boolean removeAgent(Agent ag)
     {
-        return this.agents.remove(ag);
+        synchronized(lockObject)
+        {
+            return this.agents.remove(ag);
+        }
+        
     }
     public ArrayList<Agent> getAgents()
     {
