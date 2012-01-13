@@ -88,7 +88,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         // while there are agents to play game/not stopped/not paused
         // while the number of games in the queue is less than the max num threads then
 
-        while (competitorsAvail() == true) {
+        while (paused == false && competitorsAvail() == true) {
 
             System.out.println("inside while loop for tourn");
 
@@ -244,8 +244,13 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             }*/
             
             // done waiting so resume the games
-            resumeTournament();
+            //resumeTournament();
             
+        }
+        
+        if (state.getState() == State.TERMINATED)
+        {
+            //shutdown the games
         }
 
         // once running games is empty and I am not paused and agentselector produces
