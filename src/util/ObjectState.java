@@ -46,6 +46,11 @@ public class ObjectState extends Viewable{
         pub.addSubscriber(sub);
     }
     
+    public void removeSub(Subscriber sub)
+    {
+        pub.removeSubscriber(sub);
+    }
+    
     public void setState(State state)
     {
         this.objState = state;

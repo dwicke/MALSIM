@@ -10,16 +10,26 @@ import model.agent.Agent;
 import util.ObjectState;
 
 /**
- *
+ * uses the combination formula
+ * C(n,r) = n!/(r!(n-r)!) to get the number of combinations
+ * 
+ * essentially I have a list of agents to choose from however,
+ * only those that have a state set to BLOCKED or is null
+ * can I choose from and the agent list can change.  However,
+ * this does not need to be thread safe since I will not remove 
+ * and query at the same time.
  * @author drew
  */
 public class StandardAgentSelector extends AgentSelector{
 
+    
+    
+    
     @Override
     public boolean hasContestants() {
         
         System.out.println("Number selected = " + getNumSelect() + " Get agents Avail " + getAgents().size());
-        if (getNumSelect() > getAgents().size())
+        if (nextContestants().size() == 0 || getNumSelect() > getAgents().size())
         {
             return false;
         }
@@ -34,7 +44,7 @@ public class StandardAgentSelector extends AgentSelector{
             if (next.size() < getNumSelect() )
             {
                 ObjectState st = getAgents().get(i).getAgentObjectState();
-                if (st == null || st.getState() == State.TERMINATED)
+                if (st == null || st.getState() == State.BLOCKED)
                 {
                     next.add(getAgents().get(i));
                 }

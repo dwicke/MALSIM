@@ -38,11 +38,12 @@ public class MatrixGame extends Game{
     public void run() {
         System.out.println("In Matrix Game");
         startGame();
-        this.getGameState().setState(State.TERMINATED);
+        
         for (Agent ag : getAgents())
         {
             ag.getAgentObjectState().setState(State.TERMINATED);
         }
+        this.getGameState().setState(State.TERMINATED);
         System.out.println("Finished");
     }
 
