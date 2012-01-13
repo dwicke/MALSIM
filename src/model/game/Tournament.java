@@ -91,26 +91,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             System.out.println("inside while loop for tourn");
             
             
-            // move this to the update method and have Tournament subscribe to the state
-            // so then it will be updated and I will need to check that the pub arg is
-            // equal to state field then if it is WAITING then I go inside the if
-            if (state.getState() == State.WAITING) {
-                paused = true;
-                // pause the games
-                pauseTournament();
-                // pause this thread then the batch will call notify on this thread.
-                // I don't think I should call wait since I won't be in a seperate thread
-                synchronized (this) {
-                    try {
-                        wait();
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Tournament.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                // done waiting so resume the games
-                resumeTournament();
-                paused = false;
-            }
+            
             ArrayList<Agent> contestants = null;
             if (runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()).size() > 0) {
                 System.out.println("Starting first game");
@@ -211,6 +192,28 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             System.out.println(((Game)code).toString());
         }
         System.out.println((State)((ObjectState) pub).getState());
+        
+        
+        // move this to the update method and have Tournament subscribe to the state
+            // so then it will be updated and I will need to check that the pub arg is
+            // equal to state field then if it is WAITING then I go inside the if
+            if (state.getState() == State.WAITING) {
+                paused = true;
+                // pause the games
+                pauseTournament();
+                // pause this thread then the batch will call notify on this thread.
+                // I don't think I should call wait since I won't be in a seperate thread
+                synchronized (this) {
+                    try {
+                        wait();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Tournament.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                // done waiting so resume the games
+                resumeTournament();
+                paused = false;
+            }
         
         // once running games is empty and I am not paused and agentselector produces
         // no more competitors then Tournament is completed 
