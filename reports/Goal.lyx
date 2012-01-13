@@ -1,0 +1,214 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+MALSIM: Multi-Agent Learning Simulator and Benchmarking Tool
+\end_layout
+
+\begin_layout Author
+Drew Wicke
+\end_layout
+
+\begin_layout Standard
+The multi-agent learning simulator (MALSIM) will be a simulator and benchmarking
+ tool for multi-agent learning algorithms.
+ The goal of MALSIM will be to provide mulit-agent learning researchers
+ a common framework in which to compare and test various MAL algorithms.
+ MALSIM will solve various problems in the multi-agent learning community.
+ However, in order to create MALSIM technical challeges will be encountered,
+ various technologies used and a user friendly GUI created.
+\end_layout
+
+\begin_layout Standard
+In the multi-agent learning community, when testing a new algorithm empirically
+ the results are ususally based on few trials and compared to few opposing
+ algorithms.
+ MALSIM will provide the multi-agent learning community the needed generic
+ testbed for benchmarking and simulating new learning algorithms.
+ MALSIM will provide generic mechanisms to simulate, test and visualize
+ the experiment.
+ Currently their are a couple of very good simulators made for multi-agent
+ systems, however they do not provide a benchmarking mechanism
+\begin_inset CommandInset citation
+LatexCommand cite
+key "luke2004mason,balch2000teambots,jiang2006repast"
+
+\end_inset
+
+.
+ The closest tool for providing serverices similiar to that of MALSIM is
+ the Multiagent Learning Testbed (MALT) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zawadzki2008empirically"
+
+\end_inset
+
+.
+ However, MALT only claims usefulness for N-player repeated games and stochastic
+ games.
+ Also, MALT does not offer a built in mechanism to graph or visualize the
+ results of experiments.
+ However, based on the usefulness of previously created tools the need for
+ a common, generic and extensible testbed for multi-agent learning algorithms
+ is apparant.
+\end_layout
+
+\begin_layout Standard
+In order to provide this tool technical challenges such as a generic implementat
+ion and the inherant dificulties of parallel programming will be encountered.
+ The tool must be generic enough to provide the standard features of any
+ simulated game and yet stay functional for all types of multi-agent learning
+ algorithms.
+ Also, while programming the tool for a multithreaded environment challenges
+ such as deadlock, race conditions and communication will be addressed.
+\end_layout
+
+\begin_layout Standard
+MALSIM will be written in Java in order to be platform independant.
+ Technologies such as XStream, a tool that serializes Java objects to and
+ from XML, will be used to provide a mechanism to save and load the tool's
+ model 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "XStream"
+
+\end_inset
+
+.
+ Also, JFreeChart will be used to provide a way to visulize in a graph based
+ form the results of the experiment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "JFreeChart"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A GUI as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-MALSIM-GUI"
+
+\end_inset
+
+ will be provided.
+ The GUI will allow the user to set up the experiment by setting things
+ like the game to be played, the agents to be in the tournament, the mechnism
+ to choose what agents play against each other, as well as other properies
+ of the experiment.
+ The GUI will also provide a view of what current games are being played
+ a way for users to pause them.
+ When the experiment is finished the user will be able to view and save
+ the results of the experiment.
+ The GUI will also give the user the option to view and create graphs to
+ compare and contrast the data from the experiment.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/Screenshot-1.png
+	lyxscale 45
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-MALSIM-GUI"
+
+\end_inset
+
+The MALSIM GUI for setting the parameters for the experiment.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "bibliograph"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
