@@ -28,8 +28,8 @@ public class StandardAgentSelector extends AgentSelector{
     @Override
     public boolean hasContestants() {
         
-        System.out.println("Number selected = " + getNumSelect() + " Get agents Avail " + getAgents().size());
-        if (nextContestants().size() == 0 || getNumSelect() > getAgents().size())
+     //   System.out.println("Number selected = " + getNumSelect() + " Get agents Avail " + getAgents().size());
+        if (/*nextContestants().size() == 0 ||*/ getNumSelect() > getAgents().size())
         {
             return false;
         }
@@ -44,11 +44,18 @@ public class StandardAgentSelector extends AgentSelector{
             if (next.size() < getNumSelect() )
             {
                 ObjectState st = getAgents().get(i).getAgentObjectState();
+                if (st == null)
+                System.out.println("null state");
                 if (st == null || st.getState() == State.BLOCKED)
                 {
                     next.add(getAgents().get(i));
                 }
             }
+        }
+        if (next.size() < getNumSelect())
+        {
+            next.clear();
+            //return next;
         }
       //  return getAgents();
         return next;

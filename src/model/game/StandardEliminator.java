@@ -4,6 +4,7 @@
  */
 package model.game;
 
+import java.lang.Thread.State;
 import java.util.ArrayList;
 import model.agent.Agent;
 
@@ -15,7 +16,14 @@ public class StandardEliminator implements Eliminator{
 
     @Override
     public Agent eliminate(ArrayList<Agent> agents) {
-        return agents.get(0);
+        for (Agent ag : agents)
+        {
+            if (ag.getAgentObjectState() != null )//&& ag.getAgentObjectState().getState() == State.TERMINATED)
+            {
+                return ag;
+            }
+        }
+        return null;
     }
     
     @Override

@@ -33,7 +33,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     private ObjectState state;
     private TournamentProperties props;
     private String name;
-    private ArrayList<Agent> remainingAgents, eliminatedAgents;
+    private ArrayList<Agent> remainingAgents, eliminatedAgents, removeLater;
     private boolean paused;
     private GenericFactory fac;
     /**
@@ -88,13 +88,16 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         // while there are agents to play game/not stopped/not paused
         // while the number of games in the queue is less than the max num threads then
 
-        while (paused == false && competitorsAvail() == true) {
+       // while (paused == false && competitorsAvail() == true) {
+        ArrayList<Agent> contestants = null;
+       // while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && contestants.size() != 0)
+        while((contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
+        {
+           // System.out.println("inside while loop for tourn");
 
-            System.out.println("inside while loop for tourn");
-
-            ArrayList<Agent> contestants = null;
-            if (runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && contestants.size() > 0) {
-                System.out.println("Starting first game");
+            
+            if ( 9 == 9) {
+              //  System.out.println("Starting first game");
                 // get the game properties from tournprops
                 GameProperties gameProps = props.getGameProps();
                 // get the name of the game toString
@@ -116,6 +119,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                     // this can change if neccessary...
                     ag.setState(new ObjectState(State.RUNNABLE));
                 }
+                
+                //System.out.println("The number of agents left is " + );
                 // assign the Objectstate to the Game object
                 game.setObjectState(obState);
                 // add it to the running games
@@ -179,7 +184,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         props = new TournamentProperties();
         runningGames = new TreeMap<Game, ObjectState>();
         remainingAgents = new ArrayList<Agent>();
-        eliminatedAgents = new ArrayList<Agent>();
+        eliminatedAgents = new ArrayList<Agent>(); 
+        removeLater = new ArrayList<Agent>(); 
         paused = false;
         // create a gamefactory object
         fac = new GenericFactory();
@@ -195,15 +201,44 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      */
     @Override
     public void update(Object pub, Object code) throws RemoteException {
+       // System.out.println("I am printing game " + code);
         if (code instanceof Game && (State) ((ObjectState) pub).getState() == State.TERMINATED) {
             // eliminate an agent from the remaining list
             // new problem when I go to eliminate an agent the
             // score will be at where ever it is at when I call this
             // won't be fair maybe the other agent hasn't even played a whole
-            // game yet...
+            // game yet that will be decided by the eliminator
+            
+            // If the eliminator eliminated a player that is currently playing
+            // then it was marked for removal so I will remove the players that 
+            // were marked that are in the game that just terminated
+            
+            for (Agent ag : ((Game) code).getAgents())
+            {
+                
+                for (Agent el : removeLater)
+                {
+                    if (el == ag)
+                    {
+                        remainingAgents.remove(el);
+                        eliminatedAgents.add(el);
+                        ((Game) code).getAgents().remove(el);
+                    }
+                }
+            }
+            
+            
+            
             Agent elimAgent = props.getEliminator().eliminate(remainingAgents);
-            // might not eliminate in that case it returns null
-            if (elimAgent != null) {
+            
+            // If the eliminated Agent is Runnable then I will need to add the
+            // agent to the remove later list
+            if (elimAgent != null && elimAgent.getAgentObjectState() != null && 
+                    elimAgent.getAgentObjectState().getState() == State.RUNNABLE)
+            {
+                removeLater.add(elimAgent);
+            }
+            else if (elimAgent != null) {
                 remainingAgents.remove(elimAgent);
                 eliminatedAgents.add(elimAgent);
             }
@@ -220,9 +255,9 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             props.getAgentSelector().setPlayers(remainingAgents);
             // remove the game from the running list
             runningGames.remove((Game) code);
-            System.out.println(((Game) code).toString());
+         //   System.out.println(((Game) code).toString());
         }
-        System.out.println((State) ((ObjectState) pub).getState());
+        //System.out.println((State) ((ObjectState) pub).getState());
 
 
         // move this to the update method and have Tournament subscribe to the state
@@ -265,6 +300,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         }
         else
         {
+          //  System.out.println("Restarting startTourn");
             // I still have games to play
             startTourn();
         }

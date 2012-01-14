@@ -37,6 +37,7 @@ public class ObjectState extends Viewable{
     public ObjectState(State st, Subscriber sub, Object code) {
         pub = new BasicPublisher();
         pub.addSubscriber(sub);
+        this.code = code;
         objState = st;
         
     }
@@ -56,13 +57,13 @@ public class ObjectState extends Viewable{
         this.objState = state;
         if (state == State.TERMINATED)
         {
-            System.out.println("Setting State to term");
+         //   System.out.println("Setting State to term");
         }
         pub.notifySubscribers(this, code);
         
         if (state == State.TERMINATED)
         {
-            System.out.println("Notified");
+         //   System.out.println("Notified");
         }
     }
     

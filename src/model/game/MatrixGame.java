@@ -26,11 +26,11 @@ public class MatrixGame extends Game{
     
     @Override
     public void startGame() {
-        System.out.println("In Start game num reps: " + ((MatrixGameProperties)getGameProps()).getNumReps());
+     //   System.out.println("In Start game num reps: " + ((MatrixGameProperties)getGameProps()).getNumReps());
         for (int i = 0; i < ((MatrixGameProperties)getGameProps()).getNumReps(); i++)
         {
             // tell agents that
-            System.out.println("Rep" + i);
+      //      System.out.println("Rep" + i);
         }
     }
 
@@ -43,6 +43,7 @@ public class MatrixGame extends Game{
         {
             ag.getAgentObjectState().setState(State.TERMINATED);
         }
+        System.out.println("Number of agents: " + getAgents().size());
         this.getGameState().setState(State.TERMINATED);
         System.out.println("Finished");
     }
@@ -60,7 +61,7 @@ public class MatrixGame extends Game{
      */
     @Override
     public void update(Object pub, Object code) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
+       // throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

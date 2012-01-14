@@ -138,7 +138,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+            .addGap(0, 381, Short.MAX_VALUE)
         );
 
         pack();
