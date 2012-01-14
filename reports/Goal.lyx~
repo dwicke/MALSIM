@@ -195,6 +195,10 @@ The MALSIM GUI for setting the parameters for the experiment.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 btprint "btPrintAll"
