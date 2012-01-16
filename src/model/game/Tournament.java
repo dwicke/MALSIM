@@ -96,7 +96,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
            // System.out.println("inside while loop for tourn");
 
             
-            if ( 9 == 9) {
+           
               //  System.out.println("Starting first game");
                 // get the game properties from tournprops
                 GameProperties gameProps = props.getGameProps();
@@ -127,7 +127,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 runningGames.put(game, obState);
                 // start the game as a thread
                 threadPool.submit(game);
-            }
+            
         }
         //threadPool.shutdown();
        // System.out.println(this.toString() + " Finished");

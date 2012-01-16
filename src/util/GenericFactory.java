@@ -85,6 +85,7 @@ public class GenericFactory {
             Class newClass = null;
             try {
                 newClass = Class.forName(simpToFull.get(simpleClassName));
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GenericFactory.class.getName()).log(Level.SEVERE, null, ex);
                 return null;

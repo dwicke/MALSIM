@@ -39,6 +39,7 @@ public class BatchButtonPannel extends javax.swing.JPanel {
         saveButton = new javax.swing.JButton();
         addTournButton = new javax.swing.JButton();
         removeTournButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         runButton.setText("Run");
         runButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,30 +69,40 @@ public class BatchButtonPannel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Load Batch");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(removeTournButton)
                 .addGap(18, 18, 18)
                 .addComponent(addTournButton)
                 .addGap(18, 18, 18)
                 .addComponent(saveButton)
-                .addGap(28, 28, 28)
+                .addGap(12, 12, 12)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
                 .addComponent(runButton)
-                .addGap(24, 24, 24))
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(runButton)
                     .addComponent(saveButton)
                     .addComponent(addTournButton)
-                    .addComponent(removeTournButton))
+                    .addComponent(removeTournButton)
+                    .addComponent(runButton)
+                    .addComponent(jButton1))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -116,8 +127,14 @@ public class BatchButtonPannel extends javax.swing.JPanel {
         pub.notifySubscribers(this, "run");
     }//GEN-LAST:event_runButtonMousePressed
 
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+        // TODO add your handling code here:
+        pub.notifySubscribers(this, "load");
+    }//GEN-LAST:event_jButton1MousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTournButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton removeTournButton;
     private javax.swing.JButton runButton;
     private javax.swing.JButton saveButton;

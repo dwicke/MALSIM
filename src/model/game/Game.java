@@ -15,10 +15,14 @@ import util.Subscriber;
  * @author drew
  */
 public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
-    private ArrayList<Agent> players;
-    private GameProperties props;// must set the correct one when subclassing in the constructor
-    private ObjectState state; 
-    private Agent winner;
+    // I need to use generics to specify the players so that I can ensure that I get the correct
+    // type of players in game subclasses
+    protected ArrayList<Agent> players;
+   
+    
+    protected GameProperties props;// must set the correct one when subclassing in the constructor
+    protected ObjectState state; 
+    protected Agent winner;
     
     
     public Game()

@@ -15,7 +15,7 @@ import model.properties.agent.QLearningAgentProperties;
  * @author drew
  */
 @XStreamAlias("QLearning_Agent")
-public class QLearningAgent extends Agent{
+public class QLearningAgent extends MatrixAgent{
 
      
      // fields that will bind to the 

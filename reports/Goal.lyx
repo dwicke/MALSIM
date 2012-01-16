@@ -54,16 +54,17 @@ Drew Wicke
 \begin_layout Standard
 The multi-agent learning simulator (MALSIM) will be a simulator and benchmarking
  tool for multi-agent learning algorithms written in Java.
- The goal of MALSIM will be to provide mulit-agent learning researchers
+ The goal of MALSIM will be to provide multi-agent learning researchers
  a common framework in which to compare and test various MAL algorithms.
- MALSIM will solve various problems in the multi-agent learning community.
- However, in order to create MALSIM technical challeges will be encountered,
+ MALSIM will help to eliminate empirical testing issues that are prevalent
+ in the multi-agent learning community.
+ However, in order to create MALSIM technical challenges will be encountered,
  various technologies used and a user friendly GUI created.
 \end_layout
 
 \begin_layout Standard
 In the multi-agent learning community, when testing a new algorithm empirically
- the results are ususally based on few trials and compared to few opposing
+ the results are usually based on few trials and compared to few opposing
  algorithms.
  MALSIM will provide the multi-agent learning community the needed generic
  testbed for benchmarking and simulating new learning algorithms.
@@ -78,8 +79,8 @@ key "luke2004mason,balch2000teambots,jiang2006repast"
 \end_inset
 
 .
- Multiagent Learning Testbed (MALT) provides serverices similiar to that
- of MALSIM 
+ Multiagent Learning Testbed (MALT) provides services similar to that of
+ MALSIM 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "zawadzki2008empirically"
@@ -91,13 +92,23 @@ key "zawadzki2008empirically"
  the results of experiments.
  However, MALT is coded in MATLAB and is made for two player repeated matrix
  games.
+ GAMUT a benchmarking and game generating tool for game theoretic algorithms
+ is also similar to MALSIM, since many multi-agent learning algorithms are
+ made to play game theory games 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nudelman2004run"
+
+\end_inset
+
+.
  Based on the usefulness of previously created tools the need for a common,
- generic and extensible testbed for multi-agent learning algorithms is apparant.
+ generic and extensible testbed for multi-agent learning algorithms is apparent.
 \end_layout
 
 \begin_layout Standard
 In order to provide this tool technical challenges such as a generic implementat
-ion and the inherant dificulties of parallel programming will be encountered.
+ion and the inherent difficulties of parallel programming will be encountered.
  The tool must be generic enough to provide the standard features of any
  simulated game and yet stay functional for all types of multi-agent learning
  algorithms.
@@ -106,10 +117,9 @@ ion and the inherant dificulties of parallel programming will be encountered.
 \end_layout
 
 \begin_layout Standard
-MALSIM will be written in Java in order to be platform independant.
- Technologies such as XStream, a tool that serializes Java objects to and
- from XML, will be used to provide a mechanism to save and load the tool's
- model 
+MALSIM will be written in Java in order to be platform independent.
+ XStream, a tool that serializes Java objects to and from XML, will be used
+ to provide a mechanism to save and load the tool's model 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "XStream"
@@ -117,11 +127,22 @@ key "XStream"
 \end_inset
 
 .
- Also, JFreeChart will be used to provide a way to visulize in a graph based
- form the results of the experiment 
+ Also, JFreeChart will be used to provide a way to visualize in a graph
+ based form the results of the experiment 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "JFreeChart"
+
+\end_inset
+
+.
+ GAMUT may also be integrated into the platform in order to easily generate
+ games.
+ MPJ or JMPI, both pure Java ports of MPI or mpiJava, a Java MPI wrapper
+ may be used to make MALSIM capable of running on a cluster computer 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "baker1998mpijava,morin2002jmpi,bornemann2005mpj"
 
 \end_inset
 
@@ -138,8 +159,8 @@ reference "fig:The-MALSIM-GUI"
 
  will be provided.
  The GUI will allow the user to set up the experiment by setting things
- like the game to be played, the agents to be in the tournament, the mechnism
- to choose what agents play against each other, as well as other properies
+ like the game to be played, the agents to be in the tournament, the mechanism
+ to choose what agents play against each other, as well as other properties
  of the experiment.
  The GUI will also provide a view of what current games are being played
  a way for users to pause them.

@@ -12,8 +12,9 @@ import model.properties.Type;
  * @author drew
  */
 public abstract class GameProperties extends Properties{
-    private String name;
-    private int numAgents;
+    protected String name;
+    protected int numAgents;
+    
      @Override
     public Type getPropertyType() {
         return Type.Game;
@@ -31,6 +32,15 @@ public abstract class GameProperties extends Properties{
     public void setNumAgents(int numAgents) {
         this.numAgents = numAgents;
     }
+    
+    /**
+     * Essentially this method will be called
+     * to get the game data ready.
+     */
+  //  public abstract void initGameData();
+    
+    
+    
     
      @Override
     public void generateViewFields() {

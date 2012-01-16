@@ -21,7 +21,7 @@ public abstract class Agent extends Viewable implements  Runnable, Comparable<Ag
     private String name;
     private int id;
     private ObjectState state;
-    
+    private AgentType type;
     
     public Agent()// remember that the default const. doesn't get called when made with xstream
     {
