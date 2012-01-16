@@ -44,6 +44,7 @@ public class BattleOfTheSexesProperties extends MatrixGameProperties {
     @Override
     public boolean setField(String fieldAlias, Object val) {
 
+        
 
         for (int i = 0; i < game.getParameters().getNParams(); i++) {
             String fieldName = game.getParameters().getName(i);
@@ -90,7 +91,7 @@ public class BattleOfTheSexesProperties extends MatrixGameProperties {
             }
         }
         
-        return false;
+        return super.setField(fieldAlias, val);
     }
 
     @Override
