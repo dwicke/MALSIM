@@ -15,54 +15,43 @@ import model.game.MatrixGenerator;
 public abstract class MatrixGameProperties extends GameProperties {
 
     private int /*numStrats,*/ numReps;
-   // private MatrixGenerator matrixGen;
+    // private MatrixGenerator matrixGen;
     protected MatrixGame game;
 
     public MatrixGameProperties() {
         super();
     }
-/*
+    /*
     @Override
     public String toString() {
-        return "MatrixGame";
+    return "MatrixGame";
     }
-*/
+     */
+
     @Override
     public boolean setField(String fieldAlias, Object val) {
-        
-/*
-        if (fieldAlias.equals("number of strategies")) {
-            int prev = numStrats;
-            try {
-                numStrats = Integer.parseInt(val.toString());
-                
-            } catch (NumberFormatException exp) {
-                numStrats = prev;
-                return false;
-            }
-            super.setField(fieldAlias, val);
-            return true;
-        } else */if (fieldAlias.equals("number of game repititions")) {
+
+        if (fieldAlias.equals("number of game repititions")) {
             int prev = numReps;
             try {
                 numReps = Integer.parseInt(val.toString());
+                this.fieldVals.put(fieldAlias, numReps);
             } catch (NumberFormatException exp) {
                 numReps = prev;
                 return false;
             }
-            super.setField(fieldAlias, val);
+
             return true;
         }
-        
+
         return super.setField(fieldAlias, val);
     }
-    
-    public MatrixGame getMatrix()
-    {
+
+    public MatrixGame getMatrix() {
         return game;
     }
-    public void setMatrixGame(MatrixGame game)
-    {
+
+    public void setMatrixGame(MatrixGame game) {
         this.game = game;
     }
 
@@ -74,8 +63,8 @@ public abstract class MatrixGameProperties extends GameProperties {
         //this.setField("number of strategies", numStrats);
         //this.setFieldClass("number of strategies", Integer.class);
 
-        this.setField("number of game repititions", numReps);
-        this.setFieldClass("number of game repititions", Integer.class);
+        this.fieldVals.put("number of game repititions", numReps);
+        this.fieldAlias.put("number of game repititions", Integer.class);
 
     }
 
@@ -86,13 +75,13 @@ public abstract class MatrixGameProperties extends GameProperties {
     public void setNumReps(int numReps) {
         this.numReps = numReps;
     }
-/*
+    /*
     public int getNumStrats() {
-        return numStrats;
+    return numStrats;
     }
-
+    
     public void setNumStrats(int numStrats) {
-        this.numStrats = numStrats;
+    this.numStrats = numStrats;
     }
      * 
      */

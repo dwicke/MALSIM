@@ -50,6 +50,7 @@ public class GameChooserControl implements ChooserControl {
     public ArrayList<String> getChosen() {
         ArrayList<String> list = new ArrayList<String>();
         if (tournProps.getGameProps() != null) {
+            System.out.println("Not null " + tournProps.getGameProps().getClass().getName() + " h");
             list.add(tournProps.getGameProps().toString());
         }
         return list;
@@ -57,7 +58,9 @@ public class GameChooserControl implements ChooserControl {
 
     @Override
     public String addChoice(String choice) {
-        tournProps.setGameProps(((Game) fac.getObject(choice)).getGameProps());
+        GameProperties g = ((Game) fac.getObject(choice)).getGameProps();
+        System.out.println("Generated Properties for game " + (g==null));
+        tournProps.setGameProps(g);
         return choice;
     }
 

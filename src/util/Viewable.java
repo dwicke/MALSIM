@@ -16,8 +16,8 @@ import java.util.TreeMap;
 public abstract class Viewable {
     
    
-     private TreeMap<String, Object> fieldVals;
-     private TreeMap<String, Class> fieldAlias;
+     protected TreeMap<String, Object> fieldVals;
+     protected TreeMap<String, Class> fieldAlias;
      
      
      public Viewable()
@@ -49,6 +49,21 @@ public abstract class Viewable {
         fieldVals.put(fieldAlias, value);
         return true;
     }
+    
+    /**
+     * Checks to see if the string is mapped to an object.
+     * @param fieldAlias
+     * @return 
+     */
+    public boolean checkField(String fieldAlias)
+    {
+        if (this.fieldVals.keySet().contains(fieldAlias))
+        {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Sets the class of the field.
      * @param field field alias

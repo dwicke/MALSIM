@@ -4,7 +4,10 @@
  */
 package model.game;
 
+import java.lang.Thread.State;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.agent.Agent;
 import model.properties.game.GameProperties;
 import util.ObjectState;
@@ -103,5 +106,44 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
     {
         state = st;
     }
+    @Override
+    public void run() {
+        startGame();
+        terminate();
+    }
+    @Override
+    public int compareTo(Game o) {
+        return this.getGameProps().toString().compareTo(o.getGameProps().toString());
+    }
+    public void terminate()
+    {
+        for (Agent ag : getAgents())
+        {
+            ag.getAgentObjectState().setState(State.TERMINATED);
+        }
+        System.out.println("Number of agents: " + getAgents().size());
+        this.getGameState().setState(State.TERMINATED);
+        System.out.println("Finished");
+    }
     
+    /**
+     * Pauses if necessary 
+     */
+    public void checkPaused()
+    {
+        // basiclly take care of pausing this.
+        if (state.getState().compareTo(State.WAITING) == 0)
+        {
+            try {
+                // then I should pause
+                synchronized(this)
+                {
+                    this.wait();
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                    
+        }
+    }
 }

@@ -31,19 +31,38 @@ public class BattleOfTheSexesGame extends model.game.MatrixGame {
     }
     
     
-    
+    /**
+     * Must check that if the game state is set to waiting that
+     * I call wait on this.
+     */
     @Override
     public void startGame() {
-        // generate a matrix
-        //BattleOfTheSexesProperties props = ((MatrixGameProperties)this.getGameProps());
+        // generate a matrix and setup the agents to play
+        this.setupMatrixGame();
         
-        MatrixGame g = this.getGameProps().getMatrix();
-        g.doGenerate();
-        
-        
+      //  ArrayList<Integer> actions = new ArrayList<Integer>();
+        int actions[] = new int[getMatrixAgents().size()];
+        // give the two agents the 
         for (int i = 0; i < getGameProps().getNumReps(); i++)
         {
-            this.getMatrixAgents().get(0).takeTurn();
+            checkPaused();// pause if necessary
+            
+            // get the actions from each of the agents
+            for (MatrixAgent ag : getMatrixAgents())
+            {
+                ag.takeTurn();
+                actions[ag.getOrder()] = ag.getAction();
+            }
+            
+            
+            
+            
+            // now I can assign payoffs to the agents
+            for (MatrixAgent ag : getMatrixAgents())
+            {
+                ag.addScore(getGameProps().getMatrix().getPayoff(actions, ag.getOrder()));
+            }
+            
         }
     }
 
@@ -54,32 +73,12 @@ public class BattleOfTheSexesGame extends model.game.MatrixGame {
         super.setAgents(agents);
     }
     
+
     
 
     @Override
-    public void run() {
-        
-        // we assume that the agents that are playing
-        // are MatrixAgents
-        startGame();
-        
-        for (Agent ag : getAgents())
-        {
-            ag.getAgentObjectState().setState(State.TERMINATED);
-        }
-        System.out.println("Number of agents: " + getAgents().size());
-        this.getGameState().setState(State.TERMINATED);
-        System.out.println("Finished");
-    }
-
-    @Override
-    public int compareTo(Game o) {
-        return this.getGameProps().toString().compareTo(o.getGameProps().toString());
-    }
-
-    @Override
     public void update(Object pub, Object code) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
+       // throw new UnsupportedOperationException("Not supported yet.");
     }
 
     

@@ -22,6 +22,20 @@ public abstract class MatrixGame extends Game{
         
     }
     
+    public void setupMatrixGame()
+    {
+        edu.stanford.multiagent.gamer.MatrixGame g = this.getGameProps().getMatrix();
+        g.doGenerate();
+        int order = 1;
+        for (MatrixAgent ag : this.getMatrixAgents())
+        {
+            ag.setMatrix(g);
+            ag.setOrder(order);
+            order++;
+        }
+    }
+    
+    @Override
     public MatrixGameProperties getGameProps()
     {
         return (MatrixGameProperties)props;
@@ -42,47 +56,6 @@ public abstract class MatrixGame extends Game{
             }
         }
         return matrixAgents;
-    }
-
-    
-    @Override
-    public void startGame() {
-     //   System.out.println("In Start game num reps: " + ((MatrixGameProperties)getGameProps()).getNumReps());
-        for (int i = 0; i < ((MatrixGameProperties)getGameProps()).getNumReps(); i++)
-        {
-            // tell agents that
-      //      System.out.println("Rep" + i);
-        }
-    }
-
-    @Override
-    public void run() {
-        System.out.println("In Matrix Game");
-        startGame();
-        
-        for (Agent ag : getAgents())
-        {
-            ag.getAgentObjectState().setState(State.TERMINATED);
-        }
-        System.out.println("Number of agents: " + getAgents().size());
-        this.getGameState().setState(State.TERMINATED);
-        System.out.println("Finished");
-    }
-
-    @Override
-    public int compareTo(Game o) {
-        return this.getGameProps().toString().compareTo(o.getGameProps().toString());
-    }
-
-    /**
-     * Get notified when the state of the agent changes
-     * @param pub
-     * @param code
-     * @throws RemoteException 
-     */
-    @Override
-    public void update(Object pub, Object code) throws RemoteException {
-       // throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

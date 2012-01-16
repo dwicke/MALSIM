@@ -16,6 +16,7 @@ import edu.stanford.multiagent.gamer.MatrixGame;
 public abstract class MatrixAgent extends Agent{
     protected MatrixGame matrix;
     protected int action;
+    protected int order;// this specifies which set of strategies I have to use.
     
     public MatrixAgent()
     {
@@ -26,6 +27,17 @@ public abstract class MatrixAgent extends Agent{
     {
         matrix = gameMatrix;
     }
+    
+    public void setOrder(int order)
+    {
+        this.order = order;
+    }
+    
+    public int getOrder()
+    {
+        return order;
+    }
+    
     
     /**
      * returns the action of the agent
