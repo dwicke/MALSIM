@@ -4,6 +4,7 @@
  */
 package model.agent;
 
+import edu.stanford.multiagent.gamer.Game;
 import edu.stanford.multiagent.gamer.MatrixGame;
 
 /**
@@ -13,19 +14,19 @@ import edu.stanford.multiagent.gamer.MatrixGame;
  * Gamut.
  * @author drew
  */
-public abstract class MatrixAgent extends Agent{
-    protected MatrixGame matrix;
+public abstract class GamutAgent extends Agent{
+    protected Game game;
     protected int action;
     protected int order;// this specifies which set of strategies I have to use.
     
-    public MatrixAgent()
+    public GamutAgent()
     {
         super();
     }
     
-    public void setMatrix(MatrixGame gameMatrix)
+    public void setMatrix(Game gameMatrix)
     {
-        matrix = gameMatrix;
+        game = gameMatrix;
     }
     
     public void setOrder(int order)

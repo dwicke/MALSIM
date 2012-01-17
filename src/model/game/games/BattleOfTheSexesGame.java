@@ -11,18 +11,18 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.agent.Agent;
-import model.agent.MatrixAgent;
+import model.agent.GamutAgent;
 import model.agent.QLearningAgent;
 import model.game.Game;
 import model.properties.game.BattleOfTheSexesProperties;
-import model.properties.game.MatrixGameProperties;
+import model.properties.game.RepeatedGameProperties;
 
 
 /**
  *
  * @author drew
  */
-public class BattleOfTheSexesGame extends model.game.MatrixGame {
+public class BattleOfTheSexesGame extends model.game.games.GamutGame {
 
     public BattleOfTheSexesGame()
     {
@@ -38,7 +38,7 @@ public class BattleOfTheSexesGame extends model.game.MatrixGame {
     @Override
     public void startGame() {
         // generate a matrix and setup the agents to play
-        this.setupMatrixGame();
+        this.setupGamutGame();
         
       //  ArrayList<Integer> actions = new ArrayList<Integer>();
         int actions[] = new int[getMatrixAgents().size()];
@@ -48,7 +48,7 @@ public class BattleOfTheSexesGame extends model.game.MatrixGame {
             checkPaused();// pause if necessary
             
             // get the actions from each of the agents
-            for (MatrixAgent ag : getMatrixAgents())
+            for (GamutAgent ag : getMatrixAgents())
             {
                 ag.takeTurn();
                 actions[ag.getOrder()] = ag.getAction();
@@ -58,9 +58,9 @@ public class BattleOfTheSexesGame extends model.game.MatrixGame {
             
             
             // now I can assign payoffs to the agents
-            for (MatrixAgent ag : getMatrixAgents())
+            for (GamutAgent ag : getMatrixAgents())
             {
-                ag.addScore(getGameProps().getMatrix().getPayoff(actions, ag.getOrder()));
+                ag.addScore(getGameProps().getGame().getPayoff(actions, ag.getOrder()));
             }
             
         }

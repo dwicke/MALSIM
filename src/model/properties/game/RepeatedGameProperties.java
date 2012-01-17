@@ -4,29 +4,22 @@
  */
 package model.properties.game;
 
-import edu.stanford.multiagent.gamer.MatrixGame;
-import model.game.MatrixGenerator;
+import edu.stanford.multiagent.gamer.Game;
 
 /**
  * subclass this to the different types of matrix games
  * like general sum zero sum etc
  * @author drew
  */
-public abstract class MatrixGameProperties extends GameProperties {
+public abstract class RepeatedGameProperties extends GameProperties {
 
-    private int /*numStrats,*/ numReps;
+    private int numReps;
     // private MatrixGenerator matrixGen;
-    protected MatrixGame game;
+    
 
-    public MatrixGameProperties() {
+    public RepeatedGameProperties() {
         super();
     }
-    /*
-    @Override
-    public String toString() {
-    return "MatrixGame";
-    }
-     */
 
     @Override
     public boolean setField(String fieldAlias, Object val) {
@@ -47,13 +40,7 @@ public abstract class MatrixGameProperties extends GameProperties {
         return super.setField(fieldAlias, val);
     }
 
-    public MatrixGame getMatrix() {
-        return game;
-    }
 
-    public void setMatrixGame(MatrixGame game) {
-        this.game = game;
-    }
 
     @Override
     public void generateViewFields() {
@@ -75,14 +62,5 @@ public abstract class MatrixGameProperties extends GameProperties {
     public void setNumReps(int numReps) {
         this.numReps = numReps;
     }
-    /*
-    public int getNumStrats() {
-    return numStrats;
-    }
     
-    public void setNumStrats(int numStrats) {
-    this.numStrats = numStrats;
-    }
-     * 
-     */
 }

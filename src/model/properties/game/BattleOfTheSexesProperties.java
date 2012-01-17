@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author drew
  */
-public class BattleOfTheSexesProperties extends MatrixGameProperties {
+public class BattleOfTheSexesProperties extends GamutGameProperties {
 
     //private BattleOfTheSexes game;
     public BattleOfTheSexesProperties() {

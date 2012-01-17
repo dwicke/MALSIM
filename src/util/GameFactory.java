@@ -5,7 +5,6 @@
 package util;
 
 import model.game.Game;
-import model.game.games.GamutMatrixGame;
 
 /**
  *

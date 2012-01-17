@@ -16,4 +16,8 @@ public abstract class Properties extends Viewable{
         super();
     }
     public abstract Type getPropertyType();
+    public String getDescription()
+    {
+        return "";
+    }
 }

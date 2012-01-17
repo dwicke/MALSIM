@@ -168,6 +168,9 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber {
         int count = 0;
         if (code != null) {
             props = (Properties) code;
+            
+            descriptionPane.setText(props.getDescription());
+            
             props.generateViewFields();
             Map<String, Object> map = props.getFieldVals();
 
