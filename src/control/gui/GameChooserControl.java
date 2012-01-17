@@ -9,6 +9,7 @@ import model.game.Game;
 import model.properties.game.GameProperties;
 import model.properties.game.TournamentProperties;
 import util.BasicPublisher;
+import util.GameFactory;
 import util.GenericFactory;
 import util.Subscriber;
 
@@ -20,12 +21,12 @@ public class GameChooserControl implements ChooserControl {
 
     private TournamentProperties tournProps;
     private BasicPublisher pub;
-    private GenericFactory fac;
+    private GameFactory fac;
 
     public GameChooserControl(TournamentProperties props) {
         pub = new BasicPublisher();
-        fac = new GenericFactory();
-        fac.generateMaping("config/GameList.cfg");
+        fac = new GameFactory();
+        fac.generateMaping();
         tournProps = props;
     }
 
@@ -50,7 +51,7 @@ public class GameChooserControl implements ChooserControl {
     public ArrayList<String> getChosen() {
         ArrayList<String> list = new ArrayList<String>();
         if (tournProps.getGameProps() != null) {
-            System.out.println("Not null " + tournProps.getGameProps().getClass().getName() + " h");
+           // System.out.println("Not null " + tournProps.getGameProps().getClass().getName() + " h");
             list.add(tournProps.getGameProps().toString());
         }
         return list;
@@ -59,7 +60,7 @@ public class GameChooserControl implements ChooserControl {
     @Override
     public String addChoice(String choice) {
         GameProperties g = ((Game) fac.getObject(choice)).getGameProps();
-        System.out.println("Generated Properties for game " + (g==null));
+        //System.out.println("Generated Properties for game " + (g==null));
         tournProps.setGameProps(g);
         return choice;
     }

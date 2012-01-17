@@ -38,7 +38,21 @@ public class BattleOfTheSexesProperties extends MatrixGameProperties {
      */
     @Override
     public void setNumAgents(int numAgents) {
-        this.numAgents = game.getNumPlayers();
+        //this.numAgents = game.getNumPlayers();
+         if (game.getParameter("players") == null)
+        {
+            this.numAgents = game.getNumPlayers();
+        }
+        else
+        {
+            this.numAgents = numAgents;
+            try {
+                game.setParameter("players", numAgents);
+            } catch (Exception ex) {
+                Logger.getLogger(GamutGameProperties.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           this.fieldVals.put("players", numAgents);
+        }
     }
 
     @Override

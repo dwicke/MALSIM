@@ -70,4 +70,8 @@ public abstract class GameProperties extends Properties {
         return false;
 
     }
+
+    public void initProperties() {
+        //nothing to init
+    }
 }
