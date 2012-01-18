@@ -134,6 +134,7 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
         // basiclly take care of pausing this.
         if (state.getState().compareTo(State.WAITING) == 0)
         {
+            System.out.println("I am Waiting...................");
             try {
                 // then I should pause
                 synchronized(this)

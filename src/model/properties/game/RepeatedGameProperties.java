@@ -24,7 +24,9 @@ public abstract class RepeatedGameProperties extends GameProperties {
     @Override
     public boolean setField(String fieldAlias, Object val) {
 
+        
         if (fieldAlias.equals("number of game repititions")) {
+            System.out.println("Set the num Reps");
             int prev = numReps;
             try {
                 numReps = Integer.parseInt(val.toString());

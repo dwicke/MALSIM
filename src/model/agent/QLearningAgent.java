@@ -28,7 +28,13 @@ public class QLearningAgent extends GamutAgent{
     
     @Override
     public void takeTurn() {
-        
+        int outcome[] = {1,1};
+        int outcome1[] = {1,2};
+        int outcome2[] = {2, 1};
+        int outcome3[] = {2, 2};
+        System.out.println("Agent " + order + "  " + game.getPayoff(outcome) + ", " + game.getPayoff(outcome1) + "\n"  + ""
+                + game.getPayoff(outcome2) + ", " + game.getPayoff(outcome3));
+        action = 1;
     }
 
     @Override

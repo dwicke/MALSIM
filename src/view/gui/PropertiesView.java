@@ -123,7 +123,9 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber {
     private void setPropsBtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setPropsBtMousePressed
         // TODO add your handling code here:
         System.out.println("Button Pressed");
-        int size = props.getFieldAliases().keySet().size();
+        
+        int size = props.getFieldVals().keySet().size();
+        System.out.println("The size of the map in the button " + props.getFieldVals().size());
         for (int i = 0; i < size; i++) {
             PropertyView comp = (PropertyView) propertiesPanel.getComponent(i);
             if (props.setField(comp.getLabel(), comp.getData()) == false) {
@@ -166,7 +168,7 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber {
         // mapping and make the rest of the components invisible set up the layout
         System.out.println("HI");
         int count = 0;
-        if (code != null) {
+        if (code != null ) {
             props = (Properties) code;
             
             descriptionPane.setText(props.getDescription());

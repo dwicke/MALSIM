@@ -20,9 +20,11 @@ import java.util.logging.Logger;
 public class GamutGameProperties extends RepeatedGameProperties {
 
     protected Game game;
+    private boolean wasGen;
 
     public GamutGameProperties() {
         super();
+        wasGen = false;
     }
 
     @Override
@@ -85,7 +87,8 @@ public class GamutGameProperties extends RepeatedGameProperties {
     @Override
     public boolean setField(String fieldAlias, Object val) {
 
-
+        System.out.println("The alias is " + fieldAlias + " wasgen " + wasGen + " my size " + this.fieldVals.size());
+                
 
         for (int i = 0; i < game.getParameters().getNParams(); i++) {
             String fieldName = game.getParameters().getName(i);
@@ -140,6 +143,7 @@ public class GamutGameProperties extends RepeatedGameProperties {
 
     @Override
     public void generateViewFields() {
+        wasGen = true;
         super.generateViewFields();
         // remove the "number of agents" since Gamut has it's own 
         this.fieldAlias.remove("number of agents");
@@ -167,7 +171,7 @@ public class GamutGameProperties extends RepeatedGameProperties {
                 }
             }
         }
-
+System.out.println("The size of the fieldVals map is " + fieldVals.size());
     }
 
     @Override

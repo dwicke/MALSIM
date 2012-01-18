@@ -129,6 +129,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 threadPool.submit(game);
             
         }
+        
         //threadPool.shutdown();
        // System.out.println(this.toString() + " Finished");
         // if the returned agents are null then I know that I am done so

@@ -35,7 +35,8 @@ public class GamutGame extends Game{
         for (int i = 0; i < pars.getNParams(); i++)
         {
             Object ob = getGameProps().getField(pars.getName(i));
-            if (ob != null && ob.toString() != "")
+            
+            if (ob != null && !ob.toString().trim().equals(""))
             {
                 builder.append(" -").append(pars.getName(i)).append(" ").append(getGameProps().getField(pars.getName(i)).toString());
             }
@@ -57,7 +58,7 @@ public class GamutGame extends Game{
         g.doGenerate();
         this.getGameProps().setGame(g);
         int order = 1;
-        for (GamutAgent ag : this.getMatrixAgents())
+        for (GamutAgent ag : this.getGamutAgents())
         {
             ag.setMatrix(g);
             ag.setOrder(order);
@@ -71,7 +72,7 @@ public class GamutGame extends Game{
         return (GamutGameProperties)props;
     }
     
-    public ArrayList<GamutAgent> getMatrixAgents() throws ClassCastException
+    public ArrayList<GamutAgent> getGamutAgents() throws ClassCastException
     {
         ArrayList<GamutAgent> matrixAgents = new ArrayList<GamutAgent>();
         for (Agent ag : players)
@@ -82,7 +83,7 @@ public class GamutGame extends Game{
             }
             else
             {
-                throw new ClassCastException("Agent was not a MatrixAgent.");
+                throw new ClassCastException("Agent was not a GamutAgent.");
             }
         }
         return matrixAgents;
@@ -95,32 +96,43 @@ public class GamutGame extends Game{
      */
     @Override
     public void startGame() {
+        
+        System.out.println("Started game...");
         // generate a matrix and setup the agents to play
         this.setupGamutGame();
         
+        System.out.println("Finished game setup " + getGameProps().getNumReps());
+        
       //  ArrayList<Integer> actions = new ArrayList<Integer>();
-        int actions[] = new int[getMatrixAgents().size()];
+        int actions[] = new int[getGamutAgents().size()];
         // give the two agents the 
         for (int i = 0; i < getGameProps().getNumReps(); i++)
         {
+            System.out.println("Current game " + i);
             checkPaused();// pause if necessary
             
+            int j = 0;
             // get the actions from each of the agents
-            for (GamutAgent ag : getMatrixAgents())
+            for (GamutAgent ag : getGamutAgents())
             {
                 ag.takeTurn();
-                actions[ag.getOrder()] = ag.getAction();
+                actions[ag.getOrder() - 1] = ag.getAction();
             }
             
-            
+           // System.out.println("After");
             
             
             // now I can assign payoffs to the agents
-            for (GamutAgent ag : getMatrixAgents())
-            {
-                ag.addScore(getGameProps().getGame().getPayoff(actions, ag.getOrder()));
-            }
+            for (GamutAgent ag : getGamutAgents())
             
+            //System.out.println("Number of agents" + getGamutAgents().size());
+           // for (int h = 0; h < getGamutAgents().size(); h++)
+            {
+                ag.addScore(getGameProps().getGame().getPayoff(actions, ag.getOrder() - 1 ));
+                
+              //  System.out.println("Agent 0 score is now " + getGamutAgents().get(0).getScore());
+            }
+           // System.out.println("Number of agents" + getGamutAgents().size());
         }
     }
 

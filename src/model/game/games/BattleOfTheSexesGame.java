@@ -41,14 +41,14 @@ public class BattleOfTheSexesGame extends model.game.games.GamutGame {
         this.setupGamutGame();
         
       //  ArrayList<Integer> actions = new ArrayList<Integer>();
-        int actions[] = new int[getMatrixAgents().size()];
+        int actions[] = new int[getGamutAgents().size()];
         // give the two agents the 
         for (int i = 0; i < getGameProps().getNumReps(); i++)
         {
             checkPaused();// pause if necessary
             
             // get the actions from each of the agents
-            for (GamutAgent ag : getMatrixAgents())
+            for (GamutAgent ag : getGamutAgents())
             {
                 ag.takeTurn();
                 actions[ag.getOrder()] = ag.getAction();
@@ -58,7 +58,7 @@ public class BattleOfTheSexesGame extends model.game.games.GamutGame {
             
             
             // now I can assign payoffs to the agents
-            for (GamutAgent ag : getMatrixAgents())
+            for (GamutAgent ag : getGamutAgents())
             {
                 ag.addScore(getGameProps().getGame().getPayoff(actions, ag.getOrder()));
             }
