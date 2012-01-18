@@ -1,0 +1,37 @@
+User Creates an Experiment
+	1. Select Players
+	3. Select Game Type
+	4. Select Ranking Method
+
+User Starts Experiment
+actor: program
+	1. Game is initialized
+	2. Players are initialized
+	3. Current game data is displayed on user specified interval
+	
+User Creates a Batch Experiment
+	1. Enters batch mode
+	2. Creates as many experiments as neccessary
+	3. Start Batch by starting the experiments
+
+User Load New Algorithm
+	1. New Algorithm is uploaded
+	2. Parameter sheet is created
+	3. Parameters are set
+	4. Algorithm is made available
+	
+User View Results
+	1. User chooses experiment to view results from
+	2. User chooses what data to visualize
+	3. The choosen graphics are displayed
+
+User Saves Results
+	1. Chooses what data/graph from which experiment to save
+	2. Data/graph is saved in appropriate format
+
+User Selects a Player
+	1. Select algorithm
+	2. set parameters
+	3. add algorithm to list of players
+
+

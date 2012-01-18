@@ -1,0 +1,36 @@
+Game:
+
+"We think our game selection method is not biased with human interpretation."
+MAL experimetns on repeated Matrix Games
+
+"Mixed static games are also called general-sum games, because there is no constraint on the sum of the agents’ rewards." A Comprehensive Survey of MARL
+
+
+Static, repeated, dynamic, stochastic
+
+
+I want to test stability, adaptation, Convergence, and rationality of the learning algorithms.  The paper MAL experimetns on repeated Matrix Games seems to look at the adaptation of the algorithm.  I need to check also the stability of the algorithm
+
+
+I want the game to be open to more than 2 agents.  essentially the U(1)xU(2)x...U(n) cartesian product of the payoff function creating an n-tuple.
+
+if three strategies for each agent and 3 agents then 27 different states |U(1)|x|U(2)|x|U(3)| = 3*3*3 = 27
+
+So the Matrix game needs to know the number of agents to create the utility funciton
+
+
+
+So I need a GameMaker class that will model the setup of the game... game class, agent
+
+
+
+Tournament is a data structure that models how the games will be played and will act as the starter of the games.
+
+Each game is a thread so I can run games simultaneously since I will evuate the 
+
+Ranker is a class that will rank the 
+
+
+
+
+

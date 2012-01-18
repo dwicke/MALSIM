@@ -1,0 +1,44 @@
+The goal of the project is to implement a tournament system for games repeated matrix games, various current multi agent learning algorithms as well as non-learning algorithms to play the games.
+
+This is taking a game theoretic approach.
+
+
+The significance is that I will use java and make it an applet using jnlp.  Then researchers can specify the type of info their algorithm needs and upload their class with their algorithm.  
+
+I am creating a benchmark that is freely available and easy to use.  Users can then submit their algorithms to be added to the benchmark.
+
+I will need to specify interfaces that they will need to write their algorithms to so that I can use the reflection API.
+
+I will make the tournament so that it is easily adjustable with parameters, type of games, need to have a good way to display the results like a graph.  Save data load data to get the graphs to compare...
+
+I will look at other simulators like MASON and the rest of the sims that are out their on the bottom of the MASON website.  I will also consider the one on the paper with all of the algorithms that did the benchmarking.
+
+
+I want the simulator to be able to extend to any type of grid game
+
+I want to have n number of players and m number of states.  I want to be able to have the game be randomlly generated and be able to save all of the game states so that it can be replayed.
+
+
+I want to have cooperative players competing against other coopertive players... This is something I think that is new in the field in general.  
+
+
+
+I need an xml file to define parameters to the algorithm.  I can then use this to provide a GUI.  I could also provide a gui to create the parameter file/view.
+
+I want a scripting lang or some type of way to make a batch of tests so that I can change the parameters in a way I specify.  This will allow me to see how they effect the outcome of the game.
+
+
+I need a way to pause/continue/save or quit and save midstream.
+
+I want it to be able to scale to multi threading and possibly cluster although cluster maybe to much for java.
+
+
+I want the system to be robust to errors in algorithms submited by users.  I don't want the system to crash if their is a bug in the user's algorithm.
+
+
+
+I want statistics from multiple runs averaged
+
+
+
+
