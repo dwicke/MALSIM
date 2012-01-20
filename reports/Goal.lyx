@@ -107,17 +107,22 @@ key "nudelman2004run"
 \end_layout
 
 \begin_layout Standard
-In order to provide this tool technical challenges such as a generic implementat
-ion and the inherent difficulties of parallel programming will be encountered.
+In order to provide this tool, technical challenges such as a generic implementa
+tion and the inherent difficulties of parallel programming will be encountered.
  The tool must be generic enough to provide the standard features of any
  simulated game and yet stay functional for all types of multi-agent learning
  algorithms.
  Also, while programming the tool for a multithreaded environment challenges
  such as deadlock, race conditions and communication will be addressed.
+ Another challege may be implementing multi-agent learning algorithms based
+ on sudo code descriptions of the algorithm.
 \end_layout
 
 \begin_layout Standard
 MALSIM will be written in Java in order to be platform independent.
+ Multi-agent learning algorithms will be implemented such as ...
+ GAMUT will also be integrated into the platform in order to easily generate
+ matrix games.
  XStream, a tool that serializes Java objects to and from XML, will be used
  to provide a mechanism to save and load the tool's model 
 \begin_inset CommandInset citation
@@ -136,8 +141,6 @@ key "JFreeChart"
 \end_inset
 
 .
- GAMUT may also be integrated into the platform in order to easily generate
- games.
  MPJ or JMPI, both pure Java ports of MPI or mpiJava, a Java MPI wrapper
  may be used to make MALSIM capable of running on a cluster computer 
 \begin_inset CommandInset citation
