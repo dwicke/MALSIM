@@ -56,8 +56,8 @@ The multi-agent learning simulator (MALSIM) will be a simulator and benchmarking
  tool for multi-agent learning algorithms written in Java.
  The goal of MALSIM will be to provide multi-agent learning researchers
  a common framework in which to compare and test various MAL algorithms.
- MALSIM will help to eliminate empirical testing issues that are prevalent
- in the multi-agent learning community.
+ MALSIM will help to eliminate some of the empirical testing issues that
+ are prevalent in the multi-agent learning community.
  However, in order to create MALSIM technical challenges will be encountered,
  various technologies used and a user friendly GUI created.
 \end_layout
@@ -68,10 +68,9 @@ In the multi-agent learning community, when testing a new algorithm empirically
  algorithms.
  MALSIM will provide the multi-agent learning community the needed generic
  testbed for benchmarking and simulating new learning algorithms.
- MALSIM will provide generic mechanisms to simulate, test and visualize
- experiments.
- Currently their are a couple of very good simulators made for multi-agent
- systems, however they do not provide a benchmarking mechanism
+ MALSIM will have generic mechanisms to simulate, test and visualize experiments.
+ Currently their are a couple of simulators made for multi-agent systems,
+ however they do not provide a benchmarking mechanism 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "luke2004mason,balch2000teambots,jiang2006repast"
@@ -92,7 +91,7 @@ key "zawadzki2008empirically"
  the results of experiments.
  However, MALT is coded in MATLAB and is made for two player repeated matrix
  games.
- GAMUT a benchmarking and game generating tool for game theoretic algorithms
+ GAMUT, a benchmarking and game generating tool for game theoretic algorithms,
  is also similar to MALSIM, since many multi-agent learning algorithms are
  made to play game theory games 
 \begin_inset CommandInset citation
@@ -116,11 +115,41 @@ tion and the inherent difficulties of parallel programming will be encountered.
  such as deadlock, race conditions and communication will be addressed.
  Another challege may be implementing multi-agent learning algorithms based
  on sudo code descriptions of the algorithm.
+ 
 \end_layout
 
 \begin_layout Standard
 MALSIM will be written in Java in order to be platform independent.
- Multi-agent learning algorithms will be implemented such as ...
+ Multi-agent learning algorithms will be implemented such as Fictitous Play
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "brown1951iterative"
+
+\end_inset
+
+, Hyper-Q Learning 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tesauro2004extending"
+
+\end_inset
+
+, WoLF (Win or Learn Fast) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bowling2002multiagent"
+
+\end_inset
+
+ and ADL (Adaptive Dynamic Learner) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "burkov2007multiagent"
+
+\end_inset
+
+.
  GAMUT will also be integrated into the platform in order to easily generate
  matrix games.
  XStream, a tool that serializes Java objects to and from XML, will be used
@@ -132,8 +161,8 @@ key "XStream"
 \end_inset
 
 .
- Also, JFreeChart will be used to provide a way to visualize in a graph
- based form the results of the experiment 
+ Also, JFreeChart may be used to provide a way to visualize the results
+ of the experiment 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "JFreeChart"
@@ -163,11 +192,11 @@ reference "fig:The-MALSIM-GUI"
  will be provided.
  The GUI will allow the user to set up the experiment by setting things
  like the game to be played, the agents to be in the tournament, the mechanism
- to choose what agents play against each other, as well as other properties
- of the experiment.
+ to choose competitors, as well as other properties of the experiment.
  The GUI will also provide a view of what current games are being played
  a way for users to pause them.
- When the experiment is finished the user will be able to view and save
+ The user will be able to save the settings of teh experiment as well as
+ when the experiment is finished the user will be able to view and save
  the results of the experiment.
  The GUI will also give the user the option to view and create graphs to
  compare and contrast the data from the experiment.
