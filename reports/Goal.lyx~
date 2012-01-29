@@ -58,19 +58,19 @@ The multi-agent learning simulator (MALSIM) will be a simulator and benchmarking
  a common framework in which to compare and test various MAL algorithms.
  MALSIM will help to eliminate some of the empirical testing issues that
  are prevalent in the multi-agent learning community.
- However, in order to create MALSIM technical challenges will be encountered,
- various technologies used and a user friendly GUI created.
+ In order to create MALSIM, technical challenges will be encountered, various
+ technologies used and a user-friendly GUI created.
 \end_layout
 
 \begin_layout Standard
-In the multi-agent learning community, when testing a new algorithm empirically
+In the multi-agent learning community, when testing a new algorithm empirically,
  the results are usually based on few trials and compared to few opposing
  algorithms.
  MALSIM will provide the multi-agent learning community the needed generic
  testbed for benchmarking and simulating new learning algorithms.
  MALSIM will have generic mechanisms to simulate, test and visualize experiments.
- Currently their are a couple of simulators made for multi-agent systems,
- however they do not provide a benchmarking mechanism 
+ Currently, there are a couple of simulators made for multi-agent systems;
+ however, they do not provide a benchmarking mechanism 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "luke2004mason,balch2000teambots,jiang2006repast"
@@ -101,20 +101,22 @@ key "nudelman2004run"
 \end_inset
 
 .
- Based on the usefulness of previously created tools the need for a common,
+ GAMUT does not provide a GUI.
+ Based on the usefulness of previously created tools, the need for a common,
  generic and extensible testbed for multi-agent learning algorithms is apparent.
 \end_layout
 
 \begin_layout Standard
-In order to provide this tool, technical challenges such as a generic implementa
-tion and the inherent difficulties of parallel programming will be encountered.
+In order to provide this tool, technical challenges will be encountered.
+ These challenges include generic implementation and the inherent difficulties
+ of parallel programming.
  The tool must be generic enough to provide the standard features of any
  simulated game and yet stay functional for all types of multi-agent learning
  algorithms.
- Also, while programming the tool for a multithreaded environment challenges
- such as deadlock, race conditions and communication will be addressed.
- Another challege may be implementing multi-agent learning algorithms based
- on sudo code descriptions of the algorithm.
+ Challenges such as eliminating deadlock and race conditions and providing
+ communication between threads will be addressed.
+ Another challenge may be implementing multi-agent learning algorithms based
+ on pseudo code descriptions of the algorithm.
  
 \end_layout
 
@@ -161,16 +163,16 @@ key "XStream"
 \end_inset
 
 .
- Also, JFreeChart will be used to provide a way to visualize in a graph
- based form the results of the experiment 
+ Also, JChart2D or LiveGraph may be used to provide a way to visualize the
+ results of the experiment 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "JFreeChart"
+key "JChartD,:LiveGraph"
 
 \end_inset
 
 .
- MPJ or JMPI, both pure Java ports of MPI or mpiJava, a Java MPI wrapper
+ MPJ or JMPI, both pure Java ports of MPI, or mpiJava, a Java MPI wrapper,
  may be used to make MALSIM capable of running on a cluster computer 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -190,14 +192,14 @@ reference "fig:The-MALSIM-GUI"
 \end_inset
 
  will be provided.
- The GUI will allow the user to set up the experiment by setting things
- like the game to be played, the agents to be in the tournament, the mechanism
- to choose competitors, as well as other properties of the experiment.
- The GUI will also provide a view of what current games are being played
- a way for users to pause them.
- The user will be able to save the settings of teh experiment as well as
- when the experiment is finished the user will be able to view and save
- the results of the experiment.
+ The GUI will allow the user to set up the experiment by choosing the game
+ to be played, the agents to be in the tournament, the mechanism to choose
+ competitors and other properties.
+ The GUI will also provide a list of current games being played and a way
+ for users to pause them.
+ The user will be able to save the settings of the experiment and, when
+ the experiment is finished, the user will be able to view and save the
+ results of the experiment.
  The GUI will also give the user the option to view and create graphs to
  compare and contrast the data from the experiment.
 \end_layout
