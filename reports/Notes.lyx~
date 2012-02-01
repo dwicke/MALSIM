@@ -89,18 +89,5 @@ They just noticed that 6 was enough, can I prove a bound...
  or show that it can't be determined.
 \end_layout
 
-\begin_layout Standard
-Look into Bellman error 
-\begin_inset Quotes eld
-\end_inset
-
-which is the difference between two successive updates of Q-values, and
- the changes in the average reward per play
-\begin_inset Quotes erd
-\end_inset
-
- ADL used this to measure
-\end_layout
-
 \end_body
 \end_document

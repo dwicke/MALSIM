@@ -12,6 +12,8 @@ package view.gui;
 
 import com.thoughtworks.xstream.XStream;
 import control.gui.MainControl;
+import ibis.mpj.MPJ;
+import ibis.mpj.MPJException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -28,7 +30,8 @@ import javax.swing.JFileChooser;
 public class MainFrame extends javax.swing.JFrame {
 
     private MainControl mainControl;
-
+    // this will be set to true if MPI was started
+    public static boolean MPISTARTED = false;
     /** Creates new form MainFrame */
     public MainFrame() {
         initComponents();
@@ -58,6 +61,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MALSim");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         fileMenu.setText("File");
 
@@ -234,10 +245,45 @@ public class MainFrame extends javax.swing.JFrame {
         batchMenuItemMouseClicked(evt);
     }//GEN-LAST:event_batchMenuItemMousePressed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if (MPISTARTED == true)
+        {// so if mpi was started then I will close it
+            try {
+                MPJ.finish();
+                System.out.println("MPI was closed.");
+            } catch (MPJException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        try {
+            MPJ.init(args);
+        } catch (MPJException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }finally
+        {
+            try {
+                if (MPJ.initialized() == true)
+                {
+                    MPISTARTED = true;
+                    System.out.println("MPI Was Started");
+                }
+            } catch (MPJException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
