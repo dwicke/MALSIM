@@ -82,9 +82,6 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      */
     public void startTourn() {
 
-        
-        
-
         // while there are agents to play game/not stopped/not paused
         // while the number of games in the queue is less than the max num threads then
 
@@ -94,11 +91,21 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         while((contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
         {
            // System.out.println("inside while loop for tourn");
+           setupTournGame(contestants);
+        }
+        
+        //threadPool.shutdown();
+       // System.out.println(this.toString() + " Finished");
+        // if the returned agents are null then I know that I am done so
+        // set my state to finished and notify the subscribers
 
-            
-           
-              //  System.out.println("Starting first game");
-                // get the game properties from tournprops
+    }
+    
+    
+    public void setupTournGame(ArrayList<Agent> contestants)
+    {
+        //  System.out.println("Starting first game");
+         // get the game properties from tournprops
                 GameProperties gameProps = props.getGameProps();
                 // get the name of the game toString
                 String gameName = gameProps.toString();
@@ -127,14 +134,6 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 runningGames.put(game, obState);
                 // start the game as a thread
                 threadPool.submit(game);
-            
-        }
-        
-        //threadPool.shutdown();
-       // System.out.println(this.toString() + " Finished");
-        // if the returned agents are null then I know that I am done so
-        // set my state to finished and notify the subscribers
-
     }
 
     /**
@@ -154,7 +153,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         // games are in seperate threads so they can call wait
         // so I must notify them
         for (Game g : runningGames.keySet()) {
-            synchronized(g)
+            synchronized(g)// This is very wrong probably doesn't even work shouldn't sync on a used
+                // object need a mutex object
             {
                 g.notify();
             }
@@ -190,6 +190,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         paused = false;
         // create a gamefactory object
         fac = new GenericFactory();
+        // BAD don't want magic strings...
         fac.generateMaping("config/GameList.cfg");
     }
 

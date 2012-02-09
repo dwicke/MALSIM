@@ -1,0 +1,450 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+MALSIM Detailed Proposal
+\end_layout
+
+\begin_layout Author
+Drew Wicke
+\end_layout
+
+\begin_layout Standard
+The Multi-Agent Learning Simulator (MALSIM) will be written in Java.
+ I plan to use the following packages:
+\end_layout
+
+\begin_layout Itemize
+Gamut - Game theory game generator 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nudelman2004run"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+MPJ - MPI for Java 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bornemann2005mpj"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+XStream - XML serializer of Java objects 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "XStream"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Currently the Multi-Agent Learning Simulator (MALSIM) allows the user to
+ interact with the GUI to:
+\end_layout
+
+\begin_layout Itemize
+Create a 
+\emph on
+Batch
+\emph default
+ of 
+\emph on
+Tournaments
+\end_layout
+
+\begin_layout Itemize
+Save a 
+\emph on
+Batch 
+\emph default
+to XML
+\end_layout
+
+\begin_layout Itemize
+Load a 
+\emph on
+Batch 
+\emph default
+from XML
+\end_layout
+
+\begin_layout Itemize
+Choose a 
+\emph on
+Game, Eliminator and AgentSelector
+\emph default
+ from a list
+\end_layout
+
+\begin_layout Itemize
+Choose what 
+\emph on
+Agent
+\emph default
+(s) are to play in the 
+\emph on
+Game
+\end_layout
+
+\begin_layout Itemize
+Set properties for the 
+\emph on
+Game
+\emph default
+, 
+\emph on
+Agent
+\emph default
+, 
+\emph on
+Eliminator
+\emph default
+ and
+\emph on
+, AgentSelector
+\end_layout
+
+\begin_layout Itemize
+Select a 
+\emph on
+Game
+\emph default
+ from the Gamut library 
+\end_layout
+
+\begin_layout Itemize
+Start the 
+\emph on
+Batch
+\emph default
+ as a thread operation
+\end_layout
+
+\begin_layout Standard
+A simplified view of how Batch, Tounaments, Game and Agent objects are utilized
+ is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Simplified-Batch-structure."
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+I plan to extend current functionality by integrating MPJ, a Java implementation
+ of MPI.
+ MPJ will be used to create and manage 
+\emph on
+Game
+\emph default
+s.
+ MPJ will added by adding MPI classes as seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:MPJ-integration-design"
+
+\end_inset
+
+.
+ 
+\emph on
+MPITourn
+\emph default
+ will create a 
+\emph on
+MPIGameRunner
+\emph default
+ using the 
+\emph on
+GameRunnerFactory
+\emph default
+.
+ 
+\emph on
+MPITourn
+\emph default
+ will create a user defined number of 
+\emph on
+MPIGameClient
+\emph default
+ processes.
+ Therefore, when instantiating 
+\emph on
+MPIGameRunner
+\emph default
+ the id of the 
+\emph on
+MPIGameClient
+\emph default
+ process must be provided along with the 
+\emph on
+Game
+\emph default
+.
+ Then the 
+\emph on
+MPIGameRunner
+\emph default
+ can handle the MPI communication with the 
+\emph on
+MPIGameClient
+\emph default
+.
+ 
+\emph on
+MPIGameClient
+\emph default
+ will act as a wrapper for recieved 
+\emph on
+Game
+\emph default
+ objects.
+ By using the 
+\emph on
+GameRunnerFactory
+\emph default
+ I am abstracting the required interaction with 
+\emph on
+Games
+\emph default
+ and therefore, depending on whether the 
+\emph on
+Tournament
+\emph default
+ is MPI enabled the correct communication protocol is followed.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/simpDesign.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Simplified-Batch-structure."
+
+\end_inset
+
+Simplified 
+\emph on
+Batch
+\emph default
+ structure.
+ 
+\emph on
+Batch
+\emph default
+ is composed of 
+\emph on
+Tournaments
+\emph default
+ and 
+\emph on
+Tournaments
+\emph default
+ are composed of 
+\emph on
+Games
+\emph default
+ and 
+\emph on
+Agents
+\emph default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order to use MPJ the user must have MPJ installed and start MALSIM as
+ a MPJ process following their tutorial on how to start 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/mpidesign.jpg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:MPJ-integration-design"
+
+\end_inset
+
+MPJ integration design diagram.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I also intend for the user to be able to cancel, pause and resume 
+\emph on
+Tournament
+\emph default
+s using the GUI.
+ Once MPJ features are fully functional the Main screen will display a list
+ of running Tournaments with options to cancel, pause and resume Tournaments.
+ A use case would be:
+\end_layout
+
+\begin_layout Standard
+User Pauses Tounament
+\end_layout
+
+\begin_layout Enumerate
+Batch is notified of which Tournament the User wants to Pause
+\end_layout
+
+\begin_layout Enumerate
+The Batch notifies the Tournament to pause
+\end_layout
+
+\begin_layout Enumerate
+The Tournament notifies the running Games to pause
+\end_layout
+
+\begin_layout Standard
+The next step is to write various multi-agent learning algorithms in order
+ to better understand their capabilities.
+ The first algorithm I plan on writing is the Adaptive Dynamic Learner algorithm
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "burkov2007multiagent"
+
+\end_inset
+
+.
+ The algorithm uses a fixed size lookup table of Q-values that represent
+ the utility of previous joint actions in order to decide what action to
+ take.
+ I then plan to augment the algorithm to allow for multiple levels of history.
+ Therefore, the agent can have both a long term and a short term memory.
+ I will then create rating and scoring mechanisms for the algorithms.
+ Following the creation of the algorithms, a graphing library will be integrated
+ in order to view statistics about the algorithms and game progress in real
+ time and allow the user to save the charts as images.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliograph"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

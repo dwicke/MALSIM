@@ -36,6 +36,10 @@ public class MPIGame extends Game{
         // itself and start running
         
         
+        // I just need to probe for the message that I want
+        // since it will block until it recieves a message 
+        // of the form that I am looking for.
+        
         
         // so here I will need to do MPJ initialize etc
         // so that I can tell 
