@@ -17,6 +17,7 @@
 
 \graphics default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -35,6 +36,7 @@
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
+\author "" 
 \author "" 
 \end_header
 
@@ -170,8 +172,8 @@ Batch
 \end_layout
 
 \begin_layout Standard
-A simplified view of how Batch, Tounaments, Game and Agent objects are utilized
- is shown in figure 
+A simplified view of how Batch, Tounaments, Game and Agent objects are structure
+d is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Simplified-Batch-structure."
@@ -184,6 +186,8 @@ reference "fig:Simplified-Batch-structure."
 \begin_layout Standard
 I plan to extend current functionality by integrating MPJ, a Java implementation
  of MPI.
+ In order to use MPJ the user must have MPJ installed and start MALSIM as
+ a MPJ process.
  MPJ will be used to create and manage 
 \emph on
 Game
@@ -335,11 +339,6 @@ Agents
 \end_layout
 
 \begin_layout Standard
-In order to use MPJ the user must have MPJ installed and start MALSIM as
- a MPJ process following their tutorial on how to start 
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -383,12 +382,7 @@ MPJ integration design diagram.
 \end_layout
 
 \begin_layout Standard
-I also intend for the user to be able to cancel, pause and resume 
-\emph on
-Tournament
-\emph default
-s using the GUI.
- Once MPJ features are fully functional the Main screen will display a list
+Once MPJ features are fully functional the Main screen will display a list
  of running Tournaments with options to cancel, pause and resume Tournaments.
  A use case would be:
 \end_layout
@@ -398,15 +392,98 @@ User Pauses Tounament
 \end_layout
 
 \begin_layout Enumerate
-Batch is notified of which Tournament the User wants to Pause
+
+\emph on
+Batch
+\emph default
+ is notified of which 
+\emph on
+Tournament
+\emph default
+ the User wants to Pause
 \end_layout
 
 \begin_layout Enumerate
-The Batch notifies the Tournament to pause
+The 
+\emph on
+Batch
+\emph default
+ notifies the 
+\emph on
+Tournament
+\emph default
+ to pause
 \end_layout
 
 \begin_layout Enumerate
-The Tournament notifies the running Games to pause
+The 
+\emph on
+Tournament
+\emph default
+ notifies the running 
+\emph on
+Games
+\emph default
+ to pause
+\end_layout
+
+\begin_layout Standard
+The use cases for canceling and resuming Tournaments are similiar.
+ The class diagram is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:BatchStateView-design-diagram."
+
+\end_inset
+
+.
+ When the user starts the Batch the BatchStateView will display the running
+ Tournaments.
+ The BatchStateView will allow the user to change the state of Tournaments
+ through the BatchStateController.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/BatchStateView.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:BatchStateView-design-diagram."
+
+\end_inset
+
+BatchStateView design diagram.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
