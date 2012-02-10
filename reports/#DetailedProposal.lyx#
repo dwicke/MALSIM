@@ -16,7 +16,9 @@
 \font_tt_scale 100
 
 \graphics default
+\float_placement H
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -50,7 +52,16 @@ Drew Wicke
 \end_layout
 
 \begin_layout Standard
-The Multi-Agent Learning Simulator (MALSIM) will be written in Java.
+The multi-agent learning simulator (MALSIM) will be a simulator and benchmarking
+ tool for multi-agent learning algorithms written in Java.
+ The goal of MALSIM will be to provide multi-agent learning researchers
+ a common framework in which to compare and test various MAL algorithms.
+ MALSIM will help to eliminate some of the empirical testing issues that
+ are prevalent in the multi-agent learning community.
+\end_layout
+
+\begin_layout Standard
+MALSIM will be written in Java using the Netbeans 7.0.1 IDE.
  I plan to use the following packages:
 \end_layout
 
@@ -77,7 +88,7 @@ key "bornemann2005mpj"
 \end_layout
 
 \begin_layout Itemize
-XStream - XML serializer of Java objects 
+XStream - XML serialization of Java objects 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "XStream"
@@ -87,9 +98,19 @@ key "XStream"
 
 \end_layout
 
+\begin_layout Itemize
+JChart2D or LiveGraph - real time graphing libraries 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "JChartD,:LiveGraph"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-Currently the Multi-Agent Learning Simulator (MALSIM) allows the user to
- interact with the GUI to:
+Currently, MALSIM allows the user to interact with the GUI to:
 \end_layout
 
 \begin_layout Itemize
@@ -121,7 +142,11 @@ from XML
 \begin_layout Itemize
 Choose a 
 \emph on
-Game, Eliminator and AgentSelector
+Game, Eliminator 
+\emph default
+and
+\emph on
+ AgentSelector
 \emph default
  from a list
 \end_layout
@@ -147,11 +172,11 @@ Agent
 \emph default
 , 
 \emph on
-Eliminator
+Eliminator,
 \emph default
  and
 \emph on
-, AgentSelector
+ AgentSelector
 \end_layout
 
 \begin_layout Itemize
@@ -163,16 +188,16 @@ Game
 \end_layout
 
 \begin_layout Itemize
-Start the 
+Start a 
 \emph on
 Batch
 \emph default
- as a thread operation
+ as a threaded operation
 \end_layout
 
 \begin_layout Standard
-A simplified view of how Batch, Tounaments, Game and Agent objects are structure
-d is shown in figure 
+A simplified view of how Batch, Tournaments, Game and Agent objects are
+ structured is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Simplified-Batch-structure."
@@ -180,19 +205,29 @@ reference "fig:Simplified-Batch-structure."
 \end_inset
 
 .
+ Also, in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Current-GUI-that"
+
+\end_inset
+
+, the current GUI that allows the user to create Tournaments and set properties
+ is shown.
 \end_layout
 
 \begin_layout Standard
 I plan to extend current functionality by integrating MPJ, a Java implementation
  of MPI.
- In order to use MPJ the user must have MPJ installed and start MALSIM as
- a MPJ process.
+ I am choosing to add this functionality first in order to speed  In order
+ to use MPJ, the user must have MPJ installed and start MALSIM as an MPJ
+ process.
  MPJ will be used to create and manage 
 \emph on
 Game
 \emph default
 s.
- MPJ will added by adding MPI classes as seen in figure 
+ MPI classes will be added to use MPJ, as seen in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:MPJ-integration-design"
@@ -204,7 +239,7 @@ reference "fig:MPJ-integration-design"
 \emph on
 MPITourn
 \emph default
- will create a 
+ will create an 
 \emph on
 MPIGameRunner
 \emph default
@@ -248,14 +283,14 @@ MPIGameClient
 \emph on
 MPIGameClient
 \emph default
- will act as a wrapper for recieved 
+ will act as a wrapper for received 
 \emph on
 Game
 \emph default
  objects.
  By using the 
 \emph on
-GameRunnerFactory
+GameRunnerFactory,
 \emph default
  I am abstracting the required interaction with 
 \emph on
@@ -265,7 +300,7 @@ Games
 \emph on
 Tournament
 \emph default
- is MPI enabled the correct communication protocol is followed.
+ is MPI enabled, the correct communication protocol is followed.
  
 \end_layout
 
@@ -328,10 +363,6 @@ Agents
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -371,8 +402,129 @@ MPJ integration design diagram.
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
+
+\end_layout
+
+\begin_layout Standard
+Once MPJ features are fully functional, the 
+\emph on
+MainView
+\emph default
+ screen will display a list of running 
+\emph on
+Tournaments
+\emph default
+ with options to cancel, pause and resume 
+\emph on
+Tournaments
+\emph default
+.
+ A use case would be:
+\end_layout
+
+\begin_layout Standard
+User Pauses a Tournament
+\end_layout
+
+\begin_layout Standard
+Pre-condition: Tournament is started
+\end_layout
+
+\begin_layout Enumerate
+User chooses to pause a 
+\emph on
+Tournament
+\end_layout
+
+\begin_layout Enumerate
+System is notified of the user's selection
+\end_layout
+
+\begin_layout Enumerate
+System pauses the 
+\emph on
+Tournament
+\end_layout
+
+\begin_layout Enumerate
+System notifies user that the 
+\emph on
+Tournmant
+\emph default
+ is paused
+\end_layout
+
+\begin_layout Standard
+The use cases for canceling and resuming 
+\emph on
+Tournaments
+\emph default
+ are similar.
+ The class diagram is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:BatchStateView-design-diagram."
+
+\end_inset
+
+.
+ When the user starts the 
+\emph on
+Batch
+\emph default
+ the 
+\emph on
+BatchStateView
+\emph default
+ will display the running 
+\emph on
+Tournaments
+\emph default
+.
+ The 
+\emph on
+BatchStateView
+\emph default
+ will allow the user to change the state of 
+\emph on
+Tournaments
+\emph default
+ through the 
+\emph on
+BatchStateController
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/BatchStateView.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:BatchStateView-design-diagram."
+
+\end_inset
+
+BatchStateView design diagram.
 \end_layout
 
 \end_inset
@@ -380,55 +532,13 @@ MPJ integration design diagram.
 
 \end_layout
 
-\begin_layout Standard
-Once MPJ features are fully functional the Main screen will display a list
- of running Tournaments with options to cancel, pause and resume Tournaments.
- A use case would be:
+\begin_layout Plain Layout
+
 \end_layout
 
-\begin_layout Standard
-User Pauses Tounament
-\end_layout
+\end_inset
 
-\begin_layout Enumerate
 
-\emph on
-Batch
-\emph default
- is notified of which 
-\emph on
-Tournament
-\emph default
- the User wants to Pause
-\end_layout
-
-\begin_layout Enumerate
-The 
-\emph on
-Batch
-\emph default
- notifies the 
-\emph on
-Tournament
-\emph default
- to pause
-\end_layout
-
-\begin_layout Enumerate
-The 
-\emph on
-Tournament
-\emph default
- notifies the running 
-\emph on
-Games
-\emph default
- to pause
-\end_layout
-
-\begin_layout Standard
-The use cases for canceling and resuming Tournaments are similiar.
- 
 \end_layout
 
 \begin_layout Standard
@@ -443,15 +553,67 @@ key "burkov2007multiagent"
 \end_inset
 
 .
- The algorithm uses a fixed size lookup table of Q-values that represent
+ The algorithm uses a fixed-size lookup table of Q-values that represents
  the utility of previous joint actions in order to decide what action to
  take.
  I then plan to augment the algorithm to allow for multiple levels of history.
- Therefore, the agent can have both a long term and a short term memory.
+ Therefore, the agent can have both a long-term and a short-term memory.
  I will then create rating and scoring mechanisms for the algorithms.
  Following the creation of the algorithms, a graphing library will be integrated
  in order to view statistics about the algorithms and game progress in real
  time and allow the user to save the charts as images.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/BatchScreen.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Current-GUI-that"
+
+\end_inset
+
+Current GUI that allows the user to create a 
+\emph on
+Batch
+\emph default
+ of 
+\emph on
+Tournaments
+\emph default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

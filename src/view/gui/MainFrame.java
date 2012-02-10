@@ -251,7 +251,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        if (MPISTARTED == true)
+       /* if (MPISTARTED == true)
         {// so if mpi was started then I will close it
             try {
                 MPJ.finish();
@@ -259,13 +259,14 @@ public class MainFrame extends javax.swing.JFrame {
             } catch (MPJException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/
     }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /*
         try {
             MPJ.init(args);
         } catch (MPJException ex) {
@@ -282,7 +283,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        */
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
