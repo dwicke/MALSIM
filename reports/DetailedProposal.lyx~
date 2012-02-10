@@ -219,6 +219,8 @@ reference "fig:Current-GUI-that"
 \begin_layout Standard
 I plan to extend current functionality by integrating MPJ, a Java implementation
  of MPI.
+ I am choosing to add multi processing functionality using MPJ in order
+ to shorten the runtime when benchmarking algorithms.
  In order to use MPJ, the user must have MPJ installed and start MALSIM
  as an MPJ process.
  MPJ will be used to create and manage 
