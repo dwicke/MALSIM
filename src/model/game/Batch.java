@@ -69,6 +69,9 @@ public class Batch implements Subscriber{
             // set the tournprops 
             //ObjectState st = new ObjectState(State.RUNNABLE, this, tourn);
             tourn.getState().setState(State.RUNNABLE);
+            tourn.getState().addSub(tourn);// so that it knows when to term
+            tourn.getState().addSub(this);
+            
            // tourn.setState(st);
             
             // use an ArrayList of Threads since these threads will be running for a while
@@ -92,11 +95,13 @@ public class Batch implements Subscriber{
         if (((Tournament)(code)).getState().getState().equals(State.RUNNABLE))
         {
             // don't do anything
-            System.out.println("I have a running Tourn");
+            System.out.println("Batch have a running Tourn");
         }
         else if (((Tournament)(code)).getState().getState().equals(State.TERMINATED))
         {
             System.out.println("I have a term tourn");
+            // remove the tournament from the running list
+            tournThreads.remove(code);
         }
     }
     

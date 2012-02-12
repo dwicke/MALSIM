@@ -88,7 +88,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
        // while (paused == false && competitorsAvail() == true) {
         ArrayList<Agent> contestants = null;
        // while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && contestants.size() != 0)
-        while((contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
+        while(state.getState() == State.RUNNABLE && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
         {
            // System.out.println("inside while loop for tourn");
            setupTournGame(contestants);
@@ -141,6 +141,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      * pause all running games
      */
     public void pauseTournament() {
+        paused = true;
         for (Game g : runningGames.keySet()) {
             runningGames.get(g).setState(State.WAITING);
         }
@@ -207,6 +208,19 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     @Override
     public void update(Object pub, Object code) throws RemoteException {
         System.out.println("I am printing game " + code);
+        
+        if (state.getState() == State.TERMINATED)
+        {
+            //shutdown the games
+            System.out.println("Tournament was terminated remotely");
+            state.removeSub(this);
+            for (Game g : runningGames.keySet())
+            {
+                g.getGameState().removeSub(this);
+                g.getGameState().setState(State.TERMINATED);
+            }
+            return;
+        }
         if (code instanceof Game && (State) ((ObjectState) pub).getState() == State.TERMINATED) {
             System.out.println("I am terminating game");
             // eliminate an agent from the remaining list
@@ -310,17 +324,14 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             state.removeSub(this);
             state.setState(State.TERMINATED);
         }
-        else if (paused == false)
+        else if (paused == false && getState().getState() != State.TERMINATED)
         {
             System.out.println("Restarting startTourn");
             // I still have games to play
             startTourn();
         }
         
-        if (state.getState() == State.TERMINATED)
-        {
-            //shutdown the games
-        }
+        
     }
 
     @Override

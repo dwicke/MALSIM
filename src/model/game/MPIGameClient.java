@@ -77,20 +77,31 @@ public class MPIGameClient extends Game {
                             if (recvState.getState() == State.RUNNABLE)
                             {
                                 // Then I must restart the Game
-                                
+                                synchronized(game)
+                                {
+                                    game.notify();
+                                }
                             }
                         }
                         
                         if (recvState.getState() == State.TERMINATED)
                         {
+                           
                             // I must term the thread
                             if(state.getState() == State.WAITING)
                             {
-                                // the 
+                                // so Set to terminated and
+                                state.setState(State.TERMINATED);
+                                // then notify that 
                                 synchronized(game)
                                 {
                                     game.notify();
                                 }
+                            }
+                            else
+                            {
+                                // term the game
+                                state.setState(State.TERMINATED);
                             }
                         }
                        
