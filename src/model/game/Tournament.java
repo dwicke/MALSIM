@@ -153,9 +153,11 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         paused = false;
         // games are in seperate threads so they can call wait
         // so I must notify them
+        
         for (Game g : runningGames.keySet()) {
-            synchronized(g)// This is very wrong probably doesn't even work shouldn't sync on a used
-                // object need a mutex object
+            synchronized(g)// This is right since the game will have called
+                // wait and have thus given up its monitor and I can synch on
+                // it and then call notify to wake it up
             {
                 g.notify();
             }

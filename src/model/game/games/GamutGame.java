@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import model.agent.Agent;
 import model.agent.GamutAgent;
 import model.game.Game;
+import model.game.RepeatedGame;
 import model.properties.game.GamutGameProperties;
 import model.properties.game.RepeatedGameProperties;
 
@@ -21,7 +22,7 @@ import model.properties.game.RepeatedGameProperties;
  *
  * @author drew
  */
-public class GamutGame extends Game{
+public class GamutGame extends RepeatedGame{
     private edu.stanford.multiagent.gamer.Game g;
 
     
@@ -117,7 +118,12 @@ public class GamutGame extends Game{
         {
             System.out.println("Current game " + i);
             checkPaused();// pause if necessary
-            // TODO must check if terminated
+            // must check if terminated
+            if (checkTerminate() == true)
+            {
+                // break the for loop
+                break;
+            }
             
             int j = 0;
             // get the actions from each of the agents

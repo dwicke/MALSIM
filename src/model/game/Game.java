@@ -125,6 +125,14 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
         this.getGameState().setState(State.TERMINATED);
         System.out.println("Finished");
     }
+    public boolean checkTerminate()
+    {
+        if (state.getState().compareTo(State.TERMINATED) == 0)
+        {
+            return true;
+        }
+        return false;
+    }
     
     /**
      * Pauses if necessary 
@@ -139,6 +147,8 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
                 // then I should pause not sure that this will work
                 synchronized(this)
                 {
+                    // I give up "this" monitor when I call wait so someone else
+                    // can call notify
                     this.wait();
                 }
             } catch (InterruptedException ex) {
