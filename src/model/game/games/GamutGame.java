@@ -22,7 +22,9 @@ import model.properties.game.RepeatedGameProperties;
  * @author drew
  */
 public class GamutGame extends Game{
+    private edu.stanford.multiagent.gamer.Game g;
 
+    
     public GamutGame() {
         super();
         this.setGameProperties(new GamutGameProperties());
@@ -47,16 +49,21 @@ public class GamutGame extends Game{
     
     public void setupGamutGame()
     {
-        edu.stanford.multiagent.gamer.Game g = null;// = this.getGameProps().getGame().getClass().newInstance();
+       // g = null;// = this.getGameProps().getGame().getClass().newInstance();
         try {
             g = this.getGameProps().getGame().getClass().newInstance();
-            g.setParameters(new ParamParser(createParamString().split(" ")), true);
+            String params = createParamString();
+            if (!params.equals(""))
+            {
+                g.setParameters(new ParamParser(createParamString().split(" ")), true);
+            }
             g.initialize();
         } catch (Exception ex) {
             Logger.getLogger(GamutGame.class.getName()).log(Level.SEVERE, null, ex);
         }
         g.doGenerate();
-        this.getGameProps().setGame(g);
+       // this.getGameProps().setGame(g); // don't set other wise all the other games will have
+                                              // the same setup
         int order = 1;
         for (GamutAgent ag : this.getGamutAgents())
         {
@@ -110,6 +117,7 @@ public class GamutGame extends Game{
         {
             System.out.println("Current game " + i);
             checkPaused();// pause if necessary
+            // TODO must check if terminated
             
             int j = 0;
             // get the actions from each of the agents
@@ -128,7 +136,9 @@ public class GamutGame extends Game{
             //System.out.println("Number of agents" + getGamutAgents().size());
            // for (int h = 0; h < getGamutAgents().size(); h++)
             {
-                ag.addScore(getGameProps().getGame().getPayoff(actions, ag.getOrder() - 1 ));
+                // i must use the local game the game props just tells me what
+                // type of game i am to play
+                ag.addScore(g.getPayoff(actions, ag.getOrder() - 1 ));
                 
               //  System.out.println("Agent 0 score is now " + getGamutAgents().get(0).getScore());
             }

@@ -293,7 +293,7 @@ Game
 \emph on
 GameRunnerFactory,
 \emph default
- I am abstracting the required interaction with 
+ I am delegating the required interaction with 
 \emph on
 Games
 \emph default

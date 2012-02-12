@@ -46,6 +46,7 @@ public class StandardAgentSelector extends AgentSelector{
                 ObjectState st = getAgents().get(i).getAgentObjectState();
                 if (st == null)
                 System.out.println("null state");
+                // a blocked agent means that it has played and is available to be used
                 if (st == null || st.getState() == State.BLOCKED)
                 {
                     next.add(getAgents().get(i));

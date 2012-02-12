@@ -34,7 +34,7 @@ public class Batch implements Subscriber{
     public void addTournament(Tournament tourn)
     {
         ObjectState st = new ObjectState(State.NEW, this, tourn);
-        
+        tourn.setState(st);// I am pretty sure I need to do this
         batch.put(tourn, st);
     }
     
@@ -67,9 +67,9 @@ public class Batch implements Subscriber{
             System.out.println(tourn.toString() + " Starting");
             // I start the tournaments as threads 
             // set the tournprops 
-            ObjectState st = new ObjectState(State.RUNNABLE, this, tourn);
-            
-            tourn.setState(st);
+            //ObjectState st = new ObjectState(State.RUNNABLE, this, tourn);
+            tourn.getState().setState(State.RUNNABLE);
+           // tourn.setState(st);
             
             // use an ArrayList of Threads since these threads will be running for a while
             Thread t = new Thread(tourn, tourn.toString());
@@ -87,7 +87,17 @@ public class Batch implements Subscriber{
      */
     @Override
     public void update(Object pub, Object code) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // the code is the Tournament
+        
+        if (((Tournament)(code)).getState().getState().equals(State.RUNNABLE))
+        {
+            // don't do anything
+            System.out.println("I have a running Tourn");
+        }
+        else if (((Tournament)(code)).getState().getState().equals(State.TERMINATED))
+        {
+            System.out.println("I have a term tourn");
+        }
     }
     
 }

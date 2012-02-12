@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  */
 public class GamutGameProperties extends RepeatedGameProperties {
 
+    // This is a gamut game not my Game
     protected Game game;
     private boolean wasGen;
 
@@ -39,8 +40,11 @@ public class GamutGameProperties extends RepeatedGameProperties {
         } catch (Exception ex) {
             Logger.getLogger(GamutGameProperties.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        // set the num agents
         this.setNumAgents(game.getNumPlayers());
-
+        // set the num actions
+        this.setField("actions", 3);
 
 
 
@@ -95,43 +99,6 @@ public class GamutGameProperties extends RepeatedGameProperties {
             if (fieldName.equals(fieldAlias)) {
                 // if there is then add it to the 
                 this.fieldVals.put(fieldName, val.toString());
-
-
-
-                /*
-                try {
-                switch (game.getParameters().getParamInfo()[i].type) {
-                case ParamInfo.LONG_PARAM:
-                long lval = (long) parseDouble(val, game.getParameters().getLongParameter(fieldName));
-                game.setParameter(fieldAlias, lval);
-                this.fieldVals.put(fieldAlias, lval);
-                break;
-                case ParamInfo.DOUBLE_PARAM:
-                double dval = parseDouble(val, game.getParameters().getDoubleParameter(fieldName));
-                game.setParameter(fieldAlias, dval);
-                this.fieldVals.put(fieldAlias, dval);
-                break;
-                case ParamInfo.STRING_PARAM:
-                game.setParameter(fieldAlias, val.toString());
-                this.fieldVals.put(fieldAlias, val.toString());
-                break;
-                case ParamInfo.BOOLEAN_PARAM:
-                game.setParameter(fieldAlias, game.getParameters().getParamInfo()[i].defaultValue);
-                System.out.println("Boolean parameters not implemented.");
-                break;
-                case ParamInfo.VECTOR_PARAM:
-                // maybe set the default value if possible
-                System.out.println("Vector parameters not implemented.");
-                break;
-                case ParamInfo.CMDLINE_PARAM:
-                // set default value if possible...
-                System.out.println("CMDLine parameters not implemented.");
-                break;
-                default:
-                System.out.println("Unknown parameter not implemented.");
-                break;
-                }
-                 */
 
                 return true;
 

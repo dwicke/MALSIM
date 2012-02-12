@@ -164,7 +164,7 @@ public class PropertiesView extends javax.swing.JPanel implements Subscriber {
     @Override
     public void update(Object pub, Object code) throws RemoteException {
         // update the properties...
-        // loop throught the bag making them visible and setting the appropriate
+        // loop through the bag making them visible and setting the appropriate
         // mapping and make the rest of the components invisible set up the layout
         System.out.println("HI");
         int count = 0;

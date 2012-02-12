@@ -136,7 +136,7 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
         {
             System.out.println("I am Waiting...................");
             try {
-                // then I should pause
+                // then I should pause not sure that this will work
                 synchronized(this)
                 {
                     this.wait();
@@ -146,5 +146,6 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
             }
                     
         }
+        
     }
 }

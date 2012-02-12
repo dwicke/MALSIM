@@ -61,6 +61,7 @@ public class BatchTest {
     public void testRemoveTournament() {
         System.out.println("removeTournament");
         Tournament tourn = new Tournament();
+        tourn.setString("tourn1");
         Batch instance = new Batch();
         instance.addTournament(tourn);
         instance.removeTournament(tourn);
@@ -74,6 +75,7 @@ public class BatchTest {
     public void testGetBatch() {
         System.out.println("getBatch");
         Tournament tourn = new Tournament();
+        tourn.setString("Tourn1");
         Batch instance = new Batch();
         instance.addTournament(tourn);
         TreeMap<Tournament, ObjectState> result = instance.getBatch();

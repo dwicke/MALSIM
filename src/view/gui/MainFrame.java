@@ -266,11 +266,12 @@ public class MainFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /*
+        
+        
         try {
             MPJ.init(args);
         } catch (MPJException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+          //  Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }finally
         {
             try {
@@ -280,10 +281,10 @@ public class MainFrame extends javax.swing.JFrame {
                     System.out.println("MPI Was Started");
                 }
             } catch (MPJException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+              //  Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        */
+        
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

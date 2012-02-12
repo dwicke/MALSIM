@@ -169,6 +169,7 @@ public class PropertiesChooserView extends javax.swing.JPanel {
         // TODO add your handling code here:
         int index = evt.getLastIndex();
         // notify the observers so that they know that i want to see the properties
+        // ie the PropertiesView
         if (index < chosenModel.getSize())
         controller.notifyObservers((String)chosenModel.get(index));
     }//GEN-LAST:event_chosenListValueChanged

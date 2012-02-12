@@ -92,8 +92,9 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         {
            // System.out.println("inside while loop for tourn");
            setupTournGame(contestants);
+           
         }
-        
+        System.out.println("IH");
         //threadPool.shutdown();
        // System.out.println(this.toString() + " Finished");
         // if the returned agents are null then I know that I am done so
@@ -159,7 +160,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 g.notify();
             }
         }
-        paused = false;
+      //  paused = false;
     }
 
     /**
@@ -203,8 +204,9 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      */
     @Override
     public void update(Object pub, Object code) throws RemoteException {
-       // System.out.println("I am printing game " + code);
+        System.out.println("I am printing game " + code);
         if (code instanceof Game && (State) ((ObjectState) pub).getState() == State.TERMINATED) {
+            System.out.println("I am terminating game");
             // eliminate an agent from the remaining list
             // new problem when I go to eliminate an agent the
             // score will be at where ever it is at when I call this
@@ -230,7 +232,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             }
             
             
-            
+            System.out.println("Finished establinshing the agents that remain");
             Agent elimAgent = props.getEliminator().eliminate(remainingAgents);
             
             // If the eliminated Agent is Runnable then I will need to add the
@@ -238,9 +240,11 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             if (elimAgent != null && elimAgent.getAgentObjectState() != null && 
                     elimAgent.getAgentObjectState().getState() == State.RUNNABLE)
             {
+                System.out.println("Will remove the agent later");
                 removeLater.add(elimAgent);
             }
             else if (elimAgent != null) {
+                System.out.println("Removed the agent now");
                 remainingAgents.remove(elimAgent);
                 eliminatedAgents.add(elimAgent);
             }
@@ -252,20 +256,22 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 if (ag != elimAgent)
                     ag.getAgentObjectState().setState(State.BLOCKED);
             }
-            
+            System.out.println("The number of agents left " + remainingAgents.size());
             // update the players to choose from for the AgentSelector
             props.getAgentSelector().setPlayers(remainingAgents);
             // remove the game from the running list
             runningGames.remove((Game) code);
+            System.out.println("Removed Game from running list games left " + runningGames.size());
          //   System.out.println(((Game) code).toString());
         }
-        //System.out.println((State) ((ObjectState) pub).getState());
+        System.out.println((State) ((ObjectState) pub).getState());
 
 
         // move this to the update method and have Tournament subscribe to the state
         // so then it will be updated and I will need to check that the pub arg is
         // equal to state field then if it is WAITING then I go inside the if
         if (state.getState() == State.WAITING) {
+            System.out.println("The tournament should pause");
             paused = true;
             // pause the games
             pauseTournament();
@@ -284,12 +290,13 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             //resumeTournament();
             
         }
-        
-        if (state.getState() == State.TERMINATED)
+        else
         {
-            //shutdown the games
+            System.out.println("Not to be paused");
         }
-
+       
+        System.out.println("Comps avail: " + competitorsAvail() + " running games empty:" + 
+                runningGames.isEmpty() + " is paused " + paused);
         // once running games is empty and I am not paused and agentselector produces
         // no more competitors then Tournament is completed 
         // I will remove myself as a subscriber to my own object state
@@ -297,14 +304,20 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         // updated as to my status and I will return from update and will exit this part
         if (competitorsAvail() == false && runningGames.isEmpty() == true && paused == false )
         {
+            System.out.println("Tourn is term");
             state.removeSub(this);
             state.setState(State.TERMINATED);
         }
-        else
+        else if (paused == false)
         {
-          //  System.out.println("Restarting startTourn");
+            System.out.println("Restarting startTourn");
             // I still have games to play
             startTourn();
+        }
+        
+        if (state.getState() == State.TERMINATED)
+        {
+            //shutdown the games
         }
     }
 
