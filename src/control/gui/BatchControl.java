@@ -4,10 +4,14 @@
  */
 package control.gui;
 
+import ibis.mpj.MPJException;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.game.Batch;
 import model.game.Tournament;
+import model.game.TournamentFactory;
 
 /**
  *
@@ -45,7 +49,12 @@ public class BatchControl {
     
     public TournamentControl getNewTournControl(String name)
     {
-        Tournament tourn = new Tournament();
+        Tournament tourn = null;
+        try {
+            tourn = TournamentFactory.getTournament(); //new Tournament();
+        } catch (MPJException ex) {
+            Logger.getLogger(BatchControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         tourn.setString(name);
         batch.addTournament(tourn);
         return new TournamentControl(tourn);

@@ -16,6 +16,6 @@ public interface GameRunner extends Runnable, Comparable<GameRunner> {
     public void pauseGame();
     public void resumeGame();
     public void terminateGame();
-    
+    public void shutdownRunner();
     
 }

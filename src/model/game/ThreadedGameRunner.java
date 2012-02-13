@@ -12,7 +12,7 @@ import java.lang.Thread.State;
  */
 public class ThreadedGameRunner implements Runnable, GameRunner {
 
-    private Game g;
+    protected Game g;
     @Override
     public void run() {
         startGame();
@@ -57,5 +57,11 @@ public class ThreadedGameRunner implements Runnable, GameRunner {
     public int compareTo(GameRunner t) {
         return this.getGame().compareTo(t.getGame());
     }
+
+    @Override
+    public void shutdownRunner() {
+        terminateGame();
+    }
+    
     
 }
