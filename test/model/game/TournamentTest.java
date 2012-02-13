@@ -53,7 +53,8 @@ public class TournamentTest {
     @Test
     public void testStartTourn() {
         System.out.println("startTourn");
-         Tournament instance = new Tournament();
+         MPITourn instance = new MPITourn();
+       // Tournament instance = new Tournament();
         TournamentProperties props = new TournamentProperties();
         props.setMaxNumThreads(1);
         props.addAgent(new QLearningAgent());

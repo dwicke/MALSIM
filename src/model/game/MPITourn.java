@@ -30,7 +30,7 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
      * The state of the game is mapped to the respected game
      */
     private ExecutorService threadPool;
-    private TreeMap<GameRunner, ObjectState> runningGames;
+    private TreeMap<GameRunner, Game> runningGames;
     private ObjectState state;
     private TournamentProperties props;
     private String name;
@@ -103,12 +103,9 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
 
     }
     
-    
-    public void setupTournGame(ArrayList<Agent> contestants)
+    public void setupGame(ArrayList<Agent> contestants, GameRunner runner)
     {
-        //  System.out.println("Starting first game");
-         // get the game properties from tournprops
-                GameProperties gameProps = props.getGameProps();
+        GameProperties gameProps = props.getGameProps();
                 // get the name of the game toString
                 String gameName = gameProps.toString();
 
@@ -133,17 +130,28 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
                 // assign the Objectstate to the Game object
                 game.setObjectState(obState);
                 
+                runner.setGame(game);
+                // add it to the running games
+                runningGames.put(runner, game);
+                // start the game as a thread
+                threadPool.submit(runner);
+    }
+    public void setupTournGame(ArrayList<Agent> contestants)
+    {
+        //  System.out.println("Starting first game");
+         // get the game properties from tournprops
+                
+                
                 GameRunner runner = null;
         try {
             runner = GameRunnerFactory.getGameRunner();
         } catch (MPJException ex) {
             Logger.getLogger(MPITourn.class.getName()).log(Level.SEVERE, null, ex);
         }
-                runner.setGame(game);
-                // add it to the running games
-                runningGames.put(runner, obState);
-                // start the game as a thread
-                threadPool.submit(runner);
+        
+        // here is where I will 
+        setupGame(contestants, runner);
+                
     }
 
     /**
@@ -151,8 +159,8 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
      */
     public void pauseTournament() {
         paused = true;
-        for (Game g : runningGames.keySet()) {
-            runningGames.get(g).setState(State.WAITING);
+        for (GameRunner g : runningGames.keySet()) {
+            g.pauseGame();
         }
     }
 
@@ -163,14 +171,8 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
         paused = false;
         // games are in seperate threads so they can call wait
         // so I must notify them
-        
-        for (Game g : runningGames.keySet()) {
-            synchronized(g)// This is right since the game will have called
-                // wait and have thus given up its monitor and I can synch on
-                // it and then call notify to wake it up
-            {
-                g.notify();
-            }
+        for (GameRunner g : runningGames.keySet()) {
+            g.resumeGame();
         }
       //  paused = false;
     }
@@ -196,7 +198,7 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
      */
     private void setup() {
         props = new TournamentProperties();
-        runningGames = new TreeMap<Game, ObjectState>();
+        runningGames = new TreeMap<GameRunner, Game>();
         remainingAgents = new ArrayList<Agent>();
         eliminatedAgents = new ArrayList<Agent>(); 
         removeLater = new ArrayList<Agent>(); 
@@ -218,18 +220,27 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
     public void update(Object pub, Object code) throws RemoteException {
         System.out.println("I am printing game " + code);
         
+        // if the tournament was set to be terminated
         if (state.getState() == State.TERMINATED)
         {
             //shutdown the games
             System.out.println("Tournament was terminated remotely");
             state.removeSub(this);
-            for (Game g : runningGames.keySet())
+            for (GameRunner g : runningGames.keySet())
             {
-                g.getGameState().removeSub(this);
-                g.getGameState().setState(State.TERMINATED);
+                
+                // only problem might be race conditions
+                // if a game terminates since it is finished
+                // then I might get notified via the gamerunner thread
+                // the the next line will be called
+                g.getGame().getGameState().removeSub(this);
+                g.terminateGame();
+                
+                 
             }
             return;
         }
+        // if the game is terminated
         if (code instanceof Game && (State) ((ObjectState) pub).getState() == State.TERMINATED) {
             System.out.println("I am terminating game");
             // eliminate an agent from the remaining list
@@ -285,7 +296,8 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
             // update the players to choose from for the AgentSelector
             props.getAgentSelector().setPlayers(remainingAgents);
             // remove the game from the running list
-            runningGames.remove((Game) code);
+            //runningGames.remove((Game) code);
+            runningGames.values().remove((Game)code);
             System.out.println("Removed Game from running list games left " + runningGames.size());
          //   System.out.println(((Game) code).toString());
         }
@@ -335,6 +347,8 @@ public class MPITourn implements Subscriber, Runnable, Comparable {
         }
         else if (paused == false && getState().getState() != State.TERMINATED)
         {
+            // if the tournament is not paused or wasn't terminated then 
+            // start a game
             System.out.println("Restarting startTourn");
             // I still have games to play
             startTourn();

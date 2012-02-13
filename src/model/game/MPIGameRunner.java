@@ -5,7 +5,11 @@
 package model.game;
 
 /**
- *
+ * need to set the ObjectState of the
+ * initial game to the finished game received
+ * from mpigameclient
+ * set the state to Terminated then the Tournament
+ * will know
  * @author drew
  */
 public class MPIGameRunner extends ThreadedGameRunner{

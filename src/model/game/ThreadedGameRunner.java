@@ -4,45 +4,58 @@
  */
 package model.game;
 
+import java.lang.Thread.State;
+
 /**
  *
  * @author drew
  */
 public class ThreadedGameRunner implements Runnable, GameRunner {
 
+    private Game g;
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        startGame();
     }
 
     @Override
     public void setGame(Game game) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        g = game;
     }
 
     @Override
     public Game getGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return g;
     }
 
     @Override
     public void startGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        g.run();
     }
 
     @Override
     public void pauseGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        g.getGameState().setState(State.WAITING);
     }
 
     @Override
     public void resumeGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        synchronized(g)// This is right since the game will have called
+                // wait and have thus given up its monitor and I can synch on
+                // it and then call notify to wake it up
+            {
+                g.notify();
+            }
     }
 
     @Override
     public void terminateGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        g.getGameState().setState(State.TERMINATED);
+    }
+
+    @Override
+    public int compareTo(GameRunner t) {
+        return this.getGame().compareTo(t.getGame());
     }
     
 }
