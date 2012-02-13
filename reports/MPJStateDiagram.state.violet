@@ -198,8 +198,8 @@ message</string>
    <object id="CircularFinalStateNode0" class="com.horstmann.violet.product.diagram.state.CircularFinalStateNode"/> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>171.0</double> 
-     <double>341.0</double> 
+     <double>44.0</double> 
+     <double>141.0</double> 
     </void> 
    </object> 
   </void> 
