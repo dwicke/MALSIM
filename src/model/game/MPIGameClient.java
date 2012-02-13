@@ -52,13 +52,15 @@ public class MPIGameClient extends Game {
                         // I will send the game back to MALSIM
                         // just resuse the recvObject since it is the game
                         MPJ.COMM_WORLD.send(recvObject, 0, 1, MPJ.OBJECT, 0, rank);
+                        // set the game to null to return to initial state
+                        game = null;
                         shouldContinue = false;
                         // I will loop back and wait for the next game object
                     } else if (MPJ.COMM_WORLD.iprobe(0, rank) != null) {
                         // Then MALSIM sent me a message
                         // The only type of message that it can be
-                        // is a Object state to tell me to Pause or
-                        // Terminate
+                        // is an ObjectState to tell me to Pause or
+                        // Terminate the game
                         
                         Object[] st = new Object[1];
                         MPJ.COMM_WORLD.recv(st, 0, 1, MPJ.OBJECT, 0, rank);
@@ -83,7 +85,8 @@ public class MPIGameClient extends Game {
                                 }
                             }
                         }
-                        
+                        // then the tournament wants the game to stop
+                        // so stop it and 
                         if (recvState.getState() == State.TERMINATED)
                         {
                            
@@ -97,19 +100,22 @@ public class MPIGameClient extends Game {
                                 {
                                     game.notify();
                                 }
+                                
                             }
                             else
                             {
                                 // term the game
                                 state.setState(State.TERMINATED);
                             }
+                            game = null;
+                            shouldContinue = false;
                         }
                        
                     }
                 }
             } else if (recvObject != null && recvObject[0] instanceof ObjectState) {
                 // So if I have never recieved a Game object and the first thing
-                // I recieve is an ObjectState that say TERMINATED then that
+                // I recieve is an ObjectState that says TERMINATED then that
                 // means that the user never started the Batch and just closed MALSIM
                 // and I need to call finish on the MPJ
                 if (game == null && ((ObjectState) recvObject[0]).getState() == State.TERMINATED) {

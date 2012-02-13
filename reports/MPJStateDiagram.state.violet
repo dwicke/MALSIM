@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_26" class="java.beans.XMLDecoder"> 
+ <object class="com.horstmann.violet.StateDiagramGraph"> 
+  <void method="addNode"> 
+   <object id="CircularInitialStateNode0" class="com.horstmann.violet.CircularStateNode"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>41.0</double> 
+     <double>71.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode0" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>MPIGameClient recieves
+Game</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>379.0</double> 
+     <double>80.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode1" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>MPIGameClient starts recv
+Game</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>629.0</double> 
+     <double>66.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode2" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>While game has not stopped</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>788.0</double> 
+     <double>161.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode3" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>wait for the game to finish
+or a message from MALSIM</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>548.0</double> 
+     <double>154.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode4" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Game Finished</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>387.0</double> 
+     <double>160.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode5" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Message from MALSIM</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>491.0</double> 
+     <double>245.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode6" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Pause Game Message</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>495.0</double> 
+     <double>349.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode7" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Terminate Game Message</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>234.0</double> 
+     <double>324.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode8" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Message From MALSIM</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>437.0</double> 
+     <double>457.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode9" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Resume Game Message</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>800.0</double> 
+     <double>341.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode10" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>MPIGameClient Waiting for
+message</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>137.0</double> 
+     <double>149.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode11" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>MPIGameClient told to terminate</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>13.0</double> 
+     <double>235.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="CircularFinalStateNode0" class="com.horstmann.violet.product.diagram.state.CircularFinalStateNode"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>171.0</double> 
+     <double>341.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode0"/> 
+   <object idref="StateNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode1"/> 
+   <object idref="StateNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode2"/> 
+   <object idref="StateNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode3"/> 
+   <object idref="StateNode4"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode3"/> 
+   <object idref="StateNode5"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode5"/> 
+   <object idref="StateNode6"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode5"/> 
+   <object idref="StateNode7"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode6"/> 
+   <object idref="StateNode8"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode8"/> 
+   <object idref="StateNode7"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode8"/> 
+   <object idref="StateNode9"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="CircularInitialStateNode0"/> 
+   <object idref="StateNode10"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode10"/> 
+   <object idref="StateNode11"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode10"/> 
+   <object idref="StateNode0"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode11"/> 
+   <object idref="CircularFinalStateNode0"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode9"/> 
+   <object idref="StateNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode7"/> 
+   <object idref="StateNode10"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"/> 
+   <object idref="StateNode4"/> 
+   <object idref="StateNode10"/> 
+  </void> 
+ </object> 
+</java> 
