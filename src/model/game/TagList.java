@@ -18,7 +18,7 @@ public class TagList {
         tags = new Tag[numTags];
         this.numTags = numTags;
         // do 1 to n since don't want 0 to be a tag
-        for (int i = 1; i <= numTags; i++)
+        for (int i = 1; i < numTags; i++)
         {
             tags[i-1] = new Tag(i);
         }

@@ -196,8 +196,23 @@ Batch
 \end_layout
 
 \begin_layout Standard
-A simplified view of how Batch, Tournaments, Game and Agent objects are
- structured is shown in figure 
+A simplified view of how 
+\emph on
+Batch
+\emph default
+, 
+\emph on
+Tournament
+\emph default
+, 
+\emph on
+Game
+\emph default
+ and 
+\emph on
+Agent
+\emph default
+ objects are structured is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Simplified-Batch-structure."
@@ -212,8 +227,11 @@ reference "fig:Current-GUI-that"
 
 \end_inset
 
-, the current GUI that allows the user to create Tournaments and set properties
- is shown.
+, the current GUI that allows the user to create 
+\emph on
+Tournaments
+\emph default
+ and set properties is shown.
 \end_layout
 
 \begin_layout Standard
@@ -303,6 +321,19 @@ Tournament
 \emph default
  is MPI enabled, the correct communication protocol is followed.
  
+\end_layout
+
+\begin_layout Standard
+One issue when writing multi-process programs is fault tolerance to failed
+ processes.
+ This issue will be handled such that if a process fails then I can re-start
+ the Game as a thread inside the MPIGameRunner.
+ If the MPIGameRunner ever experiences a MPJException I will assume that
+ the game process has died and follow that procedure.
+ Might want to do a sendrecv so that the MPIGameClient must ack the recieved
+ object.
+ If the Overseerer sees that the number of proc decreases then it will querry
+ each of the procs to ask if they are running if they are then 
 \end_layout
 
 \begin_layout Standard

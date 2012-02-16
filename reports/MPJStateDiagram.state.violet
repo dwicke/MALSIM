@@ -21,8 +21,8 @@ Game</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>379.0</double> 
-     <double>80.0</double> 
+     <double>345.0</double> 
+     <double>13.0</double> 
     </void> 
    </object> 
   </void> 
@@ -37,8 +37,8 @@ Game</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>629.0</double> 
-     <double>66.0</double> 
+     <double>569.0</double> 
+     <double>53.0</double> 
     </void> 
    </object> 
   </void> 
@@ -52,8 +52,8 @@ Game</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>788.0</double> 
-     <double>161.0</double> 
+     <double>726.0</double> 
+     <double>219.0</double> 
     </void> 
    </object> 
   </void> 
@@ -68,8 +68,8 @@ or a message from MALSIM</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>548.0</double> 
-     <double>154.0</double> 
+     <double>477.0</double> 
+     <double>147.0</double> 
     </void> 
    </object> 
   </void> 
@@ -83,8 +83,8 @@ or a message from MALSIM</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>387.0</double> 
-     <double>160.0</double> 
+     <double>336.0</double> 
+     <double>153.0</double> 
     </void> 
    </object> 
   </void> 
@@ -113,8 +113,8 @@ or a message from MALSIM</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>495.0</double> 
-     <double>349.0</double> 
+     <double>479.0</double> 
+     <double>341.0</double> 
     </void> 
    </object> 
   </void> 
@@ -128,8 +128,8 @@ or a message from MALSIM</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>234.0</double> 
-     <double>324.0</double> 
+     <double>257.0</double> 
+     <double>255.0</double> 
     </void> 
    </object> 
   </void> 
@@ -143,8 +143,8 @@ or a message from MALSIM</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>437.0</double> 
-     <double>457.0</double> 
+     <double>481.0</double> 
+     <double>443.0</double> 
     </void> 
    </object> 
   </void> 
@@ -158,8 +158,8 @@ or a message from MALSIM</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>800.0</double> 
-     <double>341.0</double> 
+     <double>700.0</double> 
+     <double>339.0</double> 
     </void> 
    </object> 
   </void> 
@@ -174,8 +174,8 @@ message</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>137.0</double> 
-     <double>149.0</double> 
+     <double>89.0</double> 
+     <double>111.0</double> 
     </void> 
    </object> 
   </void> 
@@ -189,8 +189,8 @@ message</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>13.0</double> 
-     <double>235.0</double> 
+     <double>6.0</double> 
+     <double>265.0</double> 
     </void> 
    </object> 
   </void> 
@@ -213,23 +213,8 @@ message</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>749.0</double> 
-     <double>440.0</double> 
-    </void> 
-   </object> 
-  </void> 
-  <void method="addNode"> 
-   <object class="com.horstmann.violet.StateNode"> 
-    <void property="name"> 
-     <void property="text"> 
-      <string>MPIGameClient Checker</string> 
-     </void> 
-    </void> 
-   </object> 
-   <object class="java.awt.geom.Point2D$Double"> 
-    <void method="setLocation"> 
-     <double>566.0</double> 
-     <double>529.0</double> 
+     <double>90.0</double> 
+     <double>398.0</double> 
     </void> 
    </object> 
   </void> 

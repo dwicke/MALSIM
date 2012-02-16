@@ -234,10 +234,13 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 // then I might get notified via the gamerunner thread
                 // the the next line will be called
                 g.getGame().getGameState().removeSub(this);
-                g.terminateGame();
+                g.shutdownRunner();// shut it down don't just term the game
+                //g.terminateGame();
                 
                  
             }
+            // no more running games so clear it
+            runningGames.clear();
             return;
         }
         // if the game is terminated

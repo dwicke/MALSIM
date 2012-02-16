@@ -4,6 +4,7 @@
  */
 package util;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,7 +14,7 @@ import java.util.TreeMap;
  * of the object.
  * @author drew
  */
-public abstract class Viewable {
+public abstract class Viewable implements Serializable{
     
    
      protected TreeMap<String, Object> fieldVals;

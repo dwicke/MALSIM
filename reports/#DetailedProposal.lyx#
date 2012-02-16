@@ -326,11 +326,120 @@ Tournament
 \begin_layout Standard
 One issue when writing multi-process programs is fault tolerance to failed
  processes.
- This issue will be handled such that if a process fails then I can re-start
+ However, MPJ does not provide error mechanisms stating that for example
+ a Send operation can't be completed since the connection to the process
+ was lost.
+ Since MPJ is open source, I was able to modify 
+\emph on
+ConnectionTable
+\emph default
+ and 
+\emph on
+MPJ
+\emph default
+ classes in order to provide a means of letting the user know if their is
+ a connection as seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Connection-Aware-MPJ"
+
+\end_inset
+
+.
+ In the 
+\emph on
+ConnectionTable
+\emph default
+ class I changed 
+\emph on
+getConnection() 
+\emph default
+to utilize the method 
+\emph on
+Connection.isConnectionEstablished()
+\emph default
+ to check the connection between the send and recieving processes before
+ returning a 
+\emph on
+Connection
+\emph default
+ from the ConnectionTable.
+ However, 
+\emph on
+MPJ.init()
+\emph default
+ and 
+\emph on
+MPJ.finish() 
+\emph default
+both call 
+\emph on
+ConnectionTable.getConnection() 
+\emph default
+in order to setup or close a 
+\emph on
+Connection
+\emph default
+.
+ So, in order for these methods t
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/FTMPJ.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Connection-Aware-MPJ"
+
+\end_inset
+
+Connection Aware MPJ
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This issue will be handled such that if a process fails then I can re-start
  the Game as a thread inside the MPIGameRunner.
- If the MPIGameRunner ever experiences a MPJException when probing for a
- message I will assume that the game process has died and follow that procedure.
- 
+ If the MPIGameRunner ever experiences 
+\emph on
+ConnectionLostException
+\emph default
+ I will assume that the 
+\emph on
+MPIGameClient
+\emph default
+ process has died.
 \end_layout
 
 \begin_layout Standard
