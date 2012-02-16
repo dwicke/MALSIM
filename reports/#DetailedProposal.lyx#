@@ -326,8 +326,28 @@ Tournament
 \begin_layout Standard
 One issue when writing multi-process programs is fault tolerance to failed
  processes.
+ My first attempt to provide fault tolerance to MALSIM was hindered since
+ MPJ doesn't provide this functionality.
+ My first attempt was to utilize MPJ's RegistryHandler to be notified when
+ a process dies.
+ This works, however the time between the process dieing and the notification
+ is about 1-2 minutes.
+ 
+\end_layout
+
+\begin_layout Standard
+My second attempt was modeled after MPI-1 specifications where client operations
+ such as send and recv will return an error if the operation is to go to
+ a dead process 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gropp2004fault"
+
+\end_inset
+
+.
  However, MPJ does not provide error mechanisms stating that for example
- a Send operation can't be completed since the connection to the process
+ a send operation can't be completed since the connection to the process
  was lost.
  Since MPJ is open source, I was able to modify 
 \emph on
@@ -381,7 +401,15 @@ in order to setup or close a
 Connection
 \emph default
 .
- So, in order for these methods t
+ So, in order for these methods to not throw an exception I made the 
+\emph on
+ConnectionTable.getUntestedConnection() 
+\emph default
+which will provide the 
+\emph on
+Connection
+\emph default
+ even if its not established.
 \end_layout
 
 \begin_layout Standard
@@ -440,6 +468,7 @@ ConnectionLostException
 MPIGameClient
 \emph default
  process has died.
+ 
 \end_layout
 
 \begin_layout Standard
