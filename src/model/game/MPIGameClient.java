@@ -4,6 +4,7 @@
  */
 package model.game;
 
+import com.thoughtworks.xstream.XStream;
 import ibis.io.IbisSerializationInputStream;
 import ibis.mpj.Datatype;
 import ibis.mpj.MPJ;
@@ -32,8 +33,12 @@ public class MPIGameClient extends Game {
             // /* don't really need to probe just recv*/Status recvStatus = MPJ.COMM_WORLD.probe(0, rank); // probe for a message from root for me
             MPJ.COMM_WORLD.recv(recvObject, 0, 1, MPJ.OBJECT, 0, rank); // recieve the message
 
-            if (recvObject != null && recvObject[0] instanceof Game) {
-                game = (Game) recvObject[0];
+            System.out.println("Recieved a game object: " + recvObject[0]);
+            
+            if (recvObject != null && recvObject[0] instanceof String) {
+                XStream x = new XStream();
+        
+                game = (Game) x.fromXML((String)recvObject[0]);
 
                 // start the game
                 ObjectState state = new ObjectState(State.RUNNABLE);
@@ -51,6 +56,9 @@ public class MPIGameClient extends Game {
                         // then the game is finished
                         // I will send the game back to MALSIM
                         // just resuse the recvObject since it is the game
+                        
+                        String gameXML = x.toXML(game);
+                        recvObject[0] = gameXML;
                         MPJ.COMM_WORLD.send(recvObject, 0, 1, MPJ.OBJECT, 0, rank);
                         // set the game to null to return to initial state
                         game = null;

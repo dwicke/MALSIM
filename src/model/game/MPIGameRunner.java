@@ -4,11 +4,14 @@
  */
 package model.game;
 
+import com.thoughtworks.xstream.XStream;
 import ibis.mpj.MPJ;
 import ibis.mpj.MPJException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.GameFactory;
 import util.ObjectState;
+import util.XMLSerial;
 
 /**
  * need to set the ObjectState of the
@@ -29,20 +32,48 @@ public class MPIGameRunner extends ThreadedGameRunner{
     
     @Override
     public void startGame() {
-        sendObject(g);
+        
+        
+        //XStream x = new XStream();
+        // this works but not efficient
+        // for some reason if i just xml the game i am
+        // using it doesn't work.  XStream gets things
+        // not even releated to a Game object
+        // I think that it has to do with the fact that
+        // XStream is not thread safe and that somehow
+        // it is not working because of that.
+        GameFactory gf = new GameFactory();
+        gf.generateMaping();
+        Game d = (Game)gf.getObject(g.getGameProps().toString());
+        d.setAgents(g.getAgents());
+        d.setGameProperties(g.getGameProps());
+        String xml = XMLSerial.x.toXML(d);
+        
+        System.out.println(xml + "");
+        
+       sendObject(xml);
+        
         try {
+            
             while(MPJ.COMM_WORLD.iprobe(usedTag.getTag(), usedTag.getTag()) == null)
             {
-                
+               // System.err.println("Tag is " + usedTag.getTag());
             }
+             
         } catch (MPJException ex) {
             Logger.getLogger(MPIGameRunner.class.getName()).log(Level.SEVERE, null, ex);
-            // I thnk that this means that the probe failed since the source does
-            // not exist
+            
         }
         // The game has terminated sucessfully! or there was an exception
+        Object[] ob = new Object[1];
         
-            
+        try {
+            MPJ.COMM_WORLD.recv(ob, 0, 1, MPJ.OBJECT, usedTag.getTag(), usedTag.getTag());
+        } catch (MPJException ex) {
+            Logger.getLogger(MPIGameRunner.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        System.out.println("The ob recv is " + ob[0]);
     }
 
     @Override

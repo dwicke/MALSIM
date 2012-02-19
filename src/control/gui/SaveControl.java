@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.game.Batch;
+import util.XMLSerial;
 
 /**
  *
@@ -32,12 +33,13 @@ public class SaveControl {
     public boolean save(File saveFile)
     {
         // Save Batch to the file saveFile
-        XStream x = new XStream();
+       // XStream x = new XStream();
             FileWriter fstream;
             try {
                 fstream = new FileWriter(saveFile);
                 BufferedWriter out = new BufferedWriter(fstream);
-                x.toXML(toSave, out);
+                XMLSerial.x.toXML(toSave, out);
+                
                  } catch (IOException ex) {
                 Logger.getLogger(SaveControl.class.getName()).log(Level.SEVERE, null, ex);
             }

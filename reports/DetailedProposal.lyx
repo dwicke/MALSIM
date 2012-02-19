@@ -327,11 +327,16 @@ Tournament
 One issue when writing multi-process programs is fault tolerance to failed
  processes.
  My first attempt to provide fault tolerance to MALSIM was hindered since
- MPJ doesn't provide this functionality.
+ MPJ doesn't notify the user of that there was a failed process.
+ MPJ will return as though the sent message was recieved.
+ A recv process will stall if it calls recv on a dead proc for which no
+ messages from that process are not in the Connection queue.
  My first attempt was to utilize MPJ's RegistryHandler to be notified when
  a process dies.
- This works, however the time between the process dieing and the notification
+ This worked, however the time between the process dieing and the notification
  is about 1-2 minutes.
+ Another MPI implementation for Java MPJ-Express also does not support error
+ handling (http://mpj-express.org/docs/javadocs/index.html).
  
 \end_layout
 
@@ -410,6 +415,98 @@ which will provide the
 Connection
 \emph default
  even if its not established.
+ However, if I try to recv a message from a process that has disconnected
+ I won't recieve any of the messages since the connection won't be established.
+ This is bad design to link the recv queue with the Connection.
+ If the two were seperate then this would have worked since the queue would
+ have still been available even if the Connection is not established.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, I decided to just make a method in MPJ that the user can call to
+ check if their process is connected to the specified process seen in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Final-Connection-Aware"
+
+\end_inset
+
+.
+ Therefore, I can check the connection before I send.
+ I implemented this and tested again and then it seemed like if I probe
+ the message the sent object disapears when I call recv.
+ I finally realized that there is a bug in MPJ that incorrectly converts
+ the stored probed message.
+ I fixed this and I found anther bug that blocked the process when calling
+ iprobe.
+ The problem with this was that the iprobe method was checking the wrong
+ variable to see if it was suposed to block.
+ So I fixed this and then discovered that on MPJ's website that someone
+ else had found this bug and proposed the same fix.
+\end_layout
+
+\begin_layout Standard
+Based on looking at the code for MPJ I realized that if I have multiple
+ threads running and trying to recv and probe for messages I will be running
+ into a lot of waiting and possibly dead lock since MPJ locks on the recv
+ connection queue when recv or probing for messages.
+ So, there will be one class in its own thread that will oversee all of
+ the MPI recv communications and will be given
+\end_layout
+
+\begin_layout Standard
+One thing that may be a pain is that when the user saves a 
+\emph on
+Batch 
+\emph default
+in the threaded only version and then loads it into an MPI version mpi won't
+ work and vice versa.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/FinalFTMPJ.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Final-Connection-Aware"
+
+\end_inset
+
+Final Connection Aware MPJ
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -444,10 +541,6 @@ Connection Aware MPJ
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 

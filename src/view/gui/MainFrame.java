@@ -268,12 +268,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static void main(String args[]) {
         
         
-        try {
-            MPJ.init(args);
-        } catch (MPJException ex) {
-          //  Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }finally
-        {
+        
             try {
                 if (MPJ.initialized() == true)
                 {
@@ -283,7 +278,7 @@ public class MainFrame extends javax.swing.JFrame {
             } catch (MPJException ex) {
               //  Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        
         
         
         /* Set the Nimbus look and feel */

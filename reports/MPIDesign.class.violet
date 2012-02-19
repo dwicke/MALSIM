@@ -233,8 +233,8 @@ the thread pool</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>770.0</double> 
-     <double>12.0</double> 
+     <double>1140.0</double> 
+     <double>3.0</double> 
     </void> 
    </object> 
   </void> 
@@ -351,6 +351,35 @@ tourn</string>
     <void method="setLocation"> 
      <double>952.0</double> 
      <double>505.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object class="com.horstmann.violet.ClassNode"> 
+    <void property="attributes"> 
+     <void property="text"> 
+      <string>TreeMap&lt;TagID, Queue&lt;Object&gt;&gt; messages</string> 
+     </void> 
+    </void> 
+    <void property="methods"> 
+     <void property="text"> 
+      <string>run
+Object getNextObject(TagID fromWhere)
+// SO I will only need to sync if fromWhere
+// points to the same tagid
+boolean probe(TagID fromWhere)</string> 
+     </void> 
+    </void> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>MPIRecvOverseer implements Runnable</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>823.0</double> 
+     <double>30.0</double> 
     </void> 
    </object> 
   </void> 

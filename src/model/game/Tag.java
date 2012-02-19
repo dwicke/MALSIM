@@ -25,7 +25,7 @@ public class Tag {
             if (used == false)
             {
                 used = true;
-                return false;
+                return true;
             }
             return false;
         }

@@ -15,12 +15,13 @@ public class TagList {
     int numTags;
     public TagList(int numTags)
     {
-        tags = new Tag[numTags];
-        this.numTags = numTags;
+        System.out.println("The number of tags is " + numTags );
+        tags = new Tag[numTags - 1];
+        this.numTags = numTags - 1;
         // do 1 to n since don't want 0 to be a tag
-        for (int i = 1; i < numTags; i++)
+        for (int i = 0; i < (numTags - 1); i++)
         {
-            tags[i-1] = new Tag(i);
+            tags[i] = new Tag(i + 1);
         }
     }
     
@@ -28,7 +29,7 @@ public class TagList {
     {
         for (int i = 0; i < numTags; i++)
         {
-            
+            System.out.println("I am getting a tag");
             if (tags[i].useTag() == true)
             {
                 return tags[i];

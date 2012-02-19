@@ -17,6 +17,7 @@ import model.game.Batch;
 import model.game.Tournament;
 import model.properties.game.GameProperties;
 import model.properties.game.TournamentProperties;
+import util.XMLSerial;
 
 /**
  *
@@ -30,8 +31,8 @@ public class LoadControl {
     public Batch load(File file) {
         // load the batch using xstream
         Batch newBatch = null;
-        XStream x = new XStream();
-        newBatch = (Batch) x.fromXML(file);
+        //XStream x = new XStream();
+        newBatch = (Batch) XMLSerial.x.fromXML(file);
         return newBatch;
     }
 }

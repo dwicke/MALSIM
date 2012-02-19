@@ -4,6 +4,8 @@
  */
 package model.game;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import java.io.Serializable;
 import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -24,7 +26,10 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
    
     
     protected GameProperties props;// must set the correct one when subclassing in the constructor
+    
+    
     protected ObjectState state; 
+    
     protected Agent winner;
     
     

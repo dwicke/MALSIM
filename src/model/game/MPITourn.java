@@ -37,7 +37,7 @@ public class MPITourn extends Tournament {
         super();
         // init the free tags
         try {
-            tags = new TagList(MPJ.COMM_WORLD.size() - 1);
+            tags = new TagList(MPJ.COMM_WORLD.size() );
         } catch (MPJException ex) {
             Logger.getLogger(MPITourn.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,10 +55,21 @@ public class MPITourn extends Tournament {
         }
         // set the Tag so that I can comm with the proc
         // that will runn the game ie MPIGameClient
-        runner.setTag(tags.getFreeTag());
+        if (tags == null)
+        {
+            try {
+                tags = new TagList(MPJ.COMM_WORLD.size());
+            } catch (MPJException ex) {
+                Logger.getLogger(MPITourn.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        Tag tag = tags.getFreeTag();
+        runner.setTag(tag);
+        System.out.println("Runner has the tag: " + tag);
         // here is where I will
         // start running the game 
         setupGame(contestants, runner);
+        
                 
     }
 

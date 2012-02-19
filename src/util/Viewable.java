@@ -14,7 +14,7 @@ import java.util.TreeMap;
  * of the object.
  * @author drew
  */
-public abstract class Viewable implements Serializable{
+public abstract class Viewable {
     
    
      protected TreeMap<String, Object> fieldVals;
