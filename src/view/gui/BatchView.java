@@ -24,9 +24,9 @@ import util.Subscriber;
  */
 public class BatchView extends javax.swing.JFrame implements Subscriber {
 
-    public static BatchControl controller;
-    public static boolean isEditable;
-    public static BatchView view;
+    static BatchControl controller;
+    static boolean isEditable;
+    static BatchView view;
     private int count;
 
     /** Creates new form BatchView */
@@ -155,6 +155,7 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
      * object
      */
     private void loadTournaments() {
+        tournTabPane.removeAll();// clear all the previous tabs
         ArrayList<TournamentControl> controls = controller.getTournControls();
         if (controls != null) {
             for (TournamentControl con : controls) {
@@ -184,6 +185,7 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
+            count = 1; // restart the count
             controller.setBatch(controller.getLoadControl(file));
         }
         loadTournaments();
@@ -204,6 +206,7 @@ public class BatchView extends javax.swing.JFrame implements Subscriber {
     @Override
     public void update(Object pub, Object code) throws RemoteException {
 
+        // updated by the batchbuttonpannel when user clicks a button.
         if (code.equals("add")) {
             addTournament();
         } else if (code.equals("remove")) {

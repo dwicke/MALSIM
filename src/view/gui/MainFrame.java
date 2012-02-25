@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import util.MPIRecvOverseer;
 
 /**
  * Will need to start working on the batch view
@@ -272,6 +273,8 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 if (MPJ.initialized() == true)
                 {
+                    Thread recvThread = new Thread(new MPIRecvOverseer());
+                    recvThread.start();
                     MPISTARTED = true;
                     System.out.println("MPI Was Started");
                 }
@@ -343,6 +346,7 @@ public class MainFrame extends javax.swing.JFrame {
             // then stop all running tournaments/threads
             // can just force stop them since don't care they will be
             // garbage collected
+            
         }
     }
 

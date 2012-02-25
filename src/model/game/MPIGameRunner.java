@@ -10,6 +10,7 @@ import ibis.mpj.MPJException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.GameFactory;
+import util.MPIRecvOverseer;
 import util.ObjectState;
 import util.XMLSerial;
 
@@ -24,6 +25,9 @@ import util.XMLSerial;
 public class MPIGameRunner extends ThreadedGameRunner{
     
     private Tag usedTag;
+    private final Object hook = this;
+    private boolean shouldTerm = false;
+    
     
     public void setTag(Tag tag)
     {
@@ -42,6 +46,7 @@ public class MPIGameRunner extends ThreadedGameRunner{
         // I think that it has to do with the fact that
         // XStream is not thread safe and that somehow
         // it is not working because of that.
+        
         GameFactory gf = new GameFactory();
         gf.generateMaping();
         Game d = (Game)gf.getObject(g.getGameProps().toString());
@@ -49,10 +54,40 @@ public class MPIGameRunner extends ThreadedGameRunner{
         d.setGameProperties(g.getGameProps());
         String xml = XMLSerial.x.toXML(d);
         
-        System.out.println(xml + "");
         
-       sendObject(xml);
+       // System.out.println(xml + "");
+        MPIRecvOverseer.hook(hook, usedTag);
+       
+       
+       // set that I want to know when i get something
+       
+        // use the MPIRecvOverseer no iprobe and recv
+       synchronized(hook)
+       {
+           
+           
+           sendObject(xml);
+           
+           while(MPIRecvOverseer.probe(usedTag) == false && shouldTerm == false)
+           {
+                try {
+                    
+                    hook.wait();
+                    System.err.println("Got woken up");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MPIGameRunner.class.getName()).log(Level.SEVERE, null, ex);
+                }
+           }
+       }
+       if (shouldTerm == false)
+       {
+       
+       Object ob = MPIRecvOverseer.getNextObject(usedTag);
+       
+       
+       MPIRecvOverseer.unhook(usedTag);
         
+       /*
         try {
             
             while(MPJ.COMM_WORLD.iprobe(usedTag.getTag(), usedTag.getTag()) == null)
@@ -73,7 +108,9 @@ public class MPIGameRunner extends ThreadedGameRunner{
             Logger.getLogger(MPIGameRunner.class.getName()).log(Level.SEVERE, null, ex);
         }
          
-        System.out.println("The ob recv is " + ob[0]);
+        */
+        System.out.println("The ob recv is " + ob);
+       }
     }
 
     @Override
@@ -105,6 +142,12 @@ public class MPIGameRunner extends ThreadedGameRunner{
         // then shutdown the proc
         terminateGame();
         
+        // then shut down me
+        shouldTerm = true;
+        synchronized(hook)
+        {
+            hook.notify();
+        }
     }
     
     private void sendObject(Object st)

@@ -8,10 +8,20 @@ package model.game;
  *
  * @author drew
  */
-public class Tag {
+public class Tag implements Comparable<Tag> {
     private int tag;
     private boolean used;
     private final Object mutex = new Object();
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Tag && tag == ((Tag)o).getTag())
+        {
+            return true;
+        }
+        return false;
+    }
+    
     
     public Tag(int tag)
     {
@@ -41,5 +51,10 @@ public class Tag {
     public int getTag()
     {
         return tag;
+    }
+
+    @Override
+    public int compareTo(Tag t) {
+        return ((Integer)tag).compareTo(t.getTag());
     }
 }

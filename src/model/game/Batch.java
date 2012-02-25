@@ -68,6 +68,8 @@ public class Batch implements Subscriber{
             // I start the tournaments as threads 
             // set the tournprops 
             //ObjectState st = new ObjectState(State.RUNNABLE, this, tourn);
+            // I need to check if the getState is not null before i set this
+            
             tourn.getState().setState(State.RUNNABLE);
             tourn.getState().addSub(tourn);// so that it knows when to term
             tourn.getState().addSub(this);
