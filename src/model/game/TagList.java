@@ -29,7 +29,7 @@ public class TagList {
     {
         for (int i = 0; i < numTags; i++)
         {
-            System.out.println("I am getting a tag");
+            System.out.println("I am getting a tag" + tags[i] + "  " + tags[i].getTag());
             if (tags[i].useTag() == true)
             {
                 return tags[i];

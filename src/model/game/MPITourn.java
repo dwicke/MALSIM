@@ -63,6 +63,7 @@ public class MPITourn extends Tournament {
                 Logger.getLogger(MPITourn.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.err.print("Starting to get a new tag");
         Tag tag = tags.getFreeTag();
         runner.setTag(tag);
         System.out.println("Runner has the tag: " + tag);

@@ -261,14 +261,22 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 
                 for (Agent el : removeLater)
                 {
-                    if (el == ag)
+                    /*if (el == ag)
                     {
                         remainingAgents.remove(el);
                         eliminatedAgents.add(el);
                         ((Game) code).getAgents().remove(el);
+                    }*/
+                    if (el.compareTo(ag) == 0)
+                    {
+                        remainingAgents.remove(el);
+                        eliminatedAgents.add(el);
+                        ((Game) code).getAgents().remove(ag);
                     }
                 }
             }
+            
+            
             
             
             System.out.println("Finished establinshing the agents that remain");
@@ -292,7 +300,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             for (Agent ag : ((Game) code).getAgents())
             {
                 // as long as it is not the eliminated agent
-                if (ag != elimAgent)
+                if (ag.compareTo( elimAgent) != 0)
                     ag.getAgentObjectState().setState(State.BLOCKED);
             }
             System.out.println("The number of agents left " + remainingAgents.size());

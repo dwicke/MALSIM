@@ -9,6 +9,7 @@ import ibis.mpj.MPJ;
 import ibis.mpj.MPJException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.agent.Agent;
 import util.GameFactory;
 import util.MPIRecvOverseer;
 import util.ObjectState;
@@ -65,7 +66,8 @@ public class MPIGameRunner extends ThreadedGameRunner{
        synchronized(hook)
        {
            
-           
+           // I put this inside the sync to be safe
+           // but I don't think that it is necessary
            sendObject(xml);
            
            while(MPIRecvOverseer.probe(usedTag) == false && shouldTerm == false)
@@ -79,38 +81,35 @@ public class MPIGameRunner extends ThreadedGameRunner{
                 }
            }
        }
+       // must releast the tag first otherwise the other thread won't have use of it
+       MPIRecvOverseer.unhook(usedTag);
+       usedTag.setFinished();
        if (shouldTerm == false)
        {
        
-       Object ob = MPIRecvOverseer.getNextObject(usedTag);
+       String ob = (String)MPIRecvOverseer.getNextObject(usedTag);
+       Game gameReturned = (Game)XMLSerial.x.fromXML(ob);
        
-       
-       MPIRecvOverseer.unhook(usedTag);
         
-       /*
-        try {
-            
-            while(MPJ.COMM_WORLD.iprobe(usedTag.getTag(), usedTag.getTag()) == null)
-            {
-               // System.err.println("Tag is " + usedTag.getTag());
-            }
-             
-        } catch (MPJException ex) {
-            Logger.getLogger(MPIGameRunner.class.getName()).log(Level.SEVERE, null, ex);
-            
-        }
-        // The game has terminated sucessfully! or there was an exception
-        Object[] ob = new Object[1];
-        
-        try {
-            MPJ.COMM_WORLD.recv(ob, 0, 1, MPJ.OBJECT, usedTag.getTag(), usedTag.getTag());
-        } catch (MPJException ex) {
-            Logger.getLogger(MPIGameRunner.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-        */
         System.out.println("The ob recv is " + ob);
+        g.setGameProperties(gameReturned.getGameProps());
+        for (Agent ag : g.getAgents())
+        {
+            ag.resetScore();
+            Agent old = gameReturned.getAgents().get(gameReturned.getAgents().indexOf(ag));
+            ag.addScore(old.getScore());
+            ag.getAgentObjectState().setState(old.getAgentObjectState().getState());
+            
+        }
+        g.getGameState().setState(Thread.State.TERMINATED);
+        
+        
        }
+       else
+       {
+           System.out.println("Term IN MPIGAMERUNNER");
+       }
+       
     }
 
     @Override

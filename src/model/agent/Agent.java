@@ -100,6 +100,19 @@ public abstract class Agent extends Viewable implements  Runnable, Comparable<Ag
     {
         id = newID;
     }
-            
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Agent)
+        {
+            return (this.toString() + this.getID()).compareTo((o.toString() + ((Agent)o).getID())) == 0 ? true : false;
+        }
+        return false;
+    }
     
+            
+    @Override
+    public int compareTo(Agent o) {
+        return (this.toString() + this.getID()).compareTo((o.toString() + o.getID()));
+    }
 }

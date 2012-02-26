@@ -51,9 +51,6 @@ public class QLearningAgent extends GamutAgent{
         
     }
 
-    @Override
-    public int compareTo(Agent o) {
-        return (this.toString() + this.getID()).compareTo((o.toString() + o.getID()));
-    }
+    
     
 }
