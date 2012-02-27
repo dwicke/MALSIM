@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.game.Batch;
+import model.game.BatchModel;
 import model.game.Tournament;
 import model.game.TournamentFactory;
+import util.Subscriber;
 
 /**
  *
@@ -23,6 +25,21 @@ public class BatchControl {
     {
         batch = new Batch();
         
+    }
+    
+    public void addAllTournSubscriber(Subscriber sub)
+    {
+        batch.subAllTourns(sub);
+    }
+    
+    public void removeAllTournSubscriber(Subscriber sub)
+    {
+        batch.removeAllTournsSub(sub);
+    }
+    
+    public BatchModel getBatchModel()
+    {
+        return new BatchModel(batch);
     }
     
     public void startBatch()
@@ -74,4 +91,23 @@ public class BatchControl {
     {
         batch.removeTournament(tourn);
     }
+    
+    public ArrayList<String> getTournNames()
+    {
+        return batch.getTournNames();
+    }
+    
+    public void pauseTourn(String tournName)
+    {
+        batch.pauseTourn(tournName);
+    }
+    public void resumeTourn(String tournName)
+    {
+        batch.resumeTourn(tournName);
+    }
+    public void termTourn(String tournName)
+    {
+        batch.termTourn(tournName);
+    }
+    
 }

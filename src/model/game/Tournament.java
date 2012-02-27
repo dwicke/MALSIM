@@ -318,7 +318,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         // move this to the update method and have Tournament subscribe to the state
         // so then it will be updated and I will need to check that the pub arg is
         // equal to state field then if it is WAITING then I go inside the if
-        if (state.getState() == State.WAITING) {
+        if (state.getState() == State.WAITING && paused == false) {
             System.out.println("The tournament should pause");
             paused = true;
             // pause the games
@@ -338,9 +338,11 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             //resumeTournament();
             
         }
-        else
+        else if (state.getState() == State.RUNNABLE && paused == true)
         {
-            System.out.println("Not to be paused");
+            
+            System.out.println("Should resume");
+            resumeTournament();
         }
        
         System.out.println("Comps avail: " + competitorsAvail() + " running games empty:" + 

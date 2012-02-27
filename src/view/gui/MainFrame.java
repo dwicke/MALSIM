@@ -11,6 +11,7 @@
 package view.gui;
 
 import com.thoughtworks.xstream.XStream;
+import control.gui.BatchControl;
 import control.gui.MainControl;
 import ibis.mpj.MPJ;
 import ibis.mpj.MPJException;
@@ -36,6 +37,7 @@ public class MainFrame extends javax.swing.JFrame {
     /** Creates new form MainFrame */
     public MainFrame() {
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -47,6 +49,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        batchStateView1 = new view.gui.BatchStateView();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         newBatchMenuItem = new javax.swing.JMenuItem();
@@ -146,11 +149,17 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(batchStateView1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 381, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(batchStateView1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -218,12 +227,16 @@ public class MainFrame extends javax.swing.JFrame {
             // show message saying that no batch
             // ask if want to make a new one
             // if so
-            initControl();
+            newBatchFrame(true);
+            
         }
+        else
+        {
         // don't need to pause the running tourns
         // since the properties can't be changed once the 
         // batch has started.
         loadBatchFrame(false);
+        }
     }//GEN-LAST:event_batchMenuItemMouseClicked
 
     private void newBatchMenuItemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newBatchMenuItemMousePressed
@@ -317,6 +330,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem batchMenuItem;
+    private view.gui.BatchStateView batchStateView1;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem graphMenuItem;
@@ -332,6 +346,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void initControl() {
         mainControl = new MainControl();
+    }
+    
+    private BatchControl getNewBatchControl()
+    {
+        BatchControl ct = mainControl.getNewBatchControl();
+        batchStateView1.setBatchControl(ct);
+        return ct;
     }
 
     /**
@@ -386,7 +407,7 @@ public class MainFrame extends javax.swing.JFrame {
         {
             // first intitilize the control so that I have a controller
             initControl();
-            BatchView.controller = mainControl.getNewBatchControl();
+            BatchView.controller = getNewBatchControl();
             BatchView.isEditable = editable;
             BatchView.main(null);
         }
