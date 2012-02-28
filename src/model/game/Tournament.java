@@ -69,7 +69,12 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     public void setupTourn()
     {
         threadPool = Executors.newFixedThreadPool(props.getNumMaxThreads());
-        remainingAgents = props.getAgents();
+        //remainingAgents = props.getAgents(); // this made it so that the props agents was the remaining agents
+        remainingAgents.clear();
+        for (Agent ag : props.getAgents())
+        {
+            remainingAgents.add(ag);
+        }
         // now remove any of the eliminated agents
         for (Agent ag : eliminatedAgents) {
             remainingAgents.remove(ag);
@@ -101,7 +106,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
            setupTournGame(contestants);
            
         }
-        System.out.println("IH");
+       // System.out.println("IH");
         //threadPool.shutdown();
        // System.out.println(this.toString() + " Finished");
         // if the returned agents are null then I know that I am done so
@@ -117,7 +122,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
 
                 // get the game that matches the game props by providing the name of the game
                 Game game = (Game) fac.getObject(gameName);
-                // set the game's properties
+                // set the game's properties this might not be good if gameProps is not usable by all games
                 game.setGameProperties(gameProps);
                 // set the agents to the game
                 game.setAgents(contestants);

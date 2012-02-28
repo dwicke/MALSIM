@@ -30,7 +30,6 @@ public class MPIGameRunner extends ThreadedGameRunner{
     private final Object hook = this;
     private boolean shouldTerm = false;
     
-    
     public void setTagList(TagList tags)
     {
         tagList = tags;
@@ -176,7 +175,9 @@ public class MPIGameRunner extends ThreadedGameRunner{
         {
             try {
 
-                MPJ.COMM_WORLD.send(termState, 0, 1, MPJ.OBJECT, usedTag.getTag(), usedTag.getTag());
+                
+                    MPJ.COMM_WORLD.send(termState, 0, 1, MPJ.OBJECT, usedTag.getTag(), usedTag.getTag());
+                
             } catch (MPJException ex) {
                 Logger.getLogger(MPIGameRunner.class.getName()).log(Level.SEVERE, null, ex);
             }

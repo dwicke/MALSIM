@@ -32,8 +32,8 @@ public class QLearningAgent extends GamutAgent{
         int outcome1[] = {1,2};
         int outcome2[] = {2, 1};
         int outcome3[] = {2, 2};
-        System.out.println("Agent " + order + "  " + game.getPayoff(outcome) + ", " + game.getPayoff(outcome1) + "\n"  + ""
-                + game.getPayoff(outcome2) + ", " + game.getPayoff(outcome3));
+        //System.out.println("Agent " + order + "  " + game.getPayoff(outcome) + ", " + game.getPayoff(outcome1) + "\n"  + ""
+          //      + game.getPayoff(outcome2) + ", " + game.getPayoff(outcome3));
         action = 1;
     }
 

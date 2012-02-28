@@ -34,7 +34,7 @@ public class TournamentProperties extends Properties{
     private void setup()
     {
         agents = new ArrayList<Agent>();
-        maxThreads = 1;
+        maxThreads = 2;
         elim = new StandardEliminator();
         selector = new StandardAgentSelector();
     }

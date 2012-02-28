@@ -48,7 +48,23 @@ public class MPIGameClient extends Game {
                 boolean shouldContinue = true;
                 while (shouldContinue == true) {
                     // so I will wait until either the game state changes or i get a message
-                    while (state.getState() == State.RUNNABLE && MPJ.COMM_WORLD.iprobe(0, rank) == null) {
+                    while (MPJ.isConnectedTo(0) &&
+                        state.getState() == State.RUNNABLE && MPJ.COMM_WORLD.iprobe(0, rank) == null) {
+                    }
+                    
+                    if (MPJ.isConnectedTo(0) == false)
+                    {
+                        // if the root proc dies then
+                        // no point continuing
+                        state.setState(State.TERMINATED);
+                        synchronized(game)
+                        {
+                             game.notify();
+                        }
+                        shouldContinue = false;
+                        finished = true;
+                        break;
+                       
                     }
 
                     // so something happened find out what
