@@ -73,19 +73,20 @@ public class MPIGameClient extends Game {
                         Object[] st = new Object[1];
                         MPJ.COMM_WORLD.recv(st, 0, 1, MPJ.OBJECT, 0, rank);
                         
-                        ObjectState recvState = (ObjectState) st[0];
-                        if (recvState.getState() == State.WAITING)
+                        State recvState = (State) st[0];
+                        if (recvState == State.WAITING)
                         {
                             // Should pause the game
                             state.setState(State.WAITING);
                             // once I recieve a pause i will wait for another 
                             // message to either terminate
                             MPJ.COMM_WORLD.recv(st, 0, 1, MPJ.OBJECT, 0, rank);
-                            recvState = (ObjectState) st[0];
+                            recvState = (State) st[0];
                             
                             // I have recieved a new Message
-                            if (recvState.getState() == State.RUNNABLE)
+                            if (recvState == State.RUNNABLE)
                             {
+                                state.setState(State.RUNNABLE);
                                 // Then I must restart the Game
                                 synchronized(game)
                                 {
@@ -95,7 +96,7 @@ public class MPIGameClient extends Game {
                         }
                         // then the tournament wants the game to stop
                         // so stop it and 
-                        if (recvState.getState() == State.TERMINATED)
+                        if (recvState == State.TERMINATED)
                         {
                            
                             // I must term the thread

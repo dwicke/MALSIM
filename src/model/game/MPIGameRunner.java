@@ -114,14 +114,14 @@ public class MPIGameRunner extends ThreadedGameRunner{
 
     @Override
     public void pauseGame() {
-        ObjectState st = new ObjectState(Thread.State.WAITING);
-        sendObject(st);
+        //ObjectState st = new ObjectState(Thread.State.WAITING);
+        sendObject(Thread.State.WAITING);
     }
 
     @Override
     public void resumeGame() {
-        ObjectState st = new ObjectState(Thread.State.RUNNABLE);
-        sendObject(st);
+        //ObjectState st = new ObjectState(Thread.State.RUNNABLE);
+        sendObject(Thread.State.RUNNABLE);
     }
 
     /**
@@ -129,8 +129,9 @@ public class MPIGameRunner extends ThreadedGameRunner{
      */
     @Override
     public void terminateGame() {
-        ObjectState st = new ObjectState(Thread.State.TERMINATED);
-        sendObject(st);
+        //ObjectState st = new ObjectState(Thread.State.TERMINATED);
+        //sendObject(st);
+        sendObject(Thread.State.TERMINATED);
     }
     
     @Override

@@ -40,6 +40,7 @@ public class ThreadedGameRunner implements Runnable, GameRunner {
 
     @Override
     public void resumeGame() {
+        g.getGameState().setState(State.RUNNABLE);
         synchronized(g)// This is right since the game will have called
                 // wait and have thus given up its monitor and I can synch on
                 // it and then call notify to wake it up
