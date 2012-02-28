@@ -37,6 +37,12 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     protected ArrayList<Agent> remainingAgents, eliminatedAgents, removeLater;
     protected boolean paused;
     protected GenericFactory fac;
+    protected int tournID;// used to uniquely id this tourn
+    protected int numTourns;// the number of tourns there are
+
+    
+
+    
     /**
      * Instantiates a properties object.
      */
@@ -383,6 +389,27 @@ public class Tournament implements Subscriber, Runnable, Comparable {
 
     public void setString(String newName) {
         name = newName;
+    }
+    
+    /**
+     * The id is used to identify the tourn by
+     * an integer.  The id is sequentially assigned
+     * @return 
+     */
+    public int getTournID() {
+        return tournID;
+    }
+
+    public void setTournID(int tournID) {
+        this.tournID = tournID;
+    }
+    
+    public int getNumTourns() {
+        return numTourns;
+    }
+
+    public void setNumTourns(int numTourns) {
+        this.numTourns = numTourns;
     }
 
     @Override

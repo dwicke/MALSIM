@@ -30,19 +30,44 @@ public class MPITourn extends Tournament {
     // free tags of all of the tourns
     // first come first serve
     private static TagList tags;
+    int start, stop;
     /**
      * Instantiates a properties object.
      */
     public MPITourn() {
         super();
         // init the free tags
-        try {
-            tags = new TagList(MPJ.COMM_WORLD.size() );
+       /* try {
+            // must ignore 0 proc to do that i reduce the size and then must increment
+           // getStart();
+            
+          //  getStop();
+            
+            //tags = new TagList(start, stop);
         } catch (MPJException ex) {
             Logger.getLogger(MPITourn.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+    }
+    
+    private int getStart() throws MPJException
+    {
+        start = (MPJ.COMM_WORLD.size() - 1) / numTourns * tournID + 1;
+        return start;
     }
 
+    private int getStop() throws MPJException
+    {
+        
+        if (tournID == (numTourns - 1))
+        {
+                stop = MPJ.COMM_WORLD.size();
+        }
+        else
+        {
+            stop = getStart() + (MPJ.COMM_WORLD.size() - 1) / numTourns - 1;
+        }
+        return stop;
+    }
    
     @Override
     public void setupTournGame(ArrayList<Agent> contestants)
@@ -58,15 +83,19 @@ public class MPITourn extends Tournament {
         if (tags == null)
         {
             try {
-                tags = new TagList(MPJ.COMM_WORLD.size());
+                getStart();
+                getStop();
+                tags = new TagList(start, stop);
             } catch (MPJException ex) {
                 Logger.getLogger(MPITourn.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         System.err.print("Starting to get a new tag");
-        Tag tag = tags.getFreeTag();
-        runner.setTag(tag);
-        System.out.println("Runner has the tag: " + tag);
+       // Tag tag = tags.getFreeTag();
+        runner.setTagList(tags);// must provide the whole list so that it can
+        // it can get a new tag if its proc dies.
+        
+        //System.out.println("Runner has the tag: " + tag);
         // here is where I will
         // start running the game 
         setupGame(contestants, runner);

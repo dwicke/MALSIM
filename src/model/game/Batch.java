@@ -75,6 +75,7 @@ public class Batch implements Subscriber{
     
     public void startTournaments()
     {
+        int id = 0;
         for (Tournament tourn : getTourn())
         {
             System.out.println(tourn.toString() + " Starting");
@@ -90,6 +91,15 @@ public class Batch implements Subscriber{
             {
                 tournNames.put(tourn.toString(), tourn);
             }
+            
+            // must set the id of the tourn so that I can
+            // id them via integer.  Also used for MPITourns
+            // in order to partition the procs.
+            tourn.setTournID(id);
+            id++;
+            
+            tourn.setNumTourns(getTourn().size());
+            
             tourn.getState().setState(State.RUNNABLE);
             tourn.getState().addSub(tourn);// so that it knows when to term
             
