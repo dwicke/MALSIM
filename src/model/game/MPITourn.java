@@ -57,7 +57,7 @@ public class MPITourn extends Tournament {
 
     private int getStop() throws MPJException
     {
-        
+        // need to -1 since tournID starts at 0
         if (tournID == (numTourns - 1))
         {
                 stop = MPJ.COMM_WORLD.size();
@@ -94,7 +94,8 @@ public class MPITourn extends Tournament {
        // Tag tag = tags.getFreeTag();
         runner.setTagList(tags);// must provide the whole list so that it can
         // it can get a new tag if its proc dies.
-        
+        runner.setID(runnerId);
+        runnerId++;
         //System.out.println("Runner has the tag: " + tag);
         // here is where I will
         // start running the game 

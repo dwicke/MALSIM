@@ -39,7 +39,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     protected GenericFactory fac;
     protected int tournID;// used to uniquely id this tourn
     protected int numTourns;// the number of tourns there are
-
+    protected int runnerId;
     
 
     
@@ -99,10 +99,10 @@ public class Tournament implements Subscriber, Runnable, Comparable {
 
        // while (paused == false && competitorsAvail() == true) {
         ArrayList<Agent> contestants = null;
-       // while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && contestants.size() != 0)
-        while(state.getState() == State.RUNNABLE && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
+        while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && contestants.size() != 0)
+        //while(state.getState() == State.RUNNABLE && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
         {
-           // System.out.println("inside while loop for tourn");
+            System.err.println("inside while loop for tourn");
            setupTournGame(contestants);
            
         }
@@ -159,7 +159,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         } catch (MPJException ex) {
             Logger.getLogger(MPITourn.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        runner.setID(runnerId);
+        runnerId++;
         // here is where I will 
         setupGame(contestants, runner);
                 
@@ -170,7 +171,9 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      */
     public void pauseTournament() {
         paused = true;
+        System.err.println("in pause tournament" + runningGames.keySet().size() + "  " + runningGames.size());
         for (GameRunner g : runningGames.keySet()) {
+            System.err.println("TOURN pausing games");
             g.pauseGame();
         }
     }
@@ -218,6 +221,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         fac = new GenericFactory();
         // BAD don't want magic strings...
         fac.generateMaping("config/GameList.cfg");
+        // the id for the game runners
+        runnerId = 0;
     }
 
     /**
@@ -319,6 +324,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             props.getAgentSelector().setPlayers(remainingAgents);
             // remove the game from the running list
             //runningGames.remove((Game) code);
+            
             runningGames.values().remove((Game)code);
             System.out.println("Removed Game from running list games left " + runningGames.size());
          //   System.out.println(((Game) code).toString());
@@ -363,7 +369,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         // I will remove myself as a subscriber to my own object state
         // then I will set my state to Terminated and then batch will be
         // updated as to my status and I will return from update and will exit this part
-        if (competitorsAvail() == false && runningGames.isEmpty() == true && paused == false )
+        if (competitorsAvail() == false && runningGames.isEmpty() == true  )
         {
             System.out.println("Tourn is term");
             state.removeSub(this);

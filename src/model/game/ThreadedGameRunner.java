@@ -13,6 +13,17 @@ import java.lang.Thread.State;
 public class ThreadedGameRunner implements Runnable, GameRunner {
 
     protected Game g;
+    protected Integer comp_id;
+
+    public ThreadedGameRunner()
+    {
+    }
+    public ThreadedGameRunner(Integer id) {
+        comp_id = id;
+    }
+    
+    
+    
     @Override
     public void run() {
         startGame();
@@ -53,10 +64,21 @@ public class ThreadedGameRunner implements Runnable, GameRunner {
     public void terminateGame() {
         g.getGameState().setState(State.TERMINATED);
     }
+    public Integer getID()
+    {
+        return comp_id;
+    }
+    
+    public void setID(int id)
+    {
+        comp_id = id;
+    }
 
     @Override
     public int compareTo(GameRunner t) {
-        return this.getGame().compareTo(t.getGame());
+        return comp_id.compareTo(t.getID());
+        //System.err.println("COMPARING THE GAMES " + this.getGame().compareTo(t.getGame()));
+        //return this.getGame().compareTo(t.getGame());
     }
 
     @Override

@@ -56,7 +56,17 @@ public class TournamentTest {
          //MPITourn instance = new MPITourn();
         Tournament instance = new Tournament();
         TournamentProperties props = new TournamentProperties();
-        props.setMaxNumThreads(1);
+        props.setMaxNumThreads(2);
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
+        props.addAgent(new QLearningAgent());
         props.addAgent(new QLearningAgent());
         props.addAgent(new QLearningAgent());
         
@@ -67,21 +77,36 @@ public class TournamentTest {
         
         GameFactory fac = new GameFactory();
         fac.generateMaping();
-        Game g = fac.getObject("PrisonersDilemma");
+        RepeatedGame g = (RepeatedGame)fac.getObject("PrisonersDilemma");
         g.getGameProps().generateViewFields();
-        
+        g.getGameProps().setNumReps(100000);
         
         props.setGameProps(g.getGameProps());
-        ((RepeatedGameProperties)g.getGameProps()).setNumReps(1);
+       // ((RepeatedGameProperties)g.getGameProps()).setNumReps(1);
         instance.setTournProps(props);
         instance.setState(new ObjectState(State.RUNNABLE));
         instance.getState().setState(State.RUNNABLE);
+        instance.getState().addSub(instance);
+        Thread t = new Thread(instance);
+        t.run();
         
+        instance.getState().setState(State.WAITING);
+        //instance.pauseTournament();
+        //instance.setupTourn();
+        //instance.startTourn();
+        while(instance.paused == false)
+        {
+               //System.out.println(instance.runningGames.size());
+        }
+       System.err.println(instance.runningGames.size());
+       System.err.println(instance.remainingAgents.size());
+        instance.getState().setState(State.RUNNABLE);
         
-        instance.setupTourn();
-        instance.startTourn();
-        
-        assertTrue(sel.nextContestants().isEmpty());
+        while(instance.getState().getState() != State.TERMINATED)
+        {}
+        System.out.print("THE END");
+       // while(instance.)
+        //assertTrue(sel.nextContestants().isEmpty());
     }
     
 

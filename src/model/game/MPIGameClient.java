@@ -67,20 +67,10 @@ public class MPIGameClient extends Game {
                        
                     }
 
-                    // so something happened find out what
-                    if (state.getState() == State.TERMINATED) {
-                        // then the game is finished
-                        // I will send the game back to MALSIM
-                        // just resuse the recvObject since it is the game
-                        
-                        String gameXML = x.toXML(game);
-                        recvObject[0] = gameXML;
-                        MPJ.COMM_WORLD.send(recvObject, 0, 1, MPJ.OBJECT, 0, rank);
-                        // set the game to null to return to initial state
-                        game = null;
-                        shouldContinue = false;
-                        // I will loop back and wait for the next game object
-                    } else if (MPJ.COMM_WORLD.iprobe(0, rank) != null) {
+                    
+                    
+                    // need to handle this wether or not the 
+                    if (MPJ.COMM_WORLD.iprobe(0, rank) != null) {
                         // Then MALSIM sent me a message
                         // The only type of message that it can be
                         // is an ObjectState to tell me to Pause or
@@ -90,15 +80,16 @@ public class MPIGameClient extends Game {
                         MPJ.COMM_WORLD.recv(st, 0, 1, MPJ.OBJECT, 0, rank);
                         
                         State recvState = (State) st[0];
-                        if (recvState == State.WAITING)
+                        if (recvState == State.WAITING )
                         {
+                            System.out.println("I am going to pause the game");
                             // Should pause the game
                             state.setState(State.WAITING);
                             // once I recieve a pause i will wait for another 
                             // message to either terminate
                             MPJ.COMM_WORLD.recv(st, 0, 1, MPJ.OBJECT, 0, rank);
                             recvState = (State) st[0];
-                            
+                            System.out.println("Rescieved a message to resume " + (recvState == State.RUNNABLE));
                             // I have recieved a new Message
                             if (recvState == State.RUNNABLE)
                             {
@@ -136,6 +127,22 @@ public class MPIGameClient extends Game {
                             shouldContinue = false;
                         }
                        
+                    }
+                    
+                    
+                    // so something happened find out what
+                    if (game != null && state.getState() == State.TERMINATED) {
+                        // then the game is finished
+                        // I will send the game back to MALSIM
+                        // just resuse the recvObject since it is the game
+                        
+                        String gameXML = x.toXML(game);
+                        recvObject[0] = gameXML;
+                        MPJ.COMM_WORLD.send(recvObject, 0, 1, MPJ.OBJECT, 0, rank);
+                        // set the game to null to return to initial state
+                        game = null;
+                        shouldContinue = false;
+                        // I will loop back and wait for the next game object
                     }
                 }
             } else if (recvObject != null && recvObject[0] instanceof ObjectState) {

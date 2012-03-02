@@ -30,6 +30,15 @@ public class MPIGameRunner extends ThreadedGameRunner{
     private final Object hook = this;
     private boolean shouldTerm = false;
     
+    public MPIGameRunner()
+    {
+        
+    }
+    public MPIGameRunner(Integer id)
+    {
+        this.comp_id = id;
+    }
+    
     public void setTagList(TagList tags)
     {
         tagList = tags;
@@ -52,6 +61,12 @@ public class MPIGameRunner extends ThreadedGameRunner{
         {
             success = true;
             usedTag = tagList.getFreeTag();
+            if (usedTag == null)
+            {
+                System.out.println("Tag was null in MPIGAMERUNNER");
+                success = false;
+                continue;
+            }
 
             GameFactory gf = new GameFactory();
             gf.generateMaping();
@@ -93,12 +108,13 @@ public class MPIGameRunner extends ThreadedGameRunner{
 
            if (shouldTerm == false && MPIRecvOverseer.probe(usedTag) == true)
            {
-           usedTag.setFinished();
+           
            String ob = (String)MPIRecvOverseer.getNextObject(usedTag);
+           usedTag.setFinished();
            Game gameReturned = (Game)XMLSerial.x.fromXML(ob);
 
 
-            System.out.println("The ob recv is " + ob);
+        //    System.out.println("The ob recv is " + ob);
             g.setGameProperties(gameReturned.getGameProps());
             for (Agent ag : g.getAgents())
             {
@@ -132,6 +148,7 @@ public class MPIGameRunner extends ThreadedGameRunner{
     @Override
     public void pauseGame() {
         //ObjectState st = new ObjectState(Thread.State.WAITING);
+        System.err.println("PAUSING GAME " + usedTag.getTag());
         sendObject(Thread.State.WAITING);
     }
 
@@ -174,7 +191,7 @@ public class MPIGameRunner extends ThreadedGameRunner{
         if (MPJ.isConnectedTo(usedTag.getTag()))
         {
             try {
-
+                    System.out.println("I " + this.comp_id +  " am sending " + st + " to " + usedTag.getTag());
                 
                     MPJ.COMM_WORLD.send(termState, 0, 1, MPJ.OBJECT, usedTag.getTag(), usedTag.getTag());
                 
