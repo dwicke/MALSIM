@@ -10,16 +10,20 @@
  */
 package view.gui;
 
+import control.gui.TournamentControl;
+
 /**
  *
  * @author drew
  */
 public class PropertyView extends javax.swing.JPanel {
 
+    TournamentControl control;
     /** Creates new form PropertyView */
     public PropertyView() {
         initComponents();
         propDataField.setText("");
+        jButton1.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -33,8 +37,15 @@ public class PropertyView extends javax.swing.JPanel {
 
         propLabel = new javax.swing.JLabel();
         propDataField = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         propDataField.setText("jTextField1");
+
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -44,7 +55,9 @@ public class PropertyView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(propLabel)
                 .addGap(18, 18, 18)
-                .addComponent(propDataField, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addComponent(propDataField, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -53,11 +66,31 @@ public class PropertyView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(propLabel)
-                    .addComponent(propDataField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(propDataField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+        // TODO add your handling code here:
+        if (control != null)
+        {
+            int numThreads = 0;
+            try 
+            {
+                numThreads = Integer.valueOf(getData());
+            }catch (NumberFormatException ex)
+            {
+                numThreads = control.getTournament().getTournProps().getNumMaxThreads();
+            }
+            
+            control.getTournament().getTournProps().setMaxNumThreads(numThreads);
+        }
+    }//GEN-LAST:event_jButton1MousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JTextField propDataField;
     private javax.swing.JLabel propLabel;
     // End of variables declaration//GEN-END:variables
@@ -77,5 +110,17 @@ public class PropertyView extends javax.swing.JPanel {
     {
         return propDataField.getText();
     }
-    
+    public void useButton(boolean shouldUse)
+    {
+        jButton1.setVisible(shouldUse);
+    }
+    public void setControl(TournamentControl control)
+    {
+        this.control = control;
+        setData(Integer.toString(control.getTournament().getTournProps().getNumMaxThreads()));
+    }
+    public void setButtonText(String text)
+    {
+        jButton1.setText(text);
+    }
 }
