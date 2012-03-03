@@ -23,9 +23,8 @@ import model.agent.Agent;
 public abstract class AgentSelector {
     private ArrayList<Agent> agents;
     private int numSelect;
-    private class theLock extends Object {
-   }
-   private final theLock lockObject = new theLock();
+    
+   protected final Object lockObject = new Object();
     public AgentSelector()
     {
         setup();

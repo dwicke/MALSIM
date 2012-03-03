@@ -23,41 +23,46 @@ import util.ObjectState;
 public class StandardAgentSelector extends AgentSelector{
 
     
-    
-    
     @Override
     public boolean hasContestants() {
         
      //   System.out.println("Number selected = " + getNumSelect() + " Get agents Avail " + getAgents().size());
-        if (/*nextContestants().size() == 0 ||*/ getNumSelect() > getAgents().size())
-        {
-            return false;
-        }
+        
+            if (/*nextContestants().size() == 0 ||*/ getNumSelect() > getAgents().size())
+            {
+                return false;
+            }
+       
         return true;
     }
 
     @Override
     public ArrayList<Agent> nextContestants() {
         ArrayList<Agent> next = new ArrayList<Agent>();
-        for (int i = 0; i < getAgents().size(); i++)
-        {
-            if (next.size() < getNumSelect() )
+        // can't get and set 
+        
+            for (int i = 0; i < getAgents().size(); i++)
             {
-                ObjectState st = getAgents().get(i).getAgentObjectState();
-                if (st == null)
-                System.out.println("null state");
-                // a blocked agent means that it has played and is available to be used
-                if (st == null || st.getState() == State.BLOCKED)
+                if (next.size() < getNumSelect() )
                 {
-                    next.add(getAgents().get(i));
+                    ObjectState st = getAgents().get(i).getAgentObjectState();
+                    if (st == null)
+                    System.out.println("null state");
+                    // a blocked agent means that it has played and is available to be used
+                    if (st == null || st.getState() == State.BLOCKED)
+                    {
+                        // must set it so it has a state so that it is thread safe
+                        getAgents().get(i).setState(new ObjectState());
+                        next.add(getAgents().get(i));
+                    }
                 }
             }
-        }
-        if (next.size() < getNumSelect())
-        {
-            next.clear();
-            //return next;
-        }
+            if (next.size() < getNumSelect())
+            {
+                next.clear();
+                //return next;
+            }
+        
       //  return getAgents();
         return next;
     }
