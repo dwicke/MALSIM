@@ -52,13 +52,19 @@ public class StandardAgentSelector extends AgentSelector{
                     if (st == null || st.getState() == State.BLOCKED)
                     {
                         // must set it so it has a state so that it is thread safe
-                        getAgents().get(i).setState(new ObjectState());
+                       // getAgents().get(i).setState(new ObjectState(State.NEW));
                         next.add(getAgents().get(i));
                     }
                 }
             }
             if (next.size() < getNumSelect())
             {
+//                for (int i = 0; i < next.size(); i++)
+//                {
+//                        getAgents().get(i).setState(new ObjectState(State.BLOCKED));
+//                }
+                
+            
                 next.clear();
                 //return next;
             }

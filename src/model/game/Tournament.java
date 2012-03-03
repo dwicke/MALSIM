@@ -109,9 +109,10 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         {
             while(state.getState() != State.TERMINATED)
             {
-                while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && contestants.size() != 0)
+                while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
                 //while(state.getState() == State.RUNNABLE && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
                 {
+                    System.err.println("contestants " + contestants);
                     System.err.println("inside while loop for tourn");
                    setupTournGame(contestants);
 
@@ -122,6 +123,8 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Tournament.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                System.err.println("Tourn loop woken up");
+                System.err.println(runningGames.size() + " " + props.getNumMaxThreads() + " " + props.getAgentSelector().nextContestants());
             }
         }
        // System.out.println("IH");
@@ -281,80 +284,79 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             runningGames.clear();
             return;
         }
-        synchronized(agentMutex)
-        {
-            // if the game is terminated
-            if (code instanceof Game && (State) ((ObjectState) pub).getState() == State.TERMINATED) {
-                System.out.println("I am terminating game");
-                // eliminate an agent from the remaining list
-                // new problem when I go to eliminate an agent the
-                // score will be at where ever it is at when I call this
-                // won't be fair maybe the other agent hasn't even played a whole
-                // game yet that will be decided by the eliminator
 
-                // If the eliminator eliminated a player that is currently playing
-                // then it was marked for removal so I will remove the players that 
-                // were marked that are in the game that just terminated
+        // if the game is terminated
+        if (code instanceof Game && (State) ((ObjectState) pub).getState() == State.TERMINATED) {
+            System.out.println("I am terminating game");
+            // eliminate an agent from the remaining list
+            // new problem when I go to eliminate an agent the
+            // score will be at where ever it is at when I call this
+            // won't be fair maybe the other agent hasn't even played a whole
+            // game yet that will be decided by the eliminator
 
-                for (Agent ag : ((Game) code).getAgents())
+            // If the eliminator eliminated a player that is currently playing
+            // then it was marked for removal so I will remove the players that 
+            // were marked that are in the game that just terminated
+
+            for (Agent ag : ((Game) code).getAgents())
+            {
+
+                for (Agent el : removeLater)
                 {
-
-                    for (Agent el : removeLater)
+                    /*if (el == ag)
                     {
-                        /*if (el == ag)
-                        {
-                            remainingAgents.remove(el);
-                            eliminatedAgents.add(el);
-                            ((Game) code).getAgents().remove(el);
-                        }*/
-                        if (el.compareTo(ag) == 0)
-                        {
-                            remainingAgents.remove(el);
-                            eliminatedAgents.add(el);
-                            ((Game) code).getAgents().remove(ag);
-                        }
+                        remainingAgents.remove(el);
+                        eliminatedAgents.add(el);
+                        ((Game) code).getAgents().remove(el);
+                    }*/
+                    if (el.compareTo(ag) == 0)
+                    {
+                        remainingAgents.remove(el);
+                        eliminatedAgents.add(el);
+                        ((Game) code).getAgents().remove(ag);
                     }
                 }
-
-
-
-
-                System.out.println("Finished establinshing the agents that remain");
-
-                Agent elimAgent = props.getEliminator().eliminate(remainingAgents);
-
-                // If the eliminated Agent is Runnable then I will need to add the
-                // agent to the remove later list
-                if (elimAgent != null && elimAgent.getAgentObjectState() != null && 
-                        elimAgent.getAgentObjectState().getState() == State.RUNNABLE)
-                {
-                    System.out.println("Will remove the agent later");
-                    removeLater.add(elimAgent);
-                }
-                else if (elimAgent != null) {
-                    System.out.println("Removed the agent now");
-                    remainingAgents.remove(elimAgent);
-                    eliminatedAgents.add(elimAgent);
-                }
-                // So now I can set the state of the Agents in the game to Blocked
-                // meaning that it is ready to be selected again
-                for (Agent ag : ((Game) code).getAgents())
-                {
-                    // as long as it is not the eliminated agent
-                    if (ag.compareTo( elimAgent) != 0)
-                        ag.getAgentObjectState().setState(State.BLOCKED);
-                }
-                System.out.println("The number of agents left " + remainingAgents.size());
-                // update the players to choose from for the AgentSelector
-                props.getAgentSelector().setPlayers(remainingAgents);
-                // remove the game from the running list
-                //runningGames.remove((Game) code);
-
-                runningGames.values().remove((Game)code);
-                System.out.println("Removed Game from running list games left " + runningGames.size());
-             //   System.out.println(((Game) code).toString());
             }
+
+
+
+
+            System.out.println("Finished establinshing the agents that remain");
+
+            Agent elimAgent = props.getEliminator().eliminate(remainingAgents);
+
+            // If the eliminated Agent is Runnable then I will need to add the
+            // agent to the remove later list
+            if (elimAgent != null && elimAgent.getAgentObjectState() != null && 
+                    elimAgent.getAgentObjectState().getState() == State.RUNNABLE)
+            {
+                System.out.println("Will remove the agent later");
+                removeLater.add(elimAgent);
+            }
+            else if (elimAgent != null) {
+                System.out.println("Removed the agent now");
+                remainingAgents.remove(elimAgent);
+                eliminatedAgents.add(elimAgent);
+            }
+            // So now I can set the state of the Agents in the game to Blocked
+            // meaning that it is ready to be selected again
+            for (Agent ag : ((Game) code).getAgents())
+            {
+                // as long as it is not the eliminated agent
+                if (ag.compareTo( elimAgent) != 0)
+                    ag.getAgentObjectState().setState(State.BLOCKED);
+            }
+            System.out.println("The number of agents left " + remainingAgents.size());
+            // update the players to choose from for the AgentSelector
+            props.getAgentSelector().setPlayers(remainingAgents);
+            // remove the game from the running list
+            //runningGames.remove((Game) code);
+
+            runningGames.values().remove((Game)code);
+            System.out.println("Removed Game from running list games left " + runningGames.size());
+         //   System.out.println(((Game) code).toString());
         }
+
         System.out.println((State) ((ObjectState) pub).getState());
 
 
@@ -407,13 +409,12 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             // start a game
             System.out.println("Restarting startTourn");
             // I still have games to play
-            synchronized(agentMutex)
-            {
+            
                 synchronized(this)
                 {
                     this.notify();
                 }
-            }
+            
             //startTourn(); // uncomement this if the sync doesn't work
         }
         
