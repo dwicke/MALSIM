@@ -27,6 +27,16 @@ public class BatchControl {
         
     }
     
+    public void addBatchSub(Subscriber sub)
+    {
+        batch.subBatch(sub);
+    }
+    
+    public void removeBatchSub(Subscriber sub)
+    {
+        batch.removeBatchSub(sub);
+    }
+    
     public void addAllTournSubscriber(Subscriber sub)
     {
         batch.subAllTourns(sub);

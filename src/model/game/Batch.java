@@ -112,23 +112,50 @@ public class Batch implements Subscriber{
         }
     }
     
-    public void subAllTourns(Subscriber sub)
+    public void subBatch(Subscriber sub)
     {
         if (publisher == null)
         {
-        System.out.append("PUBLISHER IS NULL WHEN ADDING");
+        System.out.println("PUBLISHER IS NULL WHEN ADDING");
         }
         else
-        publisher.addSubscriber(sub);
+        {
+            publisher.addSubscriber(sub);
+        }
     }
-    public void removeAllTournsSub(Subscriber sub)
+    
+    public void subAllTourns(Subscriber sub)
+    {
+       
+            System.out.println("Num tourns" + getTourn().size());
+            // then add it to subscribe to all of the tourns
+            for (Tournament tour : getTournList())
+            {
+                tour.addSub(sub);
+            }
+        
+    }
+    
+    public void removeBatchSub(Subscriber sub)
     {
         if (publisher == null)
         {
         System.out.append("PUBLISHER IS NULL WHEN REMOVING");
         }
         else
-        publisher.removeSubscriber(sub);
+        {
+            publisher.removeSubscriber(sub);
+        }
+    }
+    public void removeAllTournsSub(Subscriber sub)
+    {
+        
+            for (Tournament tour : getTournList())
+            {
+                // remove the sub
+                tour.removeSub(sub);
+            }
+        
     }
     public void pauseTourn(Tournament tourn)
     {

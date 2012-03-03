@@ -19,6 +19,7 @@ import util.Subscriber;
 import java.lang.Thread.State;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import util.BasicPublisher;
 
 /**
  * This represents the tournament and is used to start the tournament.
@@ -40,7 +41,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     protected int tournID;// used to uniquely id this tourn
     protected int numTourns;// the number of tourns there are
     protected int runnerId;
-    
+    private BasicPublisher publisher = new BasicPublisher();
 
     
     /**
@@ -92,19 +93,35 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     /**
      * This starts the tournament
      */
-    public void startTourn() {
+    public void startTourn()  {
 
         // while there are agents to play game/not stopped/not paused
         // while the number of games in the queue is less than the max num threads then
 
        // while (paused == false && competitorsAvail() == true) {
         ArrayList<Agent> contestants = null;
-        while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && contestants.size() != 0)
-        //while(state.getState() == State.RUNNABLE && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
+        
+        // I am going to try sync and waiting on this
+        // then instead of calling startTourn in the update 
+        // method i will call notify 
+        synchronized(this)
         {
-            System.err.println("inside while loop for tourn");
-           setupTournGame(contestants);
-           
+            while(state.getState() != State.TERMINATED)
+            {
+                while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && contestants.size() != 0)
+                //while(state.getState() == State.RUNNABLE && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
+                {
+                    System.err.println("inside while loop for tourn");
+                   setupTournGame(contestants);
+
+                }
+            
+                try {
+                    this.wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Tournament.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
        // System.out.println("IH");
         //threadPool.shutdown();
@@ -235,7 +252,11 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     @Override
     public void update(Object pub, Object code) throws RemoteException {
         System.out.println("I am printing game " + code);
-        
+        if (publisher != null)
+        {
+            System.out.println("NOTIFYING SUBS");
+            publisher.notifySubscribers(this);
+        }
         // if the tournament was set to be terminated
         if (state.getState() == State.TERMINATED)
         {
@@ -381,7 +402,11 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             // start a game
             System.out.println("Restarting startTourn");
             // I still have games to play
-            startTourn();
+            synchronized(this)
+            {
+                this.notify();
+            }
+            //startTourn(); // uncomement this if the sync doesn't work
         }
         
         
@@ -422,7 +447,29 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     public void setNumTourns(int numTourns) {
         this.numTourns = numTourns;
     }
+    
+    public Agent getLeadAgent()
+    {
+        Agent ag = null;
+        for (Agent agent : remainingAgents)
+        {
+            if (ag == null || agent.getScore() > ag.getScore())
+            {
+                ag = agent;
+            }
+        }
+        return ag;
+    }
 
+    public void addSub(Subscriber sub)
+    {
+        publisher.addSubscriber(sub);
+    }
+    public void removeSub(Subscriber sub)
+    {
+        publisher.removeSubscriber(sub);
+    }
+    
     @Override
     public int compareTo(Object o) {
         return this.toString().compareTo(o.toString());
