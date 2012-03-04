@@ -317,18 +317,28 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             // then it was marked for removal so I will remove the players that 
             // were marked that are in the game that just terminated
 
-            
+            ArrayList<Agent> store = new ArrayList<Agent>();
+            // must do it this way other wise may end up in dead lock
+            // since i am syncing on remove later and then must sync on
+            // on remainingagents some other thread could be syncing on
+            // remainingagents and waiting for removelater.  so i made
+            // the store list that way i don't need to wory about that.
             synchronized(removeLater)
             {
                 for (Agent el : removeLater)
                 {
                     if (((Game) code).getAgents().contains(el))
                     {
-                        remainingAgents.remove(el);
-                        eliminatedAgents.add(el);
-                        ((Game) code).getAgents().remove(el);
+                        store.add(el);
                     }
                 }
+            }
+            
+            for (Agent el : store)
+            {
+                remainingAgents.remove(el);
+                eliminatedAgents.add(el);
+                ((Game) code).getAgents().remove(el);
             }
 
 
