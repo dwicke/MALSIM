@@ -515,4 +515,65 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         // set status to finished and notify observers and return false
         return props.getAgentSelector().hasContestants();
     }
+
+    public String getGameName(int row) {
+        
+        synchronized(runningGames)
+        {
+            if (row < runningGames.size())
+            {
+                int i = 0;
+                for (Game g : runningGames.values())
+                {
+                    if (i == row)
+                    {
+                        return g.getGameProps().toString();
+                    }
+                    i++;
+                }
+            
+            }
+        }
+        return "";
+    }
+
+    Object getGameState(int row) {
+        synchronized(runningGames)
+        {
+            if (row < runningGames.size())
+            {
+                int i = 0;
+                for (Game g : runningGames.values())
+                {
+                    if (i == row)
+                    {
+                        return g.getGameState().getState().toString();
+                    }
+                    i++;
+                }
+            
+            }
+        }
+        return "";
+    }
+
+    Object getAgent(int row, Integer agentIndex) {
+        synchronized(runningGames)
+        {
+            if (row < runningGames.size())
+            {
+                int i = 0;
+                for (Game g : runningGames.values())
+                {
+                    if (i == row)
+                    {
+                        return g.getAgents().get(agentIndex).toString();
+                    }
+                    i++;
+                }
+            
+            }
+        }
+        return "";
+    }
 }
