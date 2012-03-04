@@ -5,6 +5,7 @@
 package model.game;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.agent.Agent;
 
 /**
@@ -21,7 +22,7 @@ import model.agent.Agent;
  * @author drew
  */
 public abstract class AgentSelector {
-    private ArrayList<Agent> agents;
+    private List<Agent> agents;
     private int numSelect;
     
    protected final Object lockObject = new Object();
@@ -45,7 +46,7 @@ public abstract class AgentSelector {
      * Sets the set of players that the selector can choose from
      * @param agents 
      */
-    public void setPlayers(ArrayList<Agent> agents)
+    public void setPlayers(List<Agent> agents)
     {
         synchronized(lockObject)
         {
@@ -54,20 +55,13 @@ public abstract class AgentSelector {
     }
     public void addAgent(Agent ag)
     {
-        synchronized(lockObject)
-        {
         this.agents.add(ag);
-        }
     }
     public boolean removeAgent(Agent ag)
     {
-        synchronized(lockObject)
-        {
-            return this.agents.remove(ag);
-        }
-        
+        return this.agents.remove(ag);
     }
-    public ArrayList<Agent> getAgents()
+    public List<Agent> getAgents()
     {
         return agents;
     }

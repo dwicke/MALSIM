@@ -94,7 +94,6 @@ public class MPIGameRunner extends ThreadedGameRunner{
                        && MPJ.isConnectedTo(usedTag.getTag()) == true)
                {
                     try {
-
                         //hook.wait();
                         hook.wait(30000);// wake up every thirty seconds to check that conn was not broken
                         System.err.println("Got woken up");
@@ -148,14 +147,20 @@ public class MPIGameRunner extends ThreadedGameRunner{
     @Override
     public void pauseGame() {
         //ObjectState st = new ObjectState(Thread.State.WAITING);
-        System.err.println("PAUSING GAME " + usedTag.getTag());
-        sendObject(Thread.State.WAITING);
+        if (usedTag != null)
+        {
+            System.err.println("PAUSING GAME " + usedTag.getTag());
+            sendObject(Thread.State.WAITING);
+        }
     }
 
     @Override
     public void resumeGame() {
         //ObjectState st = new ObjectState(Thread.State.RUNNABLE);
-        sendObject(Thread.State.RUNNABLE);
+        if (usedTag != null)
+        {
+            sendObject(Thread.State.RUNNABLE);
+        }
     }
 
     /**
@@ -165,7 +170,10 @@ public class MPIGameRunner extends ThreadedGameRunner{
     public void terminateGame() {
         //ObjectState st = new ObjectState(Thread.State.TERMINATED);
         //sendObject(st);
-        sendObject(Thread.State.TERMINATED);
+        if (usedTag != null)
+        {
+            sendObject(Thread.State.TERMINATED);
+        }
     }
     
     @Override

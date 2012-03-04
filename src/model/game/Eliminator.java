@@ -5,6 +5,7 @@
 package model.game;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.agent.Agent;
 
 /**
@@ -17,7 +18,7 @@ public interface Eliminator {
      * @param agents the list of agents to choose from
      * @return the agent to eliminate.
      */
-    abstract Agent eliminate(ArrayList<Agent> agents);
+    abstract Agent eliminate(List<Agent> agents);
     /**
      * Returns the name of the eliminator.
      * @return 

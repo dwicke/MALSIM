@@ -34,18 +34,20 @@ public class StandardAgentSelector extends AgentSelector{
             }
        
         return true;
+        
     }
 
     @Override
     public ArrayList<Agent> nextContestants() {
         ArrayList<Agent> next = new ArrayList<Agent>();
         // can't get and set 
-        
-            for (int i = 0; i < getAgents().size(); i++)
+        synchronized(getAgents())
+        {
+            for (Agent ag : getAgents())
             {
                 if (next.size() < getNumSelect() )
                 {
-                    ObjectState st = getAgents().get(i).getAgentObjectState();
+                    ObjectState st = ag.getAgentObjectState();
                     if (st == null)
                     System.out.println("null state");
                     // a blocked agent means that it has played and is available to be used
@@ -53,7 +55,7 @@ public class StandardAgentSelector extends AgentSelector{
                     {
                         // must set it so it has a state so that it is thread safe
                        // getAgents().get(i).setState(new ObjectState(State.NEW));
-                        next.add(getAgents().get(i));
+                        next.add(ag);
                     }
                 }
             }
@@ -68,7 +70,7 @@ public class StandardAgentSelector extends AgentSelector{
                 next.clear();
                 //return next;
             }
-        
+        }
       //  return getAgents();
         return next;
     }

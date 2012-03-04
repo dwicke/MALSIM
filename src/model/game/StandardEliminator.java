@@ -6,6 +6,7 @@ package model.game;
 
 import java.lang.Thread.State;
 import java.util.ArrayList;
+import java.util.List;
 import model.agent.Agent;
 
 /**
@@ -15,12 +16,17 @@ import model.agent.Agent;
 public class StandardEliminator implements Eliminator{
 
     @Override
-    public Agent eliminate(ArrayList<Agent> agents) {
-        for (Agent ag : agents)
+    public Agent eliminate(List<Agent> agents) {
+        // Assuming that agents is a thread safe list
+        // must sync on it as per http://docs.oracle.com/javase/tutorial/collections/implementations/wrapper.html
+        synchronized(agents)
         {
-            if (ag.getAgentObjectState() != null )//&& ag.getAgentObjectState().getState() == State.TERMINATED)
+            for (Agent ag : agents)
             {
-                return ag;
+                if (ag.getAgentObjectState() != null )//&& ag.getAgentObjectState().getState() == State.TERMINATED)
+                {
+                    return ag;
+                }
             }
         }
         return null;

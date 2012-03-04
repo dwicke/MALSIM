@@ -17,6 +17,10 @@ import model.properties.game.TournamentProperties;
 import util.GenericFactory;
 import util.Subscriber;
 import java.lang.Thread.State;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import util.BasicPublisher;
@@ -31,11 +35,11 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      * The state of the game is mapped to the respected game
      */
     protected ExecutorService threadPool;
-    protected TreeMap<GameRunner, Game> runningGames;
+    protected Map<GameRunner, Game> runningGames;
     protected ObjectState state;
     protected TournamentProperties props;
     protected String name;
-    protected ArrayList<Agent> remainingAgents, eliminatedAgents, removeLater;
+    protected List<Agent> remainingAgents, eliminatedAgents, removeLater;
     protected boolean paused;
     protected GenericFactory fac;
     protected int tournID;// used to uniquely id this tourn
@@ -43,7 +47,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     protected int runnerId;
     private BasicPublisher publisher = new BasicPublisher();
     private final Object agentMutex = new Object();
-
+    
     
     /**
      * Instantiates a properties object.
@@ -77,9 +81,12 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         {
             remainingAgents.add(ag);
         }
-        // now remove any of the eliminated agents
-        for (Agent ag : eliminatedAgents) {
-            remainingAgents.remove(ag);
+        synchronized(eliminatedAgents)//probably don't need to do this but just in case
+        {
+            // now remove any of the eliminated agents
+            for (Agent ag : eliminatedAgents) {
+                remainingAgents.remove(ag);
+            }
         }
         props.getAgentSelector().setPlayers(remainingAgents);
         props.getAgentSelector().setNumToSelect(props.getGameProps().getNumAgents());
@@ -109,8 +116,10 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         {
             while(state.getState() != State.TERMINATED)
             {
-                while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
-                //while(state.getState() == State.RUNNABLE && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
+                // i don't think i do the check on the num runnning since the thread pool will take care of limiting the number
+                // of running threads
+                //while(paused == false && runningGames.size() < props.getNumMaxThreads() && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
+                while(state.getState() == State.RUNNABLE && (contestants = props.getAgentSelector().nextContestants()) != null && !contestants.isEmpty())
                 {
                     System.err.println("contestants " + contestants);
                     System.err.println("inside while loop for tourn");
@@ -119,7 +128,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
                 }
             
                 try {
-                    this.wait();
+                    this.wait(30000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Tournament.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -193,9 +202,12 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     public void pauseTournament() {
         paused = true;
         System.err.println("in pause tournament" + runningGames.keySet().size() + "  " + runningGames.size());
-        for (GameRunner g : runningGames.keySet()) {
-            System.err.println("TOURN pausing games");
-            g.pauseGame();
+        synchronized(runningGames)
+        {
+            for (GameRunner g : runningGames.keySet()) {
+                System.err.println("TOURN pausing games");
+                g.pauseGame();
+            }
         }
     }
 
@@ -233,10 +245,14 @@ public class Tournament implements Subscriber, Runnable, Comparable {
      */
     private void setup() {
         props = new TournamentProperties();
-        runningGames = new TreeMap<GameRunner, Game>();
-        remainingAgents = new ArrayList<Agent>();
-        eliminatedAgents = new ArrayList<Agent>(); 
-        removeLater = new ArrayList<Agent>(); 
+        //runningGames = new TreeMap<GameRunner, Game>();
+        runningGames = Collections.synchronizedMap(new TreeMap<GameRunner, Game>());
+        remainingAgents = Collections.synchronizedList(new ArrayList<Agent>());
+        eliminatedAgents = Collections.synchronizedList(new ArrayList<Agent>());
+        removeLater = Collections.synchronizedList(new ArrayList<Agent>());
+        //remainingAgents = new ArrayList<Agent>();
+        //eliminatedAgents = new ArrayList<Agent>(); 
+        //removeLater = new ArrayList<Agent>(); 
         paused = false;
         // create a gamefactory object
         fac = new GenericFactory();
@@ -267,18 +283,21 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             //shutdown the games
             System.out.println("Tournament was terminated remotely");
             state.removeSub(this);
-            for (GameRunner g : runningGames.keySet())
+            synchronized(runningGames)
             {
-                
-                // only problem might be race conditions
-                // if a game terminates since it is finished
-                // then I might get notified via the gamerunner thread
-                // the the next line will be called
-                g.getGame().getGameState().removeSub(this);
-                g.shutdownRunner();// shut it down don't just term the game
-                //g.terminateGame();
-                
-                 
+                for (GameRunner g : runningGames.keySet())
+                {
+
+                    // only problem might be race conditions
+                    // if a game terminates since it is finished
+                    // then I might get notified via the gamerunner thread
+                    // the the next line will be called
+                    g.getGame().getGameState().removeSub(this);
+                    g.shutdownRunner();// shut it down don't just term the game
+                    //g.terminateGame();
+
+
+                }
             }
             // no more running games so clear it
             runningGames.clear();
@@ -298,22 +317,16 @@ public class Tournament implements Subscriber, Runnable, Comparable {
             // then it was marked for removal so I will remove the players that 
             // were marked that are in the game that just terminated
 
-            for (Agent ag : ((Game) code).getAgents())
+            
+            synchronized(removeLater)
             {
-
                 for (Agent el : removeLater)
                 {
-                    /*if (el == ag)
+                    if (((Game) code).getAgents().contains(el))
                     {
                         remainingAgents.remove(el);
                         eliminatedAgents.add(el);
                         ((Game) code).getAgents().remove(el);
-                    }*/
-                    if (el.compareTo(ag) == 0)
-                    {
-                        remainingAgents.remove(el);
-                        eliminatedAgents.add(el);
-                        ((Game) code).getAgents().remove(ag);
                     }
                 }
             }
@@ -460,14 +473,27 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     public Agent getLeadAgent()
     {
         Agent ag = null;
-        for (Agent agent : remainingAgents)
+        synchronized(remainingAgents)
         {
-            if (ag == null || agent.getScore() > ag.getScore())
+            for (Agent agent : remainingAgents)
             {
-                ag = agent;
+                if (ag == null || agent.getScore() > ag.getScore())
+                {
+                    ag = agent;
+                }
             }
         }
         return ag;
+    }
+    
+    public Map<GameRunner, Game> getRunningGames()
+    {
+        // unmodifiable stores a reference to the collection i gave
+        // it so even though the caller has a unmodifiable collection
+        // the values may change because I am changing them back here.
+        // so I return like this but I require the user to sync on the 
+        // collection to read it and expect them to not change it.
+        return runningGames;
     }
 
     public void addSub(Subscriber sub)
