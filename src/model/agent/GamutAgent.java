@@ -39,6 +39,22 @@ public abstract class GamutAgent extends Agent{
         return order;
     }
     
+    /**
+     * this gives the agent the actions taken
+     * an iteration of a game
+     * @param actions 
+     */
+    public void setJointAction(int actions[])
+    {
+        // don't need to do anything if don't want to
+        // since not all gamut agents need to know
+    }
+    
+    public void setNumAgents(int numAgents)
+    {
+        // let the overrider take care of this
+        // if they need it otherwise it is useless
+    }
     
     /**
      * returns the action of the agent
