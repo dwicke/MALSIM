@@ -42,10 +42,11 @@ public class AddaptiveDynamicsLearner {
     
     public AddaptiveDynamicsLearner(ADLProps props, int numAgents, int numActions)
     {
-        history = new int[props.getHistLength()][numAgents];
-        qVals = new double[props.getHistLength()];
-        histIndex = 0;
         this.historyLength = props.getHistLength();
+        this.numAgents = numAgents;
+        history = new int[historyLength][numAgents];
+        qVals = new double[historyLength];
+        histIndex = 0;
         this.props = props;
         this.numActions = numActions;
         action = 0;
@@ -58,7 +59,7 @@ public class AddaptiveDynamicsLearner {
     }
 
     public int getAction() {
-        if (action == 0)
+        if (action == 0 || Math.random() < 0.2)
         {
             // this means that no agent has played yet
             // since there is not a 0 action so get a random action

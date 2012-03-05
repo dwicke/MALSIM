@@ -24,8 +24,6 @@ public class ADLAgent extends GamutAgent{
     @Override
     public void setOrder(int order) {
         super.setOrder(order);
-        // the index of the agent
-        agentAlgorithm.setOrder(order);
     }
 
     @Override
@@ -40,8 +38,10 @@ public class ADLAgent extends GamutAgent{
         if (agentAlgorithm == null)
         {
             agentAlgorithm = new AddaptiveDynamicsLearner( (ADLProps) this.getProperties(), numAgents, game.getNumActions(order - 1));
+            agentAlgorithm.setOrder(order);
         }
         action = agentAlgorithm.getAction();
+        //System.out.println("agent " + this.toString() + " is playing " + action);
     }
 
     @Override

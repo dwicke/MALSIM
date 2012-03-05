@@ -21,15 +21,20 @@ public class StandardEliminator implements Eliminator{
         // must sync on it as per http://docs.oracle.com/javase/tutorial/collections/implementations/wrapper.html
         synchronized(agents)
         {
+            Agent leastAgent = agents.get(0);
             for (Agent ag : agents)
             {
-                if (ag.getAgentObjectState() != null )//&& ag.getAgentObjectState().getState() == State.TERMINATED)
+                System.out.println("agent " + ag.toString() + " score " + ag.getScore());
+                if (ag.getAgentObjectState() != null && ag.getAgentObjectState().getState() == State.TERMINATED  && ag.getScore() < leastAgent.getScore() )//&& ag.getAgentObjectState().getState() == State.TERMINATED)
                 {
-                    return ag;
+                    leastAgent = ag;
+                    //return ag;
                 }
             }
+            System.out.println("the least agent is " + leastAgent.toString());
+            return leastAgent;
         }
-        return null;
+       // return null;
     }
     
     @Override

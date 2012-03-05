@@ -118,7 +118,9 @@ public class GamutGame extends RepeatedGame {
         for (GamutAgent ag : getGamutAgents()) {
             // i must use the local game the game props just tells me what
             // type of game i am to play
-            ag.addScore(g.getPayoff(actions, ag.getOrder() - 1));
+            double payoff = g.getPayoff(actions, ag.getOrder() - 1);
+            System.out.println("The payoff for agent " + ag.toString() + " is " + payoff);
+            ag.addScore(payoff);
             ag.setJointAction(actions);
         }
     }
