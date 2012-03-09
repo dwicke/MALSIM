@@ -4,6 +4,7 @@
  */
 package model.agent;
 
+import control.algorithm.ADLAlgorithm;
 import control.algorithm.AddaptiveDynamicsLearner;
 import model.properties.agent.ADLProps;
 
@@ -13,8 +14,10 @@ import model.properties.agent.ADLProps;
  */
 public class ADLAgent extends GamutAgent{
 
-    protected AddaptiveDynamicsLearner agentAlgorithm;
+    protected ADLAlgorithm agentAlgorithm;
     protected int numAgents;
+    private int numiter;
+    
     public ADLAgent() {
         super();
         this.setProperties(new ADLProps());
@@ -37,7 +40,7 @@ public class ADLAgent extends GamutAgent{
     public void takeTurn() {
         if (agentAlgorithm == null)
         {
-            agentAlgorithm = new AddaptiveDynamicsLearner( (ADLProps) this.getProperties(), numAgents, game.getNumActions(order - 1));
+            agentAlgorithm = new ADLAlgorithm( (ADLProps) this.getProperties(), numAgents, game.getNumActions(order - 1), numiter);
             agentAlgorithm.setOrder(order);
         }
         action = agentAlgorithm.getAction();
@@ -71,6 +74,12 @@ public class ADLAgent extends GamutAgent{
         agentAlgorithm.setJointAction(actions);
     }
 
+    @Override
+    public void setNumReps(int numReps) {
+        this.numiter = numReps;
+    }
+
+    
     
     
     

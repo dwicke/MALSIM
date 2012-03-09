@@ -65,6 +65,7 @@ public class GamutGame extends RepeatedGame {
             ag.setMatrix(g);
             ag.setNumAgents(getGamutAgents().size());
             ag.setOrder(order);
+            ag.setNumReps(getGameProps().getNumReps());
             order++;
         }
     }

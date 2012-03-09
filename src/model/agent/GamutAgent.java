@@ -56,6 +56,12 @@ public abstract class GamutAgent extends Agent{
         // if they need it otherwise it is useless
     }
     
+    public void setNumReps(int numReps)
+    {
+        // maybe i should make a repeat agent super class?
+        // rather than keep on making these additions
+    }
+    
     /**
      * returns the action of the agent
      * based on taketurn
