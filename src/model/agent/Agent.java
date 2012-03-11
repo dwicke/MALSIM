@@ -6,8 +6,12 @@ package model.agent;
 
 import model.properties.agent.AgentProperties;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import info.monitorenter.gui.chart.ITrace2D;
 import java.lang.Thread.State;
+import java.util.ArrayList;
+import util.AgentDataCollector;
 import util.ObjectState;
+import util.TraceCollection;
 import util.Viewable;
 
 /**
@@ -22,10 +26,13 @@ public abstract class Agent extends Viewable implements  Runnable, Comparable<Ag
     private int id;
     private ObjectState state;
     private AgentType type;
+    // this class holds all of the stats that I want to keep
+    protected TraceCollection stats;
     
     public Agent()// remember that the default const. doesn't get called when made with xstream
     {
         super();
+        stats = new TraceCollection();
     }
     public void setState(ObjectState newState)
     {
@@ -110,9 +117,33 @@ public abstract class Agent extends Viewable implements  Runnable, Comparable<Ag
         return false;
     }
     
+    public ArrayList<String> getTraceNames()
+    {
+        return stats.getTraceNames();
+    }
+    
+    public AgentDataCollector getAgentDataCollector(String traceName, ITrace2D trace)
+    {
+        return stats.getCollector(traceName, trace);
+    }
+            
+    public void setStats(TraceCollection trace)
+    {
+        this.stats = trace;
+    }
+    public TraceCollection getStats()
+    {
+        return stats;
+    }
+    public void setScore(double newScore)
+    {
+        this.score = newScore;
+    }
             
     @Override
     public int compareTo(Agent o) {
         return (this.toString() + this.getID()).compareTo((o.toString() + o.getID()));
     }
+    
+    public abstract void cleanupAgent();
 }

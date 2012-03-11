@@ -122,6 +122,8 @@ public class MPIGameClient extends Game {
                             {
                                 // term the game
                                 state.setState(State.TERMINATED);
+                                System.out.println("Terminating the game");
+                                
                             }
                             game = null;
                             shouldContinue = false;

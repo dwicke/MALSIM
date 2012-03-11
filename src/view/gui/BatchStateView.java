@@ -64,6 +64,7 @@ public class BatchStateView extends javax.swing.JPanel implements Subscriber{
         ResumeBt = new javax.swing.JButton();
         TermBt = new javax.swing.JButton();
         tournViewBt = new javax.swing.JButton();
+        statsBt = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,6 +107,13 @@ public class BatchStateView extends javax.swing.JPanel implements Subscriber{
             }
         });
 
+        statsBt.setText("Stats");
+        statsBt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                statsBtMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +128,9 @@ public class BatchStateView extends javax.swing.JPanel implements Subscriber{
                 .addComponent(TermBt)
                 .addGap(18, 18, 18)
                 .addComponent(tournViewBt)
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(statsBt)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +141,8 @@ public class BatchStateView extends javax.swing.JPanel implements Subscriber{
                     .addComponent(pauseBt)
                     .addComponent(ResumeBt)
                     .addComponent(TermBt)
-                    .addComponent(tournViewBt))
+                    .addComponent(tournViewBt)
+                    .addComponent(statsBt))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -163,12 +174,22 @@ public class BatchStateView extends javax.swing.JPanel implements Subscriber{
         }
     }//GEN-LAST:event_tournViewBtMousePressed
 
+    private void statsBtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statsBtMousePressed
+        // TODO add your handling code here:
+        if (jTable1.getSelectedRow() != -1)
+        {
+            TournamentAgentsView.cont = control.getTournControls().get(jTable1.getSelectedRow()).getTournPropertiesControl().getAgentChooser();
+            TournamentAgentsView.main(null);
+        }
+    }//GEN-LAST:event_statsBtMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ResumeBt;
     private javax.swing.JButton TermBt;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton pauseBt;
+    private javax.swing.JButton statsBt;
     private javax.swing.JButton tournViewBt;
     // End of variables declaration//GEN-END:variables
 

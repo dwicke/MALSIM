@@ -161,28 +161,35 @@ public class ADLAlgorithm {
                 }
             }
             
-            // now that I have the index of the best action i must get the action
-            // that i took in the action joint action list
+            
+            // so now i can calculate the q-value
+            // for the previous action
             if (actionIndex == -1)
             {
+                // take a random action since I have never seen this history before
                 action = 0;
+                // update the previos action
                 qTable[time - 2] = props.getAlpha()* (reward);
             }
             else
             {
+                // now that I have the index of the best action i must get the action
+                // that i took in the action joint action list
                 action = history[actionIndex][myIndex];
                 qTable[time - 2] = (1 - props.getAlpha()) * qTable[matchingIndices.get(matchingIndices.size() - 1)]
                     + props.getAlpha()* (reward + props.getGamma()*maxQ);
             }
-            // so now i can calculate the q-value
-            // for the previous action
+            
             
 
         }
         else
         {
             action = 0;
-            qTable[time - 1] = props.getAlpha()* (reward);
+            if (time > 1)
+            {
+                qTable[time - 2] = props.getAlpha()* (reward);
+            }
         }
         
         

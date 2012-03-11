@@ -4,12 +4,14 @@
  */
 package control.gui;
 
+import info.monitorenter.gui.chart.ITrace2D;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import model.agent.Agent;
 import model.properties.game.TournamentProperties;
+import util.AgentDataCollector;
 import util.BasicPublisher;
 import util.GenericFactory;
 import util.Subscriber;
@@ -67,6 +69,17 @@ public class AgentChooserControl implements ChooserControl{
         }
         return list;
     }
+    
+    
+    public ArrayList<String> getTraceNames(String agent)
+    {
+        return stringAgentMap.get(agent).getTraceNames();
+    }
+    
+    public AgentDataCollector getAgentDataCollector(String agent, String sTrace, ITrace2D trace)
+    {
+        return stringAgentMap.get(agent).getAgentDataCollector(sTrace, trace);
+    }
 
     @Override
     public String addChoice(String choice) {
@@ -114,7 +127,7 @@ public class AgentChooserControl implements ChooserControl{
 
     private Agent removeAgent(String choice) {
         // remove the agent from the list here and return the agent that it maped to so
-        // that it can be removed from the tournament.
+        // that it can be removed from the tournament in removechoice above.
         return stringAgentMap.remove(choice);
     }
     

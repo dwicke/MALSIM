@@ -119,7 +119,9 @@ public class MPIGameRunner extends ThreadedGameRunner{
             {
                 ag.resetScore();
                 Agent old = gameReturned.getAgents().get(gameReturned.getAgents().indexOf(ag));
-                ag.addScore(old.getScore());
+                ag.setStats(old.getStats());
+                ag.setScore(old.getScore());
+                //ag.addScore(old.getScore());
                 ag.getAgentObjectState().setState(old.getAgentObjectState().getState());
 
             }

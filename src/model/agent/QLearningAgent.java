@@ -51,6 +51,11 @@ public class QLearningAgent extends GamutAgent{
         
     }
 
+    @Override
+    public void cleanupAgent() {
+        
+    }
+
     
     
 }

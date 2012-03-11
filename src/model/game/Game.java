@@ -20,8 +20,10 @@ import util.Subscriber;
  * @author drew
  */
 public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
+    // TODO:
     // I need to use generics to specify the players so that I can ensure that I get the correct
-    // type of players in game subclasses
+    // type of players in game subclasses otherwise there will be errors if for example
+    // they chose a gamut agent and a non-gamut agent when they play the game...
     protected ArrayList<Agent> players;
    
     
@@ -30,6 +32,7 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
     
     protected ObjectState state; 
     
+    // the winner of this game ie whoever has the highest reward maybe...
     protected Agent winner;
     
     
@@ -124,6 +127,7 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
     {
         for (Agent ag : getAgents())
         {
+            ag.cleanupAgent();
             ag.getAgentObjectState().setState(State.TERMINATED);
         }
         System.out.println("Number of agents: " + getAgents().size());

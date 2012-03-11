@@ -15,8 +15,7 @@ import model.properties.agent.ADLProps;
 public class ADLAgent extends GamutAgent{
 
     protected ADLAlgorithm agentAlgorithm;
-    protected int numAgents;
-    private int numiter;
+    
     
     public ADLAgent() {
         super();
@@ -29,11 +28,6 @@ public class ADLAgent extends GamutAgent{
         super.setOrder(order);
     }
 
-    @Override
-    public void setNumAgents(int numAgents) {
-        this.numAgents = numAgents;
-    }
-    
     
 
     @Override
@@ -74,9 +68,10 @@ public class ADLAgent extends GamutAgent{
         agentAlgorithm.setJointAction(actions);
     }
 
+    
     @Override
-    public void setNumReps(int numReps) {
-        this.numiter = numReps;
+    public void cleanupAgent() {
+        agentAlgorithm = null;
     }
 
     

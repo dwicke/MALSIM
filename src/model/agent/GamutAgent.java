@@ -19,6 +19,12 @@ public abstract class GamutAgent extends Agent{
     protected int action;
     protected int order;// this specifies which set of strategies I have to use.
     
+    protected int currentStep = 0;
+    protected int numAgents;
+    protected int numiter;
+    protected int curGameid = 0;
+    
+    
     public GamutAgent()
     {
         super();
@@ -38,6 +44,21 @@ public abstract class GamutAgent extends Agent{
     {
         return order;
     }
+
+    @Override
+    public void addScore(double score) {
+        super.addScore(score);
+        if (currentStep == 0 || numiter == currentStep)
+        {
+            currentStep = 0;
+            curGameid++;
+            stats.addTrace("reward" + curGameid, numiter);
+        }
+        
+        stats.addPoint("reward" + curGameid, currentStep, score);
+        currentStep++;
+    }
+    
     
     /**
      * this gives the agent the actions taken
@@ -50,16 +71,12 @@ public abstract class GamutAgent extends Agent{
         // since not all gamut agents need to know
     }
     
-    public void setNumAgents(int numAgents)
-    {
-        // let the overrider take care of this
-        // if they need it otherwise it is useless
+    public void setNumAgents(int numAgents) {
+        this.numAgents = numAgents;
     }
     
-    public void setNumReps(int numReps)
-    {
-        // maybe i should make a repeat agent super class?
-        // rather than keep on making these additions
+    public void setNumReps(int numReps) {
+        this.numiter = numReps;
     }
     
     /**

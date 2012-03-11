@@ -120,7 +120,7 @@ public class GamutGame extends RepeatedGame {
             // i must use the local game the game props just tells me what
             // type of game i am to play
             double payoff = g.getPayoff(actions, ag.getOrder() - 1);
-            System.out.println("The payoff for agent " + ag.toString() + " is " + payoff);
+           // System.out.println("The payoff for agent " + ag.toString() + " is " + payoff);
             ag.addScore(payoff);
             ag.setJointAction(actions);
         }

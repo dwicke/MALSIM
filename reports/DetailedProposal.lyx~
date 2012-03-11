@@ -124,19 +124,11 @@ Tournaments
 \end_layout
 
 \begin_layout Itemize
-Save a 
+Save and Load a 
 \emph on
 Batch 
 \emph default
-to XML
-\end_layout
-
-\begin_layout Itemize
-Load a 
-\emph on
-Batch 
-\emph default
-from XML
+to and from XML
 \end_layout
 
 \begin_layout Itemize
@@ -193,6 +185,44 @@ Start a
 Batch
 \emph default
  as a threaded operation
+\end_layout
+
+\begin_layout Itemize
+Start a
+\emph on
+ 
+\emph default
+multi-process 
+\emph on
+Batch 
+\emph default
+that uses MPJ
+\end_layout
+
+\begin_layout Itemize
+Pause, resume and terminate 
+\emph on
+Tournaments
+\end_layout
+
+\begin_layout Itemize
+View state of queued 
+\emph on
+Games 
+\emph default
+for a 
+\emph on
+Tournament
+\end_layout
+
+\begin_layout Itemize
+View state of the 
+\emph on
+Tournaments
+\emph default
+ in the 
+\emph on
+Batch
 \end_layout
 
 \begin_layout Standard
@@ -454,6 +484,15 @@ Based on looking at the code for MPJ I realized that if I have multiple
  connection queue when recv or probing for messages.
  So, there will be one class in its own thread that will oversee all of
  the MPI recv communications and will be given
+\end_layout
+
+\begin_layout Standard
+One thing that may be a pain is that when the user saves a 
+\emph on
+Batch 
+\emph default
+in the threaded only version and then loads it into an MPI version mpi won't
+ work and vice versa.
 \end_layout
 
 \begin_layout Standard
@@ -804,12 +843,11 @@ key "burkov2007multiagent"
 \end_inset
 
 .
- The algorithm uses a fixed-size lookup table of Q-values that represents
- the utility of previous joint actions in order to decide what action to
- take.
- I then plan to augment the algorithm to allow for multiple levels of history.
- Therefore, the agent can have both a long-term and a short-term memory.
  I will then create rating and scoring mechanisms for the algorithms.
+ The standard way to compare algorithms are the average reward and the average
+ Bellman error (which is the difference between two successive updates of
+ Q-values def.
+ from ADL paper) per time step.
  Following the creation of the algorithms, a graphing library will be integrated
  in order to view statistics about the algorithms and game progress in real
  time and allow the user to save the charts as images.

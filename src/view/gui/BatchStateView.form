@@ -26,7 +26,9 @@
               <Component id="TermBt" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="tournViewBt" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="194" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="statsBt" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="129" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -40,6 +42,7 @@
                   <Component id="ResumeBt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="TermBt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tournViewBt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="statsBt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -98,6 +101,14 @@
       </Properties>
       <Events>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tournViewBtMousePressed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="statsBt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Stats"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="statsBtMousePressed"/>
       </Events>
     </Component>
   </SubComponents>

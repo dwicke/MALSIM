@@ -15,7 +15,7 @@ public class ADLProps extends AgentProperties{
 
     public ADLProps() {
         super();
-        // paper said that a history of 6 was good
+        // paper said that a history length of 6 was good
         histLength = 6;
         alpha = 0.4;
         gamma = 0.8;
