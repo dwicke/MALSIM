@@ -94,104 +94,109 @@ public class ADLAlgorithm {
     public void setJointAction(int[] actions) {
         
         // add the actions to the history
-        history[time] = actions;
-        // move to the next time step
-        time++;
-        
-        // maybe i should only search in history if windowStart is greater than 0
-        // if it is then i will get a random action
-        // get where my current history window starts
-        // if I have not seen historyLength number of game iterations
-        // then I will have to start at zero.
-        int windowStart = (time - historyLength < 0) ? 0 : (time - historyLength);
-        
-        if (windowStart > 0)
+        if (time < history.length)
         {
-            int windowEnd = time - 1; // I have incremented to a time that hasn't occured yet
-            int historyStart = 0;// always start here!
-            // end one game iteration before the first one otherwise it will include window
-            int historyEnd = time - historyLength - 1; 
+            history[time] = actions;
+            // move to the next time step
+            time++;
 
-            // contains the index into the history that contains the action
-            // that i took in a previous history I can then use these indices
-            // to look up what action i should take based on the q-values
-            // of these indices
-            ArrayList<Integer> matchingIndices = new ArrayList<Integer>();
-            
-            // loop over the history not in the window
-            for (int i = historyStart; i <= historyEnd; i++)
+            // maybe i should only search in history if windowStart is greater than 0
+            // if it is then i will get a random action
+            // get where my current history window starts
+            // if I have not seen historyLength number of game iterations
+            // then I will have to start at zero.
+            int windowStart = (time - historyLength < 0) ? 0 : (time - historyLength);
+
+            if (windowStart > 0)
             {
-                int pastIndex = i;
-                boolean match = true;
-                // loop over the window and compare to a past history window
-                // using i as the start point for the past window
-                for (int currentIndex = windowStart; currentIndex <= windowEnd; currentIndex++)
+                int windowEnd = time - 1; // I have incremented to a time that hasn't occured yet
+                int historyStart = 0;// always start here!
+                // end one game iteration before the first one otherwise it will include window
+                int historyEnd = time - historyLength - 1; 
+
+                // contains the index into the history that contains the action
+                // that i took in a previous history I can then use these indices
+                // to look up what action i should take based on the q-values
+                // of these indices
+                ArrayList<Integer> matchingIndices = new ArrayList<Integer>();
+
+                // loop over the history not in the window
+                for (int i = historyStart; i <= historyEnd; i++)
                 {
-                    // so if the past action and the current action equal 
-                    if (Arrays.equals(history[pastIndex], history[currentIndex]))
+                    int pastIndex = i;
+                    boolean match = true;
+                    // loop over the window and compare to a past history window
+                    // using i as the start point for the past window
+                    for (int currentIndex = windowStart; currentIndex <= windowEnd; currentIndex++)
                     {
-                        // check the next one
-                        pastIndex++;
+                        // so if the past action and the current action equal 
+                        if (Arrays.equals(history[pastIndex], history[currentIndex]))
+                        {
+                            // check the next one
+                            pastIndex++;
+                        }
+                        else
+                        {
+                            // they didn't match so go to the next past history window
+                            match = false;
+                            break;
+                        }
                     }
-                    else
+                    if (match == true)
                     {
-                        // they didn't match so go to the next past history window
-                        match = false;
-                        break;
+                        // then I should add the next index to the 
+                        matchingIndices.add(pastIndex + 1);
                     }
                 }
-                if (match == true)
+
+                // now i can find the action that maximizes the
+                // q-value by looking up the q-value that coresponds
+                // to that state
+                double maxQ = 0; // this is the expected utility when i take the action i find here
+                int actionIndex = -1;
+                for (int i = 0; i < matchingIndices.size(); i++)
                 {
-                    // then I should add the next index to the 
-                    matchingIndices.add(pastIndex + 1);
+                    if (i == 0 || qTable[matchingIndices.get(i)] > maxQ)
+                    {
+                        maxQ = qTable[matchingIndices.get(i)];
+                        actionIndex = matchingIndices.get(i);
+                    }
                 }
-            }
-            
-            // now i can find the action that maximizes the
-            // q-value by looking up the q-value that coresponds
-            // to that state
-            double maxQ = 0; // this is the expected utility when i take the action i find here
-            int actionIndex = -1;
-            for (int i = 0; i < matchingIndices.size(); i++)
-            {
-                if (i == 0 || qTable[matchingIndices.get(i)] > maxQ)
+
+
+                // so now i can calculate the q-value
+                // for the previous action
+                if (actionIndex == -1)
                 {
-                    maxQ = qTable[matchingIndices.get(i)];
-                    actionIndex = matchingIndices.get(i);
+                    // take a random action since I have never seen this history before
+                    action = 0;
+                    // update the previos action
+                    qTable[time - 2] = props.getAlpha()* (reward);
                 }
-            }
-            
-            
-            // so now i can calculate the q-value
-            // for the previous action
-            if (actionIndex == -1)
-            {
-                // take a random action since I have never seen this history before
-                action = 0;
-                // update the previos action
-                qTable[time - 2] = props.getAlpha()* (reward);
+                else
+                {
+                    // now that I have the index of the best action i must get the action
+                    // that i took in the action joint action list
+                    action = history[actionIndex][myIndex];
+                    qTable[time - 2] = (1 - props.getAlpha()) * qTable[matchingIndices.get(matchingIndices.size() - 1)]
+                        + props.getAlpha()* (reward + props.getGamma()*maxQ);
+                }
+
+
+
             }
             else
             {
-                // now that I have the index of the best action i must get the action
-                // that i took in the action joint action list
-                action = history[actionIndex][myIndex];
-                qTable[time - 2] = (1 - props.getAlpha()) * qTable[matchingIndices.get(matchingIndices.size() - 1)]
-                    + props.getAlpha()* (reward + props.getGamma()*maxQ);
-            }
-            
-            
-
-        }
-        else
-        {
-            action = 0;
-            if (time > 1)
-            {
-                qTable[time - 2] = props.getAlpha()* (reward);
+                action = 0;
+                if (time > 1)
+                {
+                    qTable[time - 2] = props.getAlpha()* (reward);
+                }
             }
         }
-        
+        else{
+            System.err.println("ERROR ADLAlgorithm joint action went out of bounds.");
+        }
         
         
     }

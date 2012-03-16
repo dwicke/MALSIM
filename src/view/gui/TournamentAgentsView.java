@@ -202,7 +202,7 @@ public class TournamentAgentsView extends javax.swing.JFrame {
                     chart.removeAllTraces();
                     //chart.setAxisTickPainter(new AxisTickPainterDefault());
                     //ITrace2D trace = new Trace2DBijective();
-                    Trace2DArithmeticMean trace = new Trace2DArithmeticMean(10000);
+                    Trace2DArithmeticMean trace = new Trace2DArithmeticMean(10);
                     chart.addTrace(trace);
                     
                     if (cl != null && cl.isRunning())
@@ -214,7 +214,6 @@ public class TournamentAgentsView extends javax.swing.JFrame {
                     cl = cont.getAgentDataCollector(oldAgentItem, newItem, trace);
                     if (cl.shouldStart() == true)
                     {
-                        
                         cl.start();
                     }
                 }

@@ -136,6 +136,7 @@ public abstract class Game implements Runnable, Comparable<Game>, Subscriber {
     }
     public boolean checkTerminate()
     {
+        
         if (state.getState().compareTo(State.TERMINATED) == 0)
         {
             return true;
