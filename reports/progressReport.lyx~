@@ -172,5 +172,20 @@ During the rest of the course I intend to add unit tests for the major classes
  The source code is available online at https://github.com/dwicke/.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliograph"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

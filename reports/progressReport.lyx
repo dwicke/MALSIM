@@ -160,7 +160,7 @@ View a graph showing an agent's average reward per time step for a game
 \end_layout
 
 \begin_layout Itemize
-Choose the Adaptive Dynamic Learner (ADL) algorithm as an agent
+Choose the Adaptive Dynamics Learner (ADL) algorithm as an agent
 \end_layout
 
 \begin_layout Standard
