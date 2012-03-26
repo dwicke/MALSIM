@@ -9,7 +9,7 @@ import java.util.Arrays;
 import model.properties.agent.ADLProps;
 
 /**
- *
+ * This is good
  * @author drew
  */
 public class ADLAlgorithm {

@@ -8,7 +8,7 @@ import model.properties.agent.ADLProps;
 import util.MersenneTwister;
 
 /**
- *
+ * This is the incorrect one.
  * @author drew
  */
 public class AddaptiveDynamicsLearner {

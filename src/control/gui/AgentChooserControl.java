@@ -30,6 +30,7 @@ public class AgentChooserControl implements ChooserControl{
     public AgentChooserControl() {
         pub = new BasicPublisher();
         fac = new GenericFactory();
+        tournProps = new TournamentProperties();
         stringAgentMap = new TreeMap<String, Agent>();
         agentCount = new TreeMap<String, Integer>();
         fac.generateMaping("config/AgentList.cfg");

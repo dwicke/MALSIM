@@ -99,7 +99,7 @@ key "XStream"
 \end_layout
 
 \begin_layout Itemize
-JChart2D or LiveGraph - real time graphing libraries 
+JChart2D - real time graphing library 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "JChartD,:LiveGraph"
@@ -124,19 +124,11 @@ Tournaments
 \end_layout
 
 \begin_layout Itemize
-Save a 
+Save and Load a 
 \emph on
 Batch 
 \emph default
-to XML
-\end_layout
-
-\begin_layout Itemize
-Load a 
-\emph on
-Batch 
-\emph default
-from XML
+to and from XML
 \end_layout
 
 \begin_layout Itemize
@@ -202,11 +194,39 @@ Start a
 \emph default
 multi-process 
 \emph on
+Batch 
+\emph default
+that uses MPJ
+\end_layout
+
+\begin_layout Itemize
+Pause, resume and terminate 
+\emph on
+Tournaments
+\end_layout
+
+\begin_layout Itemize
+View state of queued 
+\emph on
+Games 
+\emph default
+for a 
+\emph on
+Tournament
+\end_layout
+
+\begin_layout Itemize
+View state of the 
+\emph on
+Tournaments
+\emph default
+ in the 
+\emph on
 Batch
 \end_layout
 
 \begin_layout Itemize
-Pause, Resume and Terminate both threaded and MPJ type Tournaments
+View a graph showing the 
 \end_layout
 
 \begin_layout Standard
@@ -828,6 +848,10 @@ key "burkov2007multiagent"
 
 .
  I will then create rating and scoring mechanisms for the algorithms.
+ The standard way to compare algorithms are the average reward and the average
+ Bellman error (which is the difference between two successive updates of
+ Q-values def.
+ from ADL paper) per time step.
  Following the creation of the algorithms, a graphing library will be integrated
  in order to view statistics about the algorithms and game progress in real
  time and allow the user to save the charts as images.

@@ -79,7 +79,7 @@ public class TournamentTest {
         fac.generateMaping();
         RepeatedGame g = (RepeatedGame)fac.getObject("PrisonersDilemma");
         g.getGameProps().generateViewFields();
-        g.getGameProps().setNumReps(100000);
+        g.getGameProps().setNumReps(100);
         
         props.setGameProps(g.getGameProps());
        // ((RepeatedGameProperties)g.getGameProps()).setNumReps(1);

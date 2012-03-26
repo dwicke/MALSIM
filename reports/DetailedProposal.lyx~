@@ -99,7 +99,7 @@ key "XStream"
 \end_layout
 
 \begin_layout Itemize
-JChart2D or LiveGraph - real time graphing libraries 
+JChart2D - real time graphing library 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "JChartD,:LiveGraph"
