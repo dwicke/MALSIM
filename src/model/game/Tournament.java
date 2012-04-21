@@ -4,6 +4,7 @@
  */
 package model.game;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import ibis.mpj.MPJException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,11 +42,15 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     protected String name;
     protected List<Agent> remainingAgents, eliminatedAgents, removeLater;
     protected boolean paused;
+    
+    @XStreamOmitField
     protected GenericFactory fac;
     protected int tournID;// used to uniquely id this tourn
     protected int numTourns;// the number of tourns there are
     protected int runnerId;
+    @XStreamOmitField
     private BasicPublisher publisher = new BasicPublisher();
+    
     private final Object agentMutex = new Object();
     
     
@@ -56,6 +61,14 @@ public class Tournament implements Subscriber, Runnable, Comparable {
         setup();
     }
 
+    private Object readResolve() {
+        fac = new GenericFactory();
+        // BAD don't want magic strings...
+        fac.generateMaping("config/GameList.cfg");
+        publisher = new BasicPublisher();
+        return this;
+    }
+    
     /**
      * sets the tournprops to the arg
      * @param props 

@@ -11,7 +11,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.agent.Agent;
 import model.game.Batch;
+import model.game.Tournament;
 import util.XMLSerial;
 
 /**
@@ -38,6 +40,10 @@ public class SaveControl {
             try {
                 fstream = new FileWriter(saveFile);
                 BufferedWriter out = new BufferedWriter(fstream);
+                XMLSerial.x.processAnnotations(Batch.class);
+                XMLSerial.x.processAnnotations(Tournament.class);
+                XMLSerial.x.processAnnotations(Agent.class);
+                
                 XMLSerial.x.toXML(toSave, out);
                 
                  } catch (IOException ex) {

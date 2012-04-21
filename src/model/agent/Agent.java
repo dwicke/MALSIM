@@ -6,6 +6,7 @@ package model.agent;
 
 import model.properties.agent.AgentProperties;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import info.monitorenter.gui.chart.ITrace2D;
 import java.lang.Thread.State;
 import java.util.ArrayList;
@@ -27,8 +28,14 @@ public abstract class Agent extends Viewable implements  Runnable, Comparable<Ag
     private ObjectState state;
     private AgentType type;
     // this class holds all of the stats that I want to keep
+    @XStreamOmitField
     protected TraceCollection stats;
     
+    
+    private Object readResolve() {
+        stats = new TraceCollection();
+        return this;
+    }
     public Agent()// remember that the default const. doesn't get called when made with xstream
     {
         super();

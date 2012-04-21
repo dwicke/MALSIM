@@ -36,6 +36,7 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
@@ -126,7 +127,11 @@ that uses MPJ
 \begin_layout Itemize
 Pause, resume and terminate 
 \emph on
-Tournaments safeley
+Tournament
+\emph default
+s
+\emph on
+ safely
 \end_layout
 
 \begin_layout Itemize
@@ -142,9 +147,9 @@ Tournament
 \begin_layout Itemize
 View state of the 
 \emph on
-Tournaments
+Tournament
 \emph default
- in the 
+s in the 
 \emph on
 Batch
 \end_layout
@@ -160,15 +165,22 @@ View a graph showing an agent's average reward per time step for a game
 \end_layout
 
 \begin_layout Itemize
-Choose the Adaptive Dynamics Learner (ADL) algorithm as an agent
+Choose the Adaptive Dynamics Learner (ADL) algorithm as an agent 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "burkov2007multiagent"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-During the rest of the course I intend to add unit tests for the major classes
- and add minor features, such as saving the collected data to a file and
- improve the GUI.
- I also intend to research more multi-agent learning algorithms and if time
- permits implement and compare them to ADL using MALSIM.
+During the rest of the course, I intend to add unit tests for the major
+ classes and add minor features, such as saving the collected data to a
+ file and improving the GUI.
+ I also intend to research more multi-agent learning algorithms and, if
+ time permits, implement and compare them to ADL using MALSIM.
  The source code is available online at https://github.com/dwicke/.
 \end_layout
 

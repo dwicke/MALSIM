@@ -64,12 +64,25 @@ public class BatchControl {
     
     public Batch getLoadControl(File file)
     {
+        // this batch doesn't have any of the correct
+        // pub sub stuff
+        Batch loadBatch = (new LoadControl()).load(file);
+        loadBatch.setPub(batch.getPub());
+        
+        batch = loadBatch;
+        return batch;
+        /*
         batch = (new LoadControl()).load(file);
         return batch;
+         
+         */
     }
     
     public void setBatch(Batch batch)
     {
+        
+        
+        
         this.batch = batch;
         
     }

@@ -4,6 +4,7 @@
  */
 package model.game;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.lang.Thread.State;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -25,15 +26,31 @@ public class Batch implements Subscriber{
     
     // used to notify subscribers about the changes to the tournaments
     // in the batch
-    private BasicPublisher publisher = new BasicPublisher();
+    
+    @XStreamOmitField
+    private BasicPublisher publisher;
+    
+    private Object readResolve() {
+        publisher = new BasicPublisher();
+        return this;
+    }
+    
     public Batch()
     {
         batch = new TreeMap<Tournament, ObjectState>();
         tournThreads = new TreeMap<Tournament, Thread>();
         tournNames = new TreeMap<String, Tournament>();
-        
+        publisher =  new BasicPublisher();
     }
     
+    public void setPub(BasicPublisher pub)
+    {
+        this.publisher = pub;
+    }
+    public BasicPublisher getPub()
+    {
+        return this.publisher;
+    }
     /**
      * Adds the tournament to the batch and sets the state to NEW.
      * @param tourn Tournament to be added.
@@ -103,12 +120,15 @@ public class Batch implements Subscriber{
             tourn.getState().setState(State.RUNNABLE);
             tourn.getState().addSub(tourn);// so that it knows when to term
             
-           // tourn.setState(st);
+           
             
             // use an ArrayList of Threads since these threads will be running for a while
+           
+            
             Thread t = new Thread(tourn, tourn.toString());
             tournThreads.put(tourn, t);
             t.start();
+             
         }
     }
     

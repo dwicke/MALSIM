@@ -4,6 +4,7 @@
  */
 package util;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.lang.Thread.State;
 import util.BasicPublisher;
 import util.Subscriber;
@@ -14,6 +15,7 @@ import util.Subscriber;
  * @author drew
  */
 public class ObjectState extends Viewable{
+    @XStreamOmitField
     private BasicPublisher pub;
     private State objState;
     private Object code;
@@ -26,6 +28,11 @@ public class ObjectState extends Viewable{
     public ObjectState(State st) {
         pub = new BasicPublisher();
         objState = st;
+    }
+    
+    private Object readResolve() {
+        pub = new BasicPublisher();
+        return this;
     }
     /**
      * Does not notify the subs. since state was presumeably set by the sub.
@@ -59,6 +66,8 @@ public class ObjectState extends Viewable{
         {
             System.out.println("Setting State to term");
         }
+        
+        System.out.println("The pub is " + pub);
         pub.notifySubscribers(this, code);
         
         if (state == State.TERMINATED)
