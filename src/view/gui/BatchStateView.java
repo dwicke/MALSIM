@@ -37,12 +37,17 @@ public class BatchStateView extends javax.swing.JPanel implements Subscriber{
     {
         if (control != null)
         {
+            // so if i had a controller ie for the las batch remove the
+            // stuff
             control.removeAllTournSubscriber(this);
             control.removeBatchSub(this);
+            control.removeBatchSub(this);
         }
+        
         // set the control
         control = ctrl;
         control.addBatchSub(this);
+        control.addStartBatchSub(this);
         // then I can set the model so that the
         // table is updated
         jTable1.setModel(control.getBatchModel());
@@ -199,6 +204,13 @@ public class BatchStateView extends javax.swing.JPanel implements Subscriber{
         // change the text in the table
         // by calling the tableChanged and telling it which row changed
         // by querrying the index of 
+        if (pub instanceof BatchControl)
+        {
+            // this means that the update means that this is the start of the
+            // batch so i should update the model
+            jTable1.setModel(control.getBatchModel());
+        }
+        
         System.out.println("UPDATED BatchStateView");
         if (isTournSub == false)
         {

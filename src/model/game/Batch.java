@@ -34,6 +34,24 @@ public class Batch implements Subscriber{
         publisher = new BasicPublisher();
         return this;
     }
+
+    public TreeMap<String, Tournament> getTournNamesMap() {
+        return tournNames;
+    }
+
+    public void setTournNames(TreeMap<String, Tournament> tournNames) {
+        this.tournNames = tournNames;
+    }
+
+    public TreeMap<Tournament, Thread> getTournThreads() {
+        return tournThreads;
+    }
+
+    public void setTournThreads(TreeMap<Tournament, Thread> tournThreads) {
+        this.tournThreads = tournThreads;
+    }
+    
+    
     
     public Batch()
     {

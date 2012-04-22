@@ -13,6 +13,7 @@ import model.game.Batch;
 import model.game.BatchModel;
 import model.game.Tournament;
 import model.game.TournamentFactory;
+import util.BasicPublisher;
 import util.Subscriber;
 
 /**
@@ -21,10 +22,21 @@ import util.Subscriber;
  */
 public class BatchControl {
     private Batch batch;
+    private BasicPublisher pub;
+    
     public BatchControl()
     {
         batch = new Batch();
-        
+        pub = new BasicPublisher();
+    }
+    
+    public void addStartBatchSub(Subscriber sub)
+    {
+        pub.addSubscriber(sub);
+    }
+    public void removeStartBatchSub(Subscriber sub)
+    {
+        pub.removeSubscriber(sub);
     }
     
     public void addBatchSub(Subscriber sub)
@@ -54,6 +66,8 @@ public class BatchControl {
     
     public void startBatch()
     {
+        // notify any observers
+        pub.notifySubscribers(this, batch);
        batch.startTournaments();
     }
     
@@ -68,6 +82,10 @@ public class BatchControl {
         // pub sub stuff
         Batch loadBatch = (new LoadControl()).load(file);
         loadBatch.setPub(batch.getPub());
+        //batch.setTournNames(loadBatch.getTournNamesMap());
+       // System.out.println("the name of first tourn is " + loadBatch.getTourn());
+        
+        //batch.setTournThreads(loadBatch.getTournThreads());
         
         batch = loadBatch;
         return batch;
@@ -80,11 +98,7 @@ public class BatchControl {
     
     public void setBatch(Batch batch)
     {
-        
-        
-        
-        this.batch = batch;
-        
+        this.batch = batch;     
     }
     
     public TournamentControl getNewTournControl(String name)
