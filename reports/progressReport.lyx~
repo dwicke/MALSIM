@@ -42,7 +42,7 @@
 \begin_body
 
 \begin_layout Title
-Progress Report
+Multi-Agent Learning Simulator
 \end_layout
 
 \begin_layout Author
@@ -53,7 +53,7 @@ Drew Wicke
 The multi-agent learning simulator (MALSIM) is a simulator and benchmarking
  tool for multi-agent learning algorithms written in Java.
  The goal of MALSIM is to provide multi-agent learning researchers a common
- framework in which to compare and test various MAL algorithms.
+ framework to compare and test various MAL algorithms.
  MALSIM will help to eliminate some of the empirical testing issues that
  are prevalent in the multi-agent learning community.
 \end_layout
@@ -165,7 +165,14 @@ View a graph showing an agent's average reward per time step for a game
 \end_layout
 
 \begin_layout Itemize
-Choose the Adaptive Dynamics Learner (ADL) algorithm as an agent
+Choose the Adaptive Dynamics Learner (ADL) algorithm as an agent 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "burkov2007multiagent"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

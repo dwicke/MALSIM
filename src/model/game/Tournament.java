@@ -51,7 +51,7 @@ public class Tournament implements Subscriber, Runnable, Comparable {
     @XStreamOmitField
     private BasicPublisher publisher = new BasicPublisher();
     
-    private final Object agentMutex = new Object();
+    //private final Object agentMutex = new Object();
     
     
     /**

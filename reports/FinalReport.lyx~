@@ -1,0 +1,810 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Multi-Agent Learning Simulator
+\end_layout
+
+\begin_layout Author
+Drew Wicke
+\end_layout
+
+\begin_layout Date
+April 28 2012
+\end_layout
+
+\begin_layout Abstract
+The multi-agent learning simulator (MALSIM) provides a framework for benchmarkin
+g and simulating multi-agent learning algorithms.
+ The goal of the software is to provide researchers with the needed basis
+ to empirecally compare algorithms and verify results.
+ By using MALSIM, researchers can start to orginize and categorize the various
+ MAL algorithms to build a better picture of the current state of multi-agent
+ learning.
+ MALSIM is writen in Java and provides an easy to use GUI.
+ Also, MALSIM can utilize threads or processes to distrubite tasks and give
+ rise to larger experiments.
+ GAMUT, a software library that generates game theory games, is integrated
+ into MALSIM to provide a easy mechnism to test MAL algorithms.
+ Experimental setup parameters can be saved to an XML file enabling other
+ researchers to load the xml file and run the same experiment.
+ Finally, statistics about the agents in an experiement can be viewed in
+ chart.
+\end_layout
+
+\begin_layout Part*
+Introduction
+\end_layout
+
+\begin_layout Standard
+The multi-agent learning simulator (MALSIM) is a simulator and benchmarking
+ tool for multi-agent learning algorithms written in Java.
+ The goal of MALSIM is to provide multi-agent learning researchers a common
+ framework to compare and test various MAL algorithms.
+ MALSIM will help to eliminate some of the empirical testing issues that
+ are prevalent in the multi-agent learning community.
+\end_layout
+
+\begin_layout Standard
+In the multi-agent learning community, when testing a new algorithm empirically,
+ the results are usually based on few trials and compared to few opposing
+ algorithms.
+ MALSIM provides the multi-agent learning community the needed generic testbed
+ for benchmarking and simulating new learning algorithms.
+ MALSIM has generic mechanisms to simulate, test and visualize experiments.
+ Currently, there are a couple of simulators made for multi-agent systems;
+ however, they do not provide a benchmarking mechanism 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "luke2004mason,balch2000teambots,jiang2006repast"
+
+\end_inset
+
+.
+ Multiagent Learning Testbed (MALT) provides services similar to that of
+ MALSIM 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zawadzki2008empirically"
+
+\end_inset
+
+.
+ MALT is extensible and offers a built in mechanism to graph and visualize
+ the results of experiments.
+ However, MALT is coded in MATLAB and is made for two player repeated matrix
+ games.
+ GAMUT, a benchmarking and game generating tool for game theoretic algorithms,
+ is also similar to MALSIM, since many multi-agent learning algorithms are
+ made to play game theory games 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nudelman2004run"
+
+\end_inset
+
+.
+ However, GAMUT does not provide a GUI.
+ Based on the usefulness of previously created tools, the need for a common,
+ generic and extensible testbed for multi-agent learning algorithms is apparent.
+\end_layout
+
+\begin_layout Part*
+Background
+\end_layout
+
+\begin_layout Standard
+MALSIM is written in Java in order to be platform independent.
+ The ADL (Adaptive Dynamic Learner) algorithm has been implemented and is
+ availiable in MALSIM 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "burkov2007multiagent"
+
+\end_inset
+
+.
+ GAMUT a software library writen in Java to generate game theory games has
+ been integrated into the platform in order to easily generate games 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nudelman2004run"
+
+\end_inset
+
+.
+ XStream, a tool that serializes Java objects to and from XML, provides
+ a mechanism to save and load the tool's model 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "XStream"
+
+\end_inset
+
+.
+ Also, JChart2D provides a way to visualize the results of the experiment
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "JChartD"
+
+\end_inset
+
+.
+ MPJ, a pure Java port of MPI, is used to make MALSIM able to run on a cluster
+ computer 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bornemann2005mpj"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+Adaptive Dynamic Learner
+\end_layout
+
+\begin_layout Standard
+The ADL algorithm is an effiecient multi-agent learning algorithm developed
+ to be played against adaptive learning algorithms.
+ The algorithm is effective against such agents because it is able to learn
+ the dynamics of the other player.
+ Essentially, the algorithm learns what action to take based on a past history
+ of joint actions and the current state.
+ The algorithm identifies histories that match its current state and picks
+ the action that produced the greatest Q-value in the past.
+ 
+\end_layout
+
+\begin_layout Section*
+GAMUT
+\end_layout
+
+\begin_layout Standard
+GAMUT provides an easy to use software library that generates normal form
+ game theory games.
+ GAMUT provides a common interface to both matrix and graph based games.
+ Thirty five game theory games can be generated in GAMUT including well
+ known game theory games such as Prisoners Dillema and Battle of the Sexes.
+ Various parameters can be set in order to customize how the game is created.
+\end_layout
+
+\begin_layout Section*
+XStream
+\end_layout
+
+\begin_layout Standard
+XStream can be integrated into a Java application to provide XML serialization.
+ XStream provides mechanisims for controlling what objects are serialized
+ in a class in order to customize the output.
+ XStream can also deserialize an XML file back into its Java object form.
+ 
+\end_layout
+
+\begin_layout Section*
+JChart2D
+\end_layout
+
+\begin_layout Standard
+JChart2D is a real time graphing library.
+ It offers a nice UI to display the chart and provides a modular framework
+ that allows the user's generated data to be used by JChart2D in a nonintrusive
+ manner.
+ 
+\end_layout
+
+\begin_layout Section*
+MPJ
+\end_layout
+
+\begin_layout Standard
+MPJ is a Java implementation of the Message Passing Interface (MPI).
+ MPJ provides features similiar to that of MPI however it lacks a means
+ of determing when a process has died.
+ 
+\end_layout
+
+\begin_layout Part*
+Design
+\end_layout
+
+\begin_layout Standard
+MALSIM's design is intended to be as extenisble as possible.
+ It accomplishes this by distilling the requirements into the basic parts
+ that are essential to benchmarking MAL algorithms.
+ MALSIM follows a model-view-controller framework so that the code is modular
+ and flexible.
+ Factory classes are utilized to separate the implementation from the creation.
+\end_layout
+
+\begin_layout Section*
+Overview
+\end_layout
+
+\begin_layout Standard
+MALSIM uses four basic building blocks 
+\emph on
+Batch
+\emph default
+, 
+\emph on
+Tournament
+\emph default
+, 
+\emph on
+Game
+\emph default
+ and 
+\emph on
+Agent
+\emph default
+ as seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Simplified-Batch-structure."
+
+\end_inset
+
+.
+ From these basic pieces the rest of the functionality is built.
+ This is because in essence all multi-agent learning scenerios can be thought
+ of as agent's that play games.
+ The 
+\emph on
+Tournament
+\emph default
+ is used to combine the 
+\emph on
+Game 
+\emph default
+and 
+\emph on
+Agents 
+\emph default
+into a distinct experiment.
+ 
+\emph on
+Batch
+\emph default
+ is used to provide the user a way to host multiple 
+\emph on
+Tournaments
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/drew/NetBeansProjects/MALSIM/reports/images/simpDesign.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Simplified-Batch-structure."
+
+\end_inset
+
+Simplified 
+\emph on
+Batch
+\emph default
+ structure.
+ 
+\emph on
+Batch
+\emph default
+ is composed of 
+\emph on
+Tournaments
+\emph default
+ and 
+\emph on
+Tournaments
+\emph default
+ are composed of a
+\emph on
+ Game
+\emph default
+ and 
+\emph on
+Agents
+\emph default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Agent
+\end_layout
+
+\begin_layout Standard
+The Agent class describes what every agent should have the ability to do.
+ 
+\emph on
+AgentProperties
+\emph default
+ class is used to seperate the properties that an agent has available from
+ the implementation of the 
+\emph on
+Agent
+\emph default
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand prettyref
+reference "fig:Agent-UML"
+
+\end_inset
+
+ shows how the 
+\emph on
+ADLAgent
+\emph default
+ is a 
+\emph on
+GamutAgent
+\emph default
+ which is an Agent.
+ These relationships build upon the 
+\emph on
+Agent
+\emph default
+ class to provide a concrete implementation while also classifying what
+ type of agent the 
+\emph on
+ADLAgent
+\emph default
+ is.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/AgentModel.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Agent-UML"
+
+\end_inset
+
+UML for the 
+\emph on
+Agent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Game
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+Game 
+\emph default
+class defines the what any game should have the ability to do such as starting
+ the game, adding agents and setting the properties.
+ Game types are built off of the 
+\emph on
+Game 
+\emph default
+to create a structure for type of games available.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand prettyref
+reference "fig:UML-for-Game"
+
+\end_inset
+
+ shows that 
+\emph on
+RepeatedGame 
+\emph default
+is an extension of 
+\emph on
+Game
+\emph default
+ but adds the addtional ability to define a repeated action that the game
+ does.
+ A 
+\emph on
+GamutGame 
+\emph default
+is a 
+\emph on
+RepeatedGame 
+\emph default
+that uses the Gamut Game class to obtain information about the game.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/GameModel.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:UML-for-Game"
+
+\end_inset
+
+UML for 
+\emph on
+Game
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Tournament
+\end_layout
+
+\begin_layout Standard
+The 
+\emph on
+Tournament
+\emph default
+ class describes a single multi-agent learning experiment as seen in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand prettyref
+reference "fig:UML-for-Tournament"
+
+\end_inset
+
+.
+ It's ingredients are a Game that is to be played and a collection of Agents
+ that will be participating.
+ For example, the user may add five 
+\emph on
+Agents
+\emph default
+ to the tournament and select to play a particular 
+\emph on
+GamutGame
+\emph default
+.
+ The 
+\emph on
+GamutGame
+\emph default
+ may require only two agents to play therefore an 
+\emph on
+AgentSelector
+\emph default
+ class is used to pick the agents to play in the 
+\emph on
+Game
+\emph default
+ and an 
+\emph on
+AgentEliminator
+\emph default
+ class is used to eliminate agents from the Tournament.
+ The 
+\emph on
+Tournament
+\emph default
+ will pit a subset of the 
+\emph on
+Agents
+\emph default
+ in the 
+\emph on
+Tournament
+\emph default
+ in each round against each other and at the end of a round will call the
+ 
+\emph on
+AgentEliminator
+\emph default
+ to eliminate an 
+\emph on
+Agent
+\emph default
+ from the 
+\emph on
+Tournament
+\emph default
+.
+ Once all of the 
+\emph on
+Agents
+\emph default
+ have been eliminated the 
+\emph on
+Tournament
+\emph default
+ is complete.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/TournModel.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:UML-for-Tournament"
+
+\end_inset
+
+UML for 
+\emph on
+Tournament
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Batch
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Batch 
+\emph default
+is used to collect 
+\emph on
+Tournaments
+\emph default
+ and to control starting them as seen in figure 
+\begin_inset CommandInset ref
+LatexCommand prettyref
+reference "fig:UML-for-Batch"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/BatchModel.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:UML-for-Batch"
+
+\end_inset
+
+UML for 
+\emph on
+Batch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Implementation
+\end_layout
+
+\begin_layout Standard
+The implementation of the design was completed in Java and can be downloaded
+ from the GIT repository 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/dwicke
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+MPJ
+\end_layout
+
+\begin_layout Standard
+talk about how the MPI stuff is implemented and what i had to do to make
+ it work and make it fault tolerant
+\end_layout
+
+\begin_layout Part*
+Future Work
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliograph"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
