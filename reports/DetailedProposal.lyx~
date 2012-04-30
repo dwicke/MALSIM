@@ -225,6 +225,10 @@ Tournaments
 Batch
 \end_layout
 
+\begin_layout Itemize
+View a graph showing an agent's average reward per time step for a game
+\end_layout
+
 \begin_layout Standard
 A simplified view of how 
 \emph on

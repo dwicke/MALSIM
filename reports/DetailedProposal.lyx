@@ -361,7 +361,7 @@ Tournament
 One issue when writing multi-process programs is fault tolerance to failed
  processes.
  My first attempt to provide fault tolerance to MALSIM was hindered since
- MPJ doesn't notify the user of that there was a failed process.
+ MPJ doesn't notify the user that there was a failed process.
  MPJ will return as though the sent message was recieved.
  A recv process will stall if it calls recv on a dead proc for which no
  messages from that process are not in the Connection queue.

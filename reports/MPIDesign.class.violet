@@ -327,35 +327,6 @@ tourn</string>
   </void>
   <void method="addNode">
    <object class="com.horstmann.violet.ClassNode">
-    <void property="methods">
-     <void property="text">
-      <string>main</string>
-     </void>
-    </void>
-    <void property="name">
-     <void property="text">
-      <string>ProcModerator</string>
-     </void>
-    </void>
-   </object>
-   <object class="java.awt.geom.Point2D$Double">
-    <void method="setLocation">
-     <double>968.0</double>
-     <double>403.0</double>
-    </void>
-   </object>
-  </void>
-  <void method="addNode">
-   <object class="com.horstmann.violet.NoteNode"/>
-   <object class="java.awt.geom.Point2D$Double">
-    <void method="setLocation">
-     <double>952.0</double>
-     <double>505.0</double>
-    </void>
-   </object>
-  </void>
-  <void method="addNode">
-   <object class="com.horstmann.violet.ClassNode">
     <void property="attributes">
      <void property="text">
       <string>static TreeMap&lt;Tag, Queue&lt;Object&gt;&gt; messages</string>
@@ -363,11 +334,7 @@ tourn</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>run calls recv from any source any tag (I tested and messages
-sent from the same source won&apos;t be recv by this call
-static Object getNextObject(Tag fromWhere)
-// SO I will only need to sync if fromWhere
-// points to the same tagid
+      <string>static Object getNextObject(Tag fromWhere)
 static boolean probe(Tag fromWhere)</string>
      </void>
     </void>
