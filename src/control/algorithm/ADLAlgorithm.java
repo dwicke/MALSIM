@@ -144,8 +144,9 @@ public class ADLAlgorithm {
                     }
                     if (match == true)
                     {
-                        // then I should add the next index to the 
-                        matchingIndices.add(pastIndex + 1);
+                        // then I should add the next index as long as it is less than the table length
+                        if ((pastIndex + 1) < qTable.length)
+                         matchingIndices.add(pastIndex + 1);
                     }
                 }
 
@@ -156,7 +157,9 @@ public class ADLAlgorithm {
                 int actionIndex = -1;
                 for (int i = 0; i < matchingIndices.size(); i++)
                 {
-                    if (i == 0 || qTable[matchingIndices.get(i)] > maxQ)
+                    // if match was true and it was at the end of the table then I will have added an
+                    // index out of bounds so check for it here
+                    if (i == 0 ||(matchingIndices.get(i) < qTable.length && qTable[matchingIndices.get(i)] > maxQ))
                     {
                         maxQ = qTable[matchingIndices.get(i)];
                         actionIndex = matchingIndices.get(i);

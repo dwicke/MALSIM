@@ -61,26 +61,26 @@ Drew Wicke
 \end_layout
 
 \begin_layout Date
-April 28 2012
+April 28, 2012
 \end_layout
 
 \begin_layout Abstract
-The multi-agent learning simulator (MALSIM) provides a framework for benchmarkin
-g and simulating multi-agent learning algorithms.
+The multi-agent learning simulator (MALSIM) provides a framework for simulating
+ and benchmarking multi-agent learning algorithms.
  The goal of the software is to provide researchers with the needed basis
- to empirecally compare algorithms and verify results.
- By using MALSIM, researchers can start to orginize and categorize the various
+ to empirically compare algorithms and verify results.
+ By using MALSIM, researchers can start to organize and categorize the various
  MAL algorithms to build a better picture of the current state of multi-agent
  learning.
- MALSIM is writen in Java and provides an easy to use GUI.
- Also, MALSIM can utilize threads or processes to distrubite tasks to give
+ MALSIM is written in Java and provides an easy to use GUI.
+ Also, MALSIM can utilize threads or processes to distribute tasks to give
  rise to larger experiments.
  GAMUT, a software library that generates game theory games, is integrated
- into MALSIM to provide an easy mechnism to test MAL algorithms.
+ into MALSIM to provide an easy mechanism to test MAL algorithms.
  Experimental setup parameters can be saved to an XML file enabling other
- researchers to load the xml file and run the same experiment.
- Finally, statistics about the agents in an experiement can be viewed in
- chart.
+ researchers to load the XML file and run the same experiment.
+ Finally, statistics about the agents in an experiment can be viewed in
+ a chart.
 \end_layout
 
 \begin_layout Part*
@@ -101,8 +101,7 @@ In the multi-agent learning community, when testing a new algorithm empirically,
  the results are usually based on few trials and compared to few opposing
  algorithms.
  MALSIM provides the multi-agent learning community the needed generic testbed
- for benchmarking and simulating new learning algorithms.
- MALSIM has generic mechanisms to simulate, test and visualize experiments.
+ for learning algorithms.
  Currently, there are a couple of simulators made for multi-agent systems;
  however, they do not provide a benchmarking mechanism 
 \begin_inset CommandInset citation
@@ -147,7 +146,7 @@ Background
 \begin_layout Standard
 MALSIM is written in Java in order to be platform independent.
  The ADL (Adaptive Dynamic Learner) algorithm has been implemented and is
- availiable in MALSIM 
+ available in MALSIM 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "burkov2007multiagent"
@@ -155,8 +154,8 @@ key "burkov2007multiagent"
 \end_inset
 
 .
- GAMUT a software library writen in Java to generate game theory games has
- been integrated into the platform in order to easily generate games 
+ GAMUT, a software library written in Java to generate game theory games,
+ has been integrated into the platform 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nudelman2004run"
@@ -198,8 +197,8 @@ Adaptive Dynamic Learner
 \end_layout
 
 \begin_layout Standard
-The ADL algorithm is an effiecient multi-agent learning algorithm developed
- to be played against adaptive learning algorithms.
+The Adaptive Dynamic Learner (ADL) algorithm is an efficient multi-agent
+ learning algorithm developed to be played against adaptive learning algorithms.
  The algorithm is effective against such agents because it is able to learn
  the dynamics of the other player.
  Essentially, the algorithm learns what action to take based on a past history
@@ -217,8 +216,8 @@ GAMUT
 GAMUT provides an easy to use software library that generates normal form
  game theory games.
  GAMUT provides a common interface to both matrix and graph based games.
- Thirty five game theory games can be generated in GAMUT including well
- known game theory games such as Prisoners Dillema and Battle of the Sexes.
+ Thirty five games can be generated in GAMUT including Prisoners Dilemma
+ and Battle of the Sexes.
  Various parameters can be set in order to customize how the game is created.
 \end_layout
 
@@ -228,7 +227,7 @@ XStream
 
 \begin_layout Standard
 XStream can be integrated into a Java application to provide XML serialization.
- XStream provides mechanisims for controlling what objects are serialized
+ XStream provides mechanisms for controlling what objects are serialized
  in a class in order to customize the output.
  XStream can also deserialize an XML file back into its Java object form.
  
@@ -241,7 +240,7 @@ JChart2D
 \begin_layout Standard
 JChart2D is a real time graphing library.
  It offers a nice UI to display the chart and provides a modular framework
- that allows the user's generated data to be used by JChart2D in a nonintrusive
+ that allows the user's generated data to be used by JChart2D in a non-intrusive
  manner.
  
 \end_layout
@@ -252,8 +251,8 @@ MPJ
 
 \begin_layout Standard
 MPJ is a Java implementation of the Message Passing Interface (MPI).
- MPJ provides features similiar to that of MPI however it lacks a means
- of determing when a process has died.
+ MPJ provides features similar to that of MPI; however, it lacks a means
+ of determining when a process has died.
  
 \end_layout
 
@@ -262,7 +261,7 @@ Design
 \end_layout
 
 \begin_layout Standard
-MALSIM's design is intended to be as extenisble as possible.
+MALSIM's design is intended to be as extensible as possible.
  It accomplishes this by distilling the requirements into the basic parts
  that are essential to benchmarking MAL algorithms.
  MALSIM follows a model-view-controller framework so that the code is modular
@@ -300,8 +299,8 @@ reference "fig:Simplified-Batch-structure."
 
 .
  From these basic pieces the rest of the functionality is built.
- This is because in essence all multi-agent learning scenerios can be thought
- of as agent's that play games.
+ In essence, all multi-agent learning scenarios can be thought of as agents
+ that play games.
  The 
 \emph on
 Tournament
@@ -319,7 +318,7 @@ into a distinct experiment.
 \emph on
 Batch
 \emph default
- is used to provide the user a way to host multiple 
+ provides the user a way to host multiple 
 \emph on
 Tournaments
 \emph default
@@ -395,12 +394,16 @@ Agent
 \end_layout
 
 \begin_layout Standard
-The Agent class describes what every agent should have the ability to do.
+The 
+\emph on
+Agent
+\emph default
+ class describes what every agent should have the ability to do.
  
 \emph on
 AgentProperties
 \emph default
- class is used to seperate the properties that an agent has available from
+ class is used to separate the properties that an agent has available from
  the implementation of the 
 \emph on
 Agent
@@ -421,7 +424,11 @@ ADLAgent
 \emph on
 GamutAgent
 \emph default
- which is an Agent.
+ which is an 
+\emph on
+Agent
+\emph default
+.
  These relationships build upon the 
 \emph on
 Agent
@@ -487,15 +494,15 @@ Game
 \emph default
 class defines what any game should have the ability to do; such as starting
  the game, adding agents and setting the properties.
- 
-\emph on
-Game
-\emph default
- types are built off of the 
+ Subclasses of 
 \emph on
 Game 
 \emph default
-to create a structure for the types of games available.
+are used to create a structure for the types of 
+\emph on
+Games
+\emph default
+ available.
  
 \begin_inset CommandInset ref
 LatexCommand prettyref
@@ -511,7 +518,7 @@ is an extension of
 \emph on
 Game,
 \emph default
- but adds the addtional ability to define a repeated action.
+ but adds the additional ability to define a repeated action.
  A 
 \emph on
 GamutGame 
@@ -585,13 +592,24 @@ reference "fig:UML-for-Tournament"
 \emph on
 Tournament 
 \emph default
-has a Game that is to be played and a collection of Agents that will be
- participating.
+has a 
+\emph on
+Game
+\emph default
+ that is to be played and a collection of 
+\emph on
+Agents
+\emph default
+ that will be participating.
  For example, the user may add five 
 \emph on
 Agents
 \emph default
- to the tournament and select to play a particular 
+ to the 
+\emph on
+Tournament
+\emph default
+ and select to play a particular 
 \emph on
 GamutGame
 \emph default
@@ -612,7 +630,11 @@ Game
 \emph on
 AgentEliminator
 \emph default
- class is used to eliminate agents from the Tournament.
+ class is used to eliminate agents from the 
+\emph on
+Tournament
+\emph default
+.
  The 
 \emph on
 Tournament
@@ -772,10 +794,9 @@ reference "fig:Process-communication-flow"
 
 \end_inset
 
- describes how communication between the lead process and the worker processes
- is handled.
- All send and recv functionallity is handled by MPJ.
- 
+ describes how communication in the worker processes is handled.
+ All send and receive functionality is handled by MPJ.
+ Starting at the solid black dot each state of the system is described.
 \end_layout
 
 \begin_layout Standard
@@ -823,11 +844,11 @@ Process communication flow chart
 \end_layout
 
 \begin_layout Standard
-From the communications flow chart the design for this part of the system
+From the communications flow chart, the design for this part of the system
  was developed.
  The model is designed so that each 
 \emph on
-Tournament
+MPITourn
 \emph default
  will fork as many 
 \emph on
@@ -835,6 +856,34 @@ Games
 \emph default
  to other processes as the user has specified and are available.
  
+\emph on
+MPITourn 
+\emph default
+uses a 
+\emph on
+TagList 
+\emph default
+to store identifiers to worker processes.
+ 
+\emph on
+MPIGameClient 
+\emph default
+runs the 
+\emph on
+Game
+\emph default
+ in the separate process and returns the results back to the main process.
+ 
+\emph on
+MPITourn 
+\emph default
+uses
+\emph on
+ MPIRecvOverseer
+\emph default
+ to retrieve messages from the 
+\emph on
+MPIGameClients.
 \end_layout
 
 \begin_layout Standard
@@ -847,7 +896,7 @@ status open
 \begin_inset Graphics
 	filename images/mpjDesign.png
 	lyxscale 40
-	scale 70
+	scale 60
 
 \end_inset
 
@@ -858,15 +907,17 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Design-model-for-MPJ"
+
+\end_inset
+
 Design model for MPJ
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -893,8 +944,8 @@ https://github.com/dwicke
 \end_inset
 
 .
- Development involved debuging MPJ, implementing a fault detection system
- for MPJ and constucting a GUI.
+ Development involved debugging MPJ, implementing a fault detection system
+ for MPJ and constructing a GUI.
 \end_layout
 
 \begin_layout Subsection*
@@ -904,55 +955,43 @@ MPJ
 \begin_layout Standard
 MPJ is used to provide a message passing interface in order for MALSIM to
  run on a cluster computer.
- While implementing the multi-processing feature of MALSIM I encountered
- a couple roadblocks.
+ While implementing the multi-processing feature of MALSIM, I encountered
+ a couple of roadblocks.
 \end_layout
 
 \begin_layout Standard
 One issue when writing multi-process programs is fault tolerance to failed
  processes.
- My first attempt to provide fault tolerance to MALSIM was hindered since
- MPJ doesn't notify the processes that there was a failed process.
- If sending a message to a dead process the send method will return as though
- the message was recieved.
- Also a recieving process will hang waiting if it calls recv on a dead process.
- Since failed processes in large clusers is common, I attempted to provide
- a mechanism to promote fault tolerant behavior for the calling application.
+ The first attempt to provide fault tolerance to MALSIM was hindered since
+ MPJ does not notify the processes of a failed process.
+ If sending a message to a dead process, the send method will return as
+ though the message was received.
+ Also, a receiving process will hang if it calls recv on a dead process.
+ Since failed processes on large clusters are common, a mechanism to promote
+ fault tolerant behavior for the calling application was needed.
  
 \end_layout
 
 \begin_layout Standard
-My first attempt was to utilize MPJ's 
+An attempt was made to utilize MPJ's 
 \emph on
 RegistryHandler
 \emph default
  to be notified when a process dies.
- This worked, however the time between the process dieing and the notification
- is between one to two minutes.
+ This worked; however, the time between the process dying and the notification
+ is between one and two minutes.
+ This was too slow to be effective.
 \end_layout
 
 \begin_layout Standard
-My second attempt was modeled after MPI-1 specifications where client operations
- such as send and recv will return an error if the operation is to a dead
- process 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gropp2004fault"
 
-\end_inset
-
-.
- However, MPJ does not provide error mechanisms stating that for example
- a send operation can't be completed since the connection to the process
- was lost.
- Since MPJ is open source, I was able to modify 
 \emph on
 ConnectionTable
 \emph default
- and other MPJ classes in order to provide a means of letting the user know
- if there is a connection as seen in figure 
+ and other MPJ classes were modified in order to provide a means of letting
+ the user know if there is a connection as seen in figure 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand prettyref
 reference "fig:Connection-Aware-MPJ"
 
 \end_inset
@@ -962,16 +1001,16 @@ reference "fig:Connection-Aware-MPJ"
 \emph on
 ConnectionTable
 \emph default
- class I changed 
+ class, I changed 
 \emph on
 getConnection() 
 \emph default
-to utilize the method 
+to use the method 
 \emph on
 Connection.isConnectionEstablished()
 \emph default
- to check the connection between the send and recieving processes before
- returning a 
+ to check the connection between the send and receive processes before returning
+ a 
 \emph on
 Connection
 \emph default
@@ -993,18 +1032,18 @@ in order to setup or close a
 Connection
 \emph default
 .
- So, in order for these methods to not throw an exception I made the 
+ So, in order for these methods to not throw an exception, the 
 \emph on
 ConnectionTable.getUntestedConnection() 
 \emph default
-which will provide the 
+was developed to provide the 
 \emph on
 Connection
 \emph default
- even if its not established.
- However, if I try to recv a message from a process that has disconnected
- I won't recieve any of the messages since the connection won't be established.
- Therefore, if the two were seperate this fix would have worked since the
+ even if it's not established.
+ Receiving a message from a process that has disconnected will not work
+ since the connection will not be established.
+ Therefore, if the two were separate this fix could have worked since the
  queue would have still been available even if the 
 \emph on
 Connection
@@ -1054,36 +1093,38 @@ Connection Aware MPJ
 \end_layout
 
 \begin_layout Standard
-Finally, I implemented a method in MPJ that checks if a process is connected
+Finally, a method was implemented in MPJ that checks if a process is connected
  to a specified process.
  Therefore, the user's application can check the connection before sending
  a message.
- 
+ This resolved the issue.
 \end_layout
 
 \begin_layout Standard
-During testing and using MPJ I descovered two bugs in MPJ.
- I discovered that when I probe a message the sent object disapears when
- I call recv.
- By examining the code I found that MPJ incorrectly converts the stored
- probed message.
- I fixed this and in the process I found another bug.
+During testing, two bugs were discovered in MPJ.
+ Once a message is probed, the sent object disappears when I call recv.
+ MPJ incorrectly converts the stored probed message.
+ During the fix, another bug was found.
  Iprobe is a nonblocking method to check whether there are any messages
  for a particular process.
- However, in MPJ's implementation iprobe it behaved like probe, blocking
- the process.
- I fixed this problem by changing the code to check the correct variable
- when MPJ is deciding whether the function should block.
+ However, in MPJ's implementation, iprobe behaved like probe, blocking the
+ process.
+ The code was changed to check the correct variable when MPJ is deciding
+ whether the function should block.
 \end_layout
 
 \begin_layout Standard
-While fixing the bugs in MPJ I discovered that MPJ locks on the recv connection
- queue when recieving or probing for messages.
- Since, I call these methods asychronously in a single process I realized
- that time is wasted waiting for a lock on the queue and this seemed dead
- lock prone.
- To reduce the waiting I created one class in its own thread that oversees
- all of the MPI recv communications.
+An additional issue with MPJ is that it locks on the recv connection queue
+ when receiving or probing for messages.
+ To reduce the waiting, one class in its own thread that oversees all of
+ the MPI recv communications was created as seen in 
+\begin_inset CommandInset ref
+LatexCommand prettyref
+reference "fig:Design-model-for-MPJ"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection*
@@ -1100,15 +1141,19 @@ reference "fig:Batch-GUI"
 
 \end_inset
 
- the GUI allows the user to create Tournam
+ the GUI allows the user to create 
 \emph on
-ents
+Tournaments
 \emph default
 , customize 
 \emph on
 Games
 \emph default
-, choose and configure Agents and set other settings.
+, choose and configure 
+\emph on
+Agents
+\emph default
+ and set other settings.
  Other features include saving and loading 
 \emph on
 Batch
@@ -1124,7 +1169,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/BatchScreen.png
+	filename images/BatchScreen2.png
 	lyxscale 20
 	scale 30
 
@@ -1218,8 +1263,15 @@ Tournament status view.
 
 \begin_layout Standard
 The user can also view average reward stats, displayed as JChart2d graphs,
- about the Agents in a Tournament in real time when running in threaded
- mode as seen in 
+ about the 
+\emph on
+Agents
+\emph default
+ in a 
+\emph on
+Tournament
+\emph default
+ in real time when running in threaded mode as seen in 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Stats-for-an"
@@ -1280,7 +1332,7 @@ Future Work
 \end_layout
 
 \begin_layout Standard
-The goal of MALSIM is to create a reliable and standard model to empirically
+The goal is for MALSIM to be a reliable and standard model to empirically
  evaluate multi-agent learning algorithms.
  MALSIM gives researchers a building block to add evaluation mechanisms
  to compare algorithms.
@@ -1288,17 +1340,20 @@ The goal of MALSIM is to create a reliable and standard model to empirically
  in a standard format so that experiments can be repeated, verified and
  improved.
  My hope is that the community of researchers will contribute implementations
- of algorthms therefore expanding MALSIM along with our understanding of
+ of algorithms therefore expanding MALSIM along with our understanding of
  artificial intelligence.
  Furthermore, by having a better picture of where the field is at, we can
- make wiser descisions.
+ make wiser decisions.
 \end_layout
 
 \begin_layout Standard
 Future work includes implementing more multi-agent learning algorithms and
- statistical methods to evaluating them.
- MASON, a multi-agent systems simulator developed at GMU, could be integrated
- to provide another way to visualize tournaments 
+ statistical methods to evaluate them.
+ More features such as saving data to file, compatibility with XML files
+ for threaded and MPI modes, and more useful info about the current tournaments
+ displayed in the GUI could be developed.
+ MASON, a multi-agent systems simulator developed at George Mason University,
+ could be integrated to provide another way to visualize tournaments 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "luke2004mason"
@@ -1307,7 +1362,7 @@ key "luke2004mason"
 
 .
  Until multi-agent learning is accomplished, MALSIM will continue to have
- future work.
+ work.
 \end_layout
 
 \begin_layout Standard
